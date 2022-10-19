@@ -1,0 +1,280 @@
+/*Basic css*/
+
+html {
+    font-size: 15px;
+  }
+  
+  body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: lighter;
+    color: #000000;
+    padding-top: 3.0rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: normal;
+    color: #11498A;
+  }
+  
+  a, a:link, a:hover, a:visited, a:active {
+    color: #11498A;
+  }
+  
+  b, strong {
+    font-weight: normal;
+  }
+  
+  details {
+    display: block;
+  }
+  
+  summary {
+    display: list-item;
+    cursor: pointer;
+  }
+  
+  /*color of ucsb yellow and blue*/
+  
+  .ms-yellow {
+    color: #FFB900;
+  }
+  
+  .ms-blue {
+    color: #06528c;
+  }
+
+  .ms-orange {
+    color: #F25022;
+  }
+  
+  .ms-green {
+    color: #7FBA00;
+  }
+  
+  .ms-gray{
+    color: #737373;
+  }
+
+  .sharepoint-dark-blue{
+      color: #40587C;
+  }
+  .sharepoint-blue{
+    color: #0078d4;
+  }
+  .sharepoint-red{
+    color: #A4262C;
+  }
+  .sharepoint-orange{
+    color: #CA5010;
+  }
+  .sharepoint-green{
+    color: #407855;
+  }
+  .sharepoint-blue-dark-theme{
+    color: #06528c;
+  }
+  .sharepoint-yellow-dark-theme{
+    color: #FFC83D;
+  }
+  .youtube-red{
+    color: #FF0000;
+  }
+
+  .button-custom {
+    background-color: #06528c;
+    border: 2px solid #06528c;
+}
+  /*css of navbar*/
+  
+  .navbar-custom {
+      background-color: #06528c;
+  }
+  /* change the brand and text color */
+  .navbar-custom .navbar-brand,
+  .navbar-custom .navbar-text {
+      color: #FFFFFF;
+  }
+  /* change the link color */
+  .navbar-custom .navbar-nav .nav-link {
+      color: #FFFFFF;
+  }
+  /* change the color of active or hovered links */
+  .navbar-custom .nav-item.active .nav-link,
+  .navbar-custom .nav-item:hover .nav-link {
+      color: #fff5c7;
+  }
+  
+  .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:hover {
+    color: #fff5c7;
+  }
+  
+  /*css of jumbotron*/
+  
+  .jumbotron {
+    font-size: 1rem;
+    padding: 2.5rem 1rem 1.5rem 1rem;
+    text-align: justify;
+    border-bottom: 0.05rem solid #e5e5e5;
+  }
+  
+  /*css of footer*/
+  
+  .footer {
+    font-size: 0.8rem;
+    color: #737373;
+  }
+  
+  /*css of ul and li*/
+  .ul-paper {
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .li-paper {
+    margin: 1rem 0;
+  }
+  
+  ul li > span {
+    display: block;
+  }
+  
+  ul li > span.title {
+    font-weight: normal;
+  }
+  
+  /*css of center image*/
+  
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  
+  /*Card*/
+  .card {
+    border: 0px;
+  }
+  
+  table th {
+     text-align: center; 
+  }
+  
+  table td {
+     text-align: center; 
+  }
+  .performanceTableWide {
+    margin: 10px 0px;
+    font-size: 80%;
+  }
+  .performanceTableWide .institution {
+    font-style: italic;
+    font-weight: 300;
+    margin: 0px;
+  }
+  .performanceTableWide .date {
+    font-weight: normal;
+    background-color: #777;
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+  }
+  .performanceTableWide .rank{
+    margin-bottom: 5px;
+  }
+  .performanceTableWide td,
+  .performanceTableWide th {
+    text-align: center;
+    max-width: 200px;
+    max-height: 100px;
+    padding: 10px;
+    vertical-align: middle;
+  }
+  .performanceTableWide .wBackground{
+    background-color:#f3f3f3;
+  }
+  .performanceTable {
+    margin: 10px 0px;
+    font-size: 90%;
+  }
+  .performanceTable .institution {
+    font-style: italic;
+    font-weight: 300;
+    margin: 0px;
+  }
+  .performanceTable .date {
+    font-weight: normal;
+    background-color: #777;
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+  }
+  .performanceTable .rank{
+    margin-bottom: 5px;
+  }
+  .performanceTable td,
+  .performanceTable th {
+    text-align: center;
+    max-width: 100px;
+    vertical-align: middle;
+  }
+  .performanceTable .wBackground{
+    background-color:#f3f3f3;
+  }
+  /* .valueTable {
+    font-size: 90%;
+  } */
+
+  .tasksTable{
+    border-collapse:collapse;
+    width:80%;
+    /* margin:10px 0; */
+    /* -webkit-box-shadow:0 0 20px rgba(0,0,0,.15);
+    box-shadow:0 0 20px rgba(0,0,0,.15); */
+    /* table-layout:fixed */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tasksTable, .tasksTable thead{
+    border-radius:20px
+  }
+  
+  .tasksTable td,.tasksTable th{
+    text-align: center;
+    max-width: 300px;
+    /* min-width: 270px; */
+    padding:8px
+  }
+  /* .tasksTable tbody tr:last-of-type{
+    border-bottom:2px solid #00A4EF;
+    opacity:0.6;
+  } */
+  .tasksTable tbody tr{
+    border-bottom:1px solid rgb(237, 236, 236);
+    text-align:center
+  }
+  .tasksTable tr:nth-child(2n){
+    background-color:#f3f3f3
+  }
+  .tasksTable th{
+    padding-top:12px;
+    padding-bottom:12px;
+    text-align:center;
+    background-color:#06528c;
+    /* opacity:0.5; */
+    color:white}

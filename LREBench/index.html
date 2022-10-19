@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://kit.fontawesome.com/15106f0a68.js" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>LREBench</title>
+        <meta name="description" content="LREBench is a low-resource relation extraction benchmark with 8 datasets and 3 themes: prompting-based tuning, balancing methods for long-tailed distribution and leveraging unlabeled data.">
+        <meta name="keywords" content="Low-resource RE, Few-shot RE, RE Benchmark">
+        <meta name="author" content="LREBench">
+        <!-- <script type="application/ld+json">
+            {
+                "@context":"https://schema.org/",
+                "@type":"Dataset",
+                "name":"Low-resource Relation Extraction Benchmark",
+                "description":"A Empirical Benchmark for Low-resource Relation Extraciton.",
+                "url":"https://zjunlp.github.io/project/LREBench",
+                "keywords":[
+                   "MACHINE LEARNING > RE",
+                   "MACHINE LEARNING > FEW-SHOT LEARNING",
+                   "MACHINE LEARNING > Prompt-based Fine-tuning"
+                ],
+                "license" : "https://zjunlp.github.io/project/LREBench/tasks.html",
+                "isAccessibleForFree" : true,
+                "hasPart" : [
+                  {
+                    "@type": "Dataset",
+                    "name": "SemEval",
+                    "description": "Language-independent named entity recognition on four types of named entities: persons, locations, organizations and miscellaneous",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Antwerp"
+                    }
+                  },
+                  {
+                    "@type": "Dataset",
+                    "name": "OntoNotes 5.0",
+                    "description": "Various genres of text (news, conversational telephone speech, weblogs, usenet newsgroups, broadcast, talk shows) in three languages (English, Chinese, and Arabic) with structural information (syntax and predicate argument structure) and shallow semantics (word sense linked to an ontology and coreference)",
+                    "license" : "https://catalog.ldc.upenn.edu/LDC2013T19",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Pennsylvania"
+                    }
+                  },
+                  {
+                    "@type": "Dataset",
+                    "name": "WikiGold",
+                    "description": "Wikipedia gold standard corpus",
+                    "license" : "https://creativecommons.org/licenses/by/4.0/",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Sydney"
+                    }
+                  }, 
+                  {
+                    "@type": "Dataset",
+                    "name": "WNUT 2017",
+                    "description": "Emerging and Rare entity recognition with six classes: person, location, corporation, product, creative work, group",
+                    "license" : "https://creativecommons.org/licenses/by/4.0/",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Sheffield"
+                    }
+                  },                  
+                  {
+                    "@type": "Dataset",
+                    "name": "MIT Movie",
+                    "description": "Semantically tagged training and test corpus in BIO format",
+                    "license" : "None",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "Massachusetts Institute of Technology"
+                    }
+                  },     
+                  {
+                    "@type": "Dataset",
+                    "name": "MIT Restaurant",
+                    "description": "Semantically tagged training and test corpus in BIO format",
+                    "license" : "None",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "Massachusetts Institute of Technology"
+                    }
+                  },    
+                  {
+                    "@type": "Dataset",
+                    "name": "SNIPS",
+                    "description": "16,000 crowdsourced queries distributed among 7 user intents of various complexity",
+                    "license" : "https://creativecommons.org/publicdomain/zero/1.0/",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "Snips"
+                    }
+                  },        
+                  {
+                    "@type": "Dataset",
+                    "name": "ATIS",
+                    "description": "Manual transcripts about humans asking for flight information on automated airline travel inquiry systems",
+                    "license" : "http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "Microsoft, National Taiwan University"
+                    }
+                  },        
+                  {
+                    "@type": "Dataset",
+                    "name": "Multiwoz",
+                    "description": "Fully-labeled collection of human-human written conversations spanning over multiple domains and topics",
+                    "license" : "https://github.com/budzianowski/multiwoz/blob/master/LICENSE",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Cambridge"
+                    }
+                  },
+                  {
+                    "@type": "Dataset",
+                    "name": "I2B2",
+                    "description": "Bionmedical dataset for extraction of medical problems, tests, and treatments",
+                    "license" : "Data Usage Agreement (DUA)",
+                    "creator":{
+                       "@type":"Organization",
+                       "name": "University of Albany"
+                    }
+                  }                                   
+
+                ],
+                "distribution":[
+                   {
+                      "@type":"DataDownload",
+                      "contentUrl":"https://few-shot-ner-benchmark.github.io/tasks.html"
+                   }
+                ]
+            }
+        </script>         -->
+
+
+        <!-- <link rel="icon" href="image/favicon.ico"> -->
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><b>Low-resource Relation Extraction Benchmark</b></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="content">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html"><b>Home</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/zjunlp/LREBench" target="_blank">Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tasks.html">Tasks</a>
+                        </li>                   
+                        <li class="nav-item">
+                            <a class="nav-link" href="" target="_blank">Paper</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="jumbotron" >
+            <div class="container">
+            <img src="image/intro.png" align="right" style="height:2.6cm; width:8.4cm;"/>
+            <h1 class="display-5 sharepoint-dark-blue">Meet Low-resource RE!</h1>
+            <p class="lead sharepoint-dark-blue">A Empirical Benchmark for <b>L</b>ow-resource <b>R</b>elation <b>E</b>xtraction.</p>    
+        </div>
+        </div>
+
+        <div class="container" align="justify">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <h4>Different Schemes for Low-resource Relation Extraction</h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 thumb">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <center><span class="fa-4x ms-blue">
+                                <i class="fas fa-video"></i>
+                                <i class="fas fa-cubes"></i>
+                                <i class="fa fa-puzzle-piece"></i>
+                            </span></center> -->
+                            
+                            <img src="image/fine-tuning.png" class="center" style="height:6cm; width:11.8cm;"/>
+                            <br/>
+                            <center><h5 class="card-title">Standard PLM Fine-tuning</h5>
+                            <p class="card-text"><font size="3rem">Supervised <b>Pre-trained Models Fine-tuning</b> with strong baselines, such as <a href="https://github.com/thunlp/OpenNRE">OpenNRE</a>.</font></p></center>
+                            <br/>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 thumb">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="image/prompt.png" class="center" style="height:6cm; width:13.2cm;"/>
+                            <br/>
+                            <!-- <center><span class="fa-4x">
+                                <i class="fas fa-language ms-blue"></i>
+                            </span></center> -->
+                            <!-- <br/> -->
+                            <center><h5 class="card-title">Prompt-based Tuning</h5>
+                            <p class="card-text"><font size="3rem">Prompting for <b>Few-shot</b> Instances with <a href="https://github.com/zjunlp/KnowPrompt">KnowPrompt</a>.</font></p></center>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 thumb">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="image/balance.png" class="center" style="height:9.8cm; width:10.9cm;"/>
+                            <!-- <center>
+                                <span class="fa-4x">
+                                <i class="fas fa-search ms-blue"></i>
+                                <i class="fa fa-line-chart ms-blue"></i>
+                                </span>
+                            </center> -->
+                            <br/>
+                            <center><h5 class="card-title">Balancing Methods</h5>
+                            <p class="card-text"><font size="3rem">Re-sampling Methods and Different Special Losses for <br>Long-tailed Distribution Issues.</font></p></center>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 thumb">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="image/moredata.png" class="center" style="height:9.8cm; width:10.9cm;"/>
+                            <!-- <center><span class="fa-4x" style="margin-bottom: -4px;">
+                                <i class="fas fa-trophy ms-blue"></i>
+                            </span></center> -->
+                            <br/>
+                            <center><h5 class="card-title">Leveraging More Instances</h5>
+                            <p class="card-text"><font size="3rem">Diverse Data Augmentation Methods and Self-training <br>to Generate More Labeled Data <br>from Easy-collected Unlabeled Data.</font></p></center>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="container" align="justify">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <h4>What is Low-resource Relation Extraction Benchmark?</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">                
+                    <p>The <b>Low-resource</b> <b>Relation</b> <b>Extraciton</b> benchmark is a comprehensively empirical study on low-resource RE. It focuses on two challenges: </p>
+                    <ul>
+                        <li>Few-shot Relation Extraction</li>
+                        <li>RE Data with Long-tailed Distribution</li>
+                    </ul>
+                        
+                    <p>We hope this study can help inspire future research for low-resource RE with more robust models and promote transitioning the technology to real-world industrial scenarios.</p>
+                </div>
+            </div>
+        </div>
+            
+        <br/>
+
+
+        <div class="container" align="justify">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <h4>Paper</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <a href="" target="_blank">
+                        <img src="image/paper.png" class="rounded img-fluid mx-auto d-block" border="5"/>
+                    </a>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                        <h6>Please cite our paper as below if you use the benchmark or codebase.</h6>
+                        <pre><code>
+@article{LREBench2022,
+  title={Towards Realistic Low-resource Relation Extraction: A Benchmark with Empirical Baseline Study},
+  author={Xin Xu, Xiang Chen, Ningyu Zhang, Xin Xie, Xi Chen, Huajun Chen},
+  journal={EMNLP},
+  year={2022}
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+        </div>
+
+        <br/>
+
+        <div class="container" align="justify">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <h4>Contact</h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
+                    <a href="https://github.com/zjunlp/LREBench" target="_blank">
+                        <center><span class="fa-4x ms-blue">
+                            <i class="far fa-envelope"></i>
+                        </span></center>
+                    </a>
+                    <br/>
+                    <center>
+                        <h6>Have any questions or suggestions? Feel free to reach us at <a href="https://github.com/few-shot-NER-benchmark" target="_blank">https://github.com/few-shot-NER-benchmark</a></h6>
+                    </center>
+                </div>
+            </div>
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/sorttable.js"></script>
+    </body>
+</html>
