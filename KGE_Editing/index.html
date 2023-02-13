@@ -27,8 +27,8 @@
      <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right">
        <li><a href="./index.html">Blog</a></li>
-       <li><a href="./https://github.com/zjunlp/PromptKG/tree/main/deltaKG">Github</a></li>
-       <li><a href="./index.html">Demo</a></li>
+       <li><a href="https://github.com/zjunlp/PromptKG/tree/main/deltaKG">Github</a></li>
+       <li><a href="https://huggingface.co/spaces/zjunlp/KGEditor">Demo</a></li>
       </ul>
      </div>
     </div>
@@ -97,13 +97,36 @@
         <div class="infoHeadline">
          <h2>Have Questions?</h2>
         </div>
-        <p> 
-            Ask us questions at our <a href="https://github.com/zjunlp/PromptKG/tree/main/deltaKG">github</a> or at: 
-            <br>
-            <a href="mailto:sycheng@zju.edu.cn">sycheng@zju.edu.cn</a>
-            <br>
-            <a href="mailto:zhangningyu@zju.edu.cn">zhangningyu@zju.edu.cn</a>
-        </p>
+        <p>
+            you have any question about the KGE Editing task and the datasets
+            , or you want to submit your results to update the leaderboard, feel free
+            to emtail to us:
+        </p> 
+        <br>
+        <ul>
+            <li style="color: rgb(226, 163, 152);">
+                <a href="mailto:zhangningyu@zju.edu.cn" tyle="font-size: 0.95rem; color:darkred;">
+                    zhangningyu@zju.edu.cn;
+                </a>
+            </li>
+            <li style="color: rgb(226, 163, 152);">
+                <a href="mailto:sycheng@zju.edu.cn" tyle="font-size: 0.95rem; color:darkred;">
+                    sycheng@zju.edu.cn;
+                </a>
+            </li>
+        </ul>
+        <br>
+        <p>If you use or extend our work, please cite the paper as follows:</p>
+        <br>
+        <pre style="font-size: 1.0rem; background-color: rgb(245, 238, 238);">@article{DBLP:journals/corr/abs-2301-10405,
+    author    = {Siyuan Cheng and Ningyu Zhang and Bozhong Tian and Zelin Dai and Feiyu Xiong and Wei Guo and Huajun Chen},
+    title     = {Editing Language Model-based Knowledge Graph Embeddings},
+    journal   = {CoRR},
+    volume    = {abs/2301.10405},
+    year      = {2023},
+    eprinttype = {arXiv},
+    eprint    = {2301.10405},
+}</pre>
        </div>
        <div class="infoSubheadline">
        </div>
@@ -138,18 +161,10 @@
                 <td><b>0.543</b></td>
                 <td><b>0.977</b></td>
             </tr>
-            <tr>
-                <td> <p></p><span class="date label label-default"></span></td>
-                <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
-                <td><b>0.000</b></td>
-                <td><b>0.000</b></td>
-                <td><b>-</b></td>
-                <td><b>1.000</b></td>
-                <td><b>0.000</b></td>
-            </tr>
+            
             <tr>
                 <td> <p>1</p><span class="date label label-default">Jan 19, 2022</span></td>
-                <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">Arxiv'23</p></a></td>
                 <td><b>0.866</b></td>
                 <td><b>0.986</b></td>
                 <td><b>0.999</b></td>
@@ -158,7 +173,7 @@
             </tr>
             <tr>
                 <td> <p>2</p><span class="date label label-default">Jan 19, 2022</span></td>
-                <td style="word-break:break-word;">Knowledge Editor<p class="institution"><a class="link" href="https://doi.org/10.18653/v1/2021.emnlp-main.522" style="font-style: italic;">paper</a></p></td>
+                <td style="word-break:break-word;">Knowledge Editor<p class="institution"><a class="link" href="https://doi.org/10.18653/v1/2021.emnlp-main.522" style="font-style: italic;">EMNLP'21</a></p></td>
                 <td><b>0.702</b></td>
                 <td><b>0.969</b></td>
                 <td><b>0.999</b></td>
@@ -167,7 +182,7 @@
             </tr>
             <tr>
                 <td> <p>3</p><span class="date label label-default">Jan 19, 2022</span></td>
-                <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">paper</p></a></td>
+                <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">ICLR'22</p></a></td>
                 <td><b>0.828</b></td>
                 <td><b>0.950</b></td>
                 <td><b>0.954</b></td>
@@ -176,7 +191,7 @@
             </tr>
             <tr>
                 <td> <p>4</p><span class="date label label-default">Jan 19, 2022</span></td>
-                <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">paper</p></a></td>
+                <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">EMNLP'22</p></a></td>
                 <td><b>0.328</b></td>
                 <td><b>0.348</b></td>
                 <td><b>0.937</b></td>
@@ -185,12 +200,21 @@
             </tr>
             <tr>
                 <td> <p>5</p><span class="date label label-default">Jan 19, 2022</span></td>
-                <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">paper</p></a></td>
+                <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">ACL'21</p></a></td>
                 <td><b>0.329</b></td>
                 <td><b>0.348</b></td>
                 <td><b>0.926</b></td>
                 <td><b>0.001</b></td>
                 <td><b>0.999</b></td>
+            </tr>
+            <tr>
+                <td> <p></p><span class="date label label-default"></span></td>
+                <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
+                <td><b>0.000</b></td>
+                <td><b>0.000</b></td>
+                <td><b>-</b></td>
+                <td><b>1.000</b></td>
+                <td><b>0.000</b></td>
             </tr>
            </tbody>
             </table>
@@ -215,17 +239,8 @@
                     <td><b>0.746</b></td>
                 </tr>
                 <tr>
-                    <td> <p></p><span class="date label label-default"></span></td>
-                    <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
-                    <td><b>0.000</b></td>
-                    <td><b>0.000</b></td>
-                    <td><b>-</b></td>
-                    <td><b>1.000</b></td>
-                    <td><b>0.000</b></td>
-                </tr>
-                <tr>
                     <td> <p>1</p><span class="date label label-default">Jan 19, 2022</span></td>
-                    <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                    <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">Arxiv'23</p></a></td>
                     <td><b>0.833</b></td>
                     <td><b>0.844</b></td>
                     <td><b>0.991</b></td>
@@ -234,7 +249,7 @@
                 </tr>
                 <tr>
                     <td> <p>2</p><span class="date label label-default">Jan 19, 2022</span></td>
-                    <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">paper</p></a></td>
+                    <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">ICLR'22</p></a></td>
                     <td><b>0.815</b></td>
                     <td><b>0.827</b></td>
                     <td><b>0.948</b></td>
@@ -243,7 +258,7 @@
                 </tr>
                 <tr>
                     <td> <p>3</p><span class="date label label-default">Jan 19, 2022</span></td>
-                    <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                    <td style="word-break:break-word;">Knowledge Editor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">EMNLP'21</p></a></td>
                     <td><b>0.599</b></td>
                     <td><b>0.682</b></td>
                     <td><b>0.978</b></td>
@@ -252,7 +267,7 @@
                 </tr>
                 <tr>
                     <td> <p>4</p><span class="date label label-default">Jan 19, 2022</span></td>
-                    <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">paper</p></a></td>
+                    <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">ACL'21</p></a></td>
                     <td><b>0.638</b></td>
                     <td><b>0.752</b></td>
                     <td><b>0.992</b></td>
@@ -261,12 +276,21 @@
                 </tr>
                 <tr>
                     <td> <p>5</p><span class="date label label-default">Jan 19, 2022</span></td>
-                    <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">paper</p></a></td>
+                    <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">EMNLP'22</p></a></td>
                     <td><b>0.538</b></td>
                     <td><b>0.649</b></td>
                     <td><b>0.991</b></td>
                     <td><b>0.446</b></td>
                     <td><b>0.994</b></td>
+                </tr>
+                <tr>
+                    <td> <p></p><span class="date label label-default"></span></td>
+                    <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
+                    <td><b>0.000</b></td>
+                    <td><b>0.000</b></td>
+                    <td><b>-</b></td>
+                    <td><b>1.000</b></td>
+                    <td><b>0.000</b></td>
                 </tr>
                 </tbody>
             </table>
@@ -291,17 +315,8 @@
                  <td><b>0.977</b></td>
              </tr>
              <tr>
-                 <td> <p></p><span class="date label label-default"></span></td>
-                 <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
-                 <td><b>0.000</b></td>
-                 <td><b>0.000</b></td>
-                 <td><b>-</b></td>
-                 <td><b>1.000</b></td>
-                 <td><b>0.000</b></td>
-             </tr>
-             <tr>
                  <td> <p>1</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">Arxiv'23</p></a></td>
                  <td><b>0.796</b></td>
                  <td><b>0.923</b></td>
                  <td><b>0.998</b></td>
@@ -310,7 +325,7 @@
              </tr>
              <tr>
                  <td> <p>2</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                 <td style="word-break:break-word;">Knowledge Editor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">EMNLP'21</p></a></td>
                  <td><b>0.648</b></td>
                  <td><b>0.884</b></td>
                  <td><b>0.997</b></td>
@@ -319,7 +334,7 @@
              </tr>
              <tr>
                  <td> <p>3</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">ICLR'22</p></a></td>
                  <td><b>0.517</b></td>
                  <td><b>0.745</b></td>
                  <td><b>0.991</b></td>
@@ -328,7 +343,7 @@
              </tr>
              <tr>
                  <td> <p>4</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">ACL'21</p></a></td>
                  <td><b>0.871</b></td>
                  <td><b>0.981</b></td>
                  <td><b>0.999</b></td>
@@ -337,13 +352,22 @@
              </tr>
              <tr>
                  <td> <p>5</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">EMNLP'22</p></a></td>
                  <td><b>0.714</b></td>
                  <td><b>0.870</b></td>
                  <td><b>0.997</b></td>
                  <td><b>0.034</b></td>
                  <td><b>0.999</b></td>
              </tr>
+             <tr>
+                <td> <p></p><span class="date label label-default"></span></td>
+                <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
+                <td><b>0.000</b></td>
+                <td><b>0.000</b></td>
+                <td><b>-</b></td>
+                <td><b>1.000</b></td>
+                <td><b>0.000</b></td>
+            </tr>
             </tbody>
             </table>
             <table class="table performanceTable" id="table-4" style="display: none;">
@@ -367,17 +391,8 @@
                  <td><b>0.996</b></td>
              </tr>
              <tr>
-                 <td> <p></p><span class="date label label-default"></span></td>
-                 <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
-                 <td><b>0.000</b></td>
-                 <td><b>0.000</b></td>
-                 <td><b>-</b></td>
-                 <td><b>1.000</b></td>
-                 <td><b>0.000</b></td>
-             </tr>
-             <tr>
                  <td> <p>1</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">Arxiv'23</p></a></td>
                  <td><b>0.998</b></td>
                  <td><b>1.0</b></td>
                  <td><b>0.999</b></td>
@@ -386,7 +401,7 @@
              </tr>
              <tr>
                  <td> <p>2</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">MEND<a class="link" href="https://openreview.net/forum?id=0DcZxeWfOPt"><p class="institution">ICLR'22</p></a></td>
                  <td><b>0.999</b></td>
                  <td><b>1.0</b></td>
                  <td><b>0.999</b></td>
@@ -395,7 +410,7 @@
              </tr>
              <tr>
                  <td> <p>3</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">KGEditor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">paper</p></a></td>
+                 <td style="word-break:break-word;">Knowledge Editor<p class="institution"><a class="link" href="https://arxiv.org/abs/2301.10405" style="font-style: italic;">EMNLP'21</p></a></td>
                  <td><b>0.986</b></td>
                  <td><b>0.996</b></td>
                  <td><b>0.999</b></td>
@@ -404,7 +419,7 @@
              </tr>
              <tr>
                  <td> <p>4</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">CALINET<a class="link" href="https://doi.org/10.48550/arXiv.2210.03329"><p class="institution">EMNLP'22</p></a></td>
                  <td><b>0.832</b></td>
                  <td><b>0.913</b></td>
                  <td><b>0.995</b></td>
@@ -413,13 +428,22 @@
              </tr>
              <tr>
                  <td> <p>5</p><span class="date label label-default">Jan 19, 2022</span></td>
-                 <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">paper</p></a></td>
+                 <td style="word-break:break-word;">K-Adapter<a class="link" href="https://arxiv.org/abs/2002.01808"><p class="institution">ACL'21</p></a></td>
                  <td><b>0.898</b></td>
                  <td><b>0.978</b></td>
                  <td><b>0.999</b></td>
                  <td><b>0.002</b></td>
                  <td><b>0.999</b></td>
              </tr>
+             <tr>
+                <td> <p></p><span class="date label label-default"></span></td>
+                <td style="word-break:break-word;">Zero-Shot Learning<p class="institution"></p></td>
+                <td><b>0.000</b></td>
+                <td><b>0.000</b></td>
+                <td><b>-</b></td>
+                <td><b>1.000</b></td>
+                <td><b>0.000</b></td>
+            </tr>
             </tbody>
             </table>
         </div>
