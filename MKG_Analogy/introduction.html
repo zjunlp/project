@@ -1,0 +1,139 @@
+<!DOCTYPE html><!--Author: Pranav Rajpurkar 2016-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Multimodal Analogical Reasoning over Knowledge Graph</title>
+    <meta name="description"
+        content="Multimodal analogical reasoning over knowledge graphs is a new task which requires multimodal reasoning ability with the help of background knowledge. To support it, we construct a Multimodal Analogical Reasoning dataSet (MARS) and a multimodal knowledge graph MarKG.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:image" content="/logo.png">
+    <link rel="image_src" type="image/png" href="./logo.png">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./stylesheets/intro.css">
+    <link rel="stylesheet" href="./stylesheets/index.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="./javascripts/analytics.js"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" id="topNavbar" role="navigation">
+        <div class="container clearfix" id="navContainer">
+            <div class="rightNav">
+                <div class="collapseDiv"><button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span
+                            class="glyphicon glyphicon-menu-hamburger"></span></button></div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./introduction.html">INTRODUCTION</a></li>
+                        <li><a href="https://github.com/zjunlp/MKG_Analogy">GITHUB</a></li>
+                        <li><a href="https://huggingface.co/spaces/flow3rdown/MKG_Analogy">DEMO</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="leftNav">
+                <div class="brandDiv"><a class="navbar-brand" href="./index.html">MKG Analogy</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover" id="topCover">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 id="appTitle">MKG Analogy</b></h1>
+                    <h2 id="appSubtitle">Multimodal Analogical Reasoning over Knowledge Graph</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover" id="contentCover">
+        <div class="container">
+            <div class="row">
+                <div class="infoCard">
+                    <div class="infoBody">
+                        <h1>Abstract</h1>
+                        <p>Analogical reasoning is fundamental to human cognition and holds an important place in various 
+                            fields. However, previous studies mainly focus on single-modal analogical reasoning and ignore 
+                            taking advantage of structure knowledge. Notably, the research in cognitive psychology has 
+                            demonstrated that information from multimodal sources always brings more powerful cognitive 
+                            transfer than single modality sources. To this end, we introduce the new task of multimodal 
+                            analogical reasoning over knowledge graphs, which requires multimodal reasoning ability with 
+                            the help of background knowledge. Specifically, we construct a Multimodal Analogical Reasoning 
+                            dataSet (MARS) and a multimodal knowledge graph MarKG. We evaluate with multimodal knowledge 
+                            graph embedding and pre-trained Transformer baselines, illustrating the potential challenges of 
+                            the proposed task. We further propose a novel model-agnostic Multimodal analogical reasoning 
+                            framework with Transformer (MarT) motivated by the structure mapping theory, which can obtain 
+                            better performance. We hope our work can deliver benefits and inspire future research.
+                        </p>
+                        
+                        <div class="infoHeadline"></div>
+                        <h1>Task Definition</h1>
+                        <img src="./task.png" role="img">
+                        <p>We introduce the task of Multimodal Analogical Reasoning that can be formulated as link prediction 
+                            without explicitly providing relations. We further divide the task into <i>Single Analogical Reasoning</i> 
+                            and <i>Blended Analogical Reasoning</i> according different modalities the entities:</p>
+                        <ol type="1">
+                            <li><i>Single Analogical Reasoning</i>: In this setting, the analogy example and the question-answer entity 
+                                pair involve only one modality. This setting can be further divided into 
+                                (I<sub>h</sub>, I<sub>t</sub>) : (T<sub>q</sub>, ?) and (T<sub>h</sub>, T<sub>t</sub>) : (I<sub>q</sub>, ?), 
+                                where T<sub>*</sub> and I<sub>*</sub> represent the modality is textual and visual respectively.
+                            </li>
+                            <li><i>Blended Analogical Reasoning</i>: This task can be formalized as (I<sub>h</sub>, T<sub>t</sub>) : (I<sub>q</sub>, ?).</li>
+                        </ol>
+                        
+                        <div class="infoHeadline"></div>
+                        <h1>Demo</h1>
+                        <p>This is a demo for the multimodal analogical reasoning task, you can also try it on the hugginface 
+                            space <a class="link"
+                            href="https://huggingface.co/spaces/zjunlp/MKG_Analogy"> MKG_Analogy</a>.
+                        </p>
+                        <div class="frameContainer">
+                            <iframe src="https://zjunlp-mkg-analogy.hf.space"
+                                frameborder="10" width="100%" height="450">
+                            </iframe>
+                        </div>
+                        
+                        <div class="infoHeadline"></div>
+                        <em>
+                            If this paper or datasets was helpful for your research, please use the 
+                            following citation:
+                        </em>
+                        <pre style="font-size: 1.5rem; background-color: rgb(245, 238, 238);">@article{DBLP:journals/corr/abs-2210-00312, 
+    author = {Ningyu Zhang and Lei Li and Xiang Chen and Xiaozhuan Liang and Shumin Deng and Huajun Chen},
+    title     = {Multimodal Analogical Reasoning over Knowledge Graphs},
+    journal   = {CoRR},
+    volume    = {abs/2210.00312},
+    year      = {2022},
+    eprinttype = {arXiv},
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+
+
+    <nav class="navbar navbar-default navbar-static-bottom footer">
+        <div class="container clearfix">
+            <div class="rightNav">
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./">MAR Analogy</a></li>
+                        <li><a href="https://github.com/zjunlp">ZJUNLP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
