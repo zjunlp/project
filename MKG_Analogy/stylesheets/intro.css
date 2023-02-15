@@ -125,6 +125,10 @@
 .infoCard .infoBody {
   padding: 50px;
 }
+.infoCard .infoBody >.infoImage {
+  width: 85%;
+  padding-left: 200px;
+}
 .infoCard .infoBody >.infoHeadline {
   margin: 28px 0px;
 }
