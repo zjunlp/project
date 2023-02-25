@@ -336,7 +336,7 @@ a img.aligncenter {
 	font-size: 16px;
 }
 .email-box a:hover{
-	color: #fd6802;
+	color: #003F88;
 }
 .email-box a i{
 	padding: 0px 5px;
@@ -350,7 +350,7 @@ a img.aligncenter {
 	font-size: 16px;
 }
 .phone-box a:hover{
-	color: #fd6802;
+	color: #003F88;
 }
 .phone-box a i{
 	padding: 0px 5px;
@@ -370,7 +370,7 @@ a img.aligncenter {
 	font-size: 20px;
 }
 .social-box ul li a:hover{
-	color: #fd6802;
+	color: #003F88;
 }
 
 
@@ -458,7 +458,7 @@ a img.aligncenter {
 	color: #ffffff;
 	box-shadow: 0 10px 20px 0 rgba(5, 16, 44, .15);
 	border-radius: 25px 0px 25px 0px;
-	background: #fd6802;
+	background: #003F88;
 }
 
 .header_style_01 .navbar-default .navbar-nav > li:hover a,
@@ -466,7 +466,7 @@ a img.aligncenter {
     color: #ffffff;
 	box-shadow: 0 10px 20px 0 rgba(5, 16, 44, .15);
 	border-radius: 25px 0px 25px 0px;
-	background: #fd6802;
+	background: #003F88;
 }
 
 .header_style_01 .navbar-right > li {
@@ -557,7 +557,7 @@ li.social-links a {
 }
 
 .slide-text h1 span{
-	color: #fd6802;
+	color: #003F88;
 }
 
 .slide-text h2 {
@@ -582,7 +582,7 @@ li.social-links a {
 }
 
 .slider-wrapper .owl-nav .owl-prev:hover, .slider-wrapper .owl-nav .owl-next:hover {
-	background: #fd6802;
+	background: #003F88;
 }
 
 .slider-wrapper .owl-nav .owl-prev {
@@ -842,7 +842,7 @@ li.social-links a {
 .portfolio-filter ul li .btn-dark {
     box-shadow: none;
     background-color: transparent;
-    border: 2px solid #fd6802 !important;
+    border: 2px solid #003F88 !important;
     color: #393939;
     font-weight: 500;
     font-size: 14px;
@@ -896,7 +896,7 @@ li.social-links a {
 }
 
 .da-thumbs .pitem a div i {
-    background-color: #fd6802;
+    background-color: #003F88;
     position: absolute;
     color: #ffffff !important;
     bottom: 0;
@@ -928,7 +928,7 @@ li.social-links a {
 }
 
 .desc h3 i {
-    color: #fd6802;
+    color: #003F88;
     font-size: 37px;
     vertical-align: middle;
     margin-right: 12px;
@@ -1326,7 +1326,7 @@ li.social-links a {
 }
 
 .hoverbutton {
-    background-color: #fd6802;
+    background-color: #003F88;
     position: absolute;
     color: #ffffff !important;
     top: 48%;
@@ -1558,7 +1558,7 @@ hr.invis1 {
     border-radius: 25px 0px 25px 0px;
     font-size: 26px;
 	color: #ffffff;
-    background-color: #fd6802;
+    background-color: #003F88;
     margin: 0 auto 22px;
     position: relative;
     text-align: center;
@@ -2098,7 +2098,7 @@ select.mobile-device {
 
 .footer-links a:hover,
 .footer a:hover {
-    color: #fd6802 !important;
+    color: #003F88 !important;
 }
 
 .footer-links li {
@@ -2175,7 +2175,7 @@ select.mobile-device {
 }
 
 .footer-distributed .footer-company-name a:hover{
-	color: #fd6802;
+	color: #003F88;
 }
 
 
@@ -2285,11 +2285,11 @@ select.mobile-device {
 }
 
 .dmtop:hover {
-	background-color: #fd6802;
+	background-color: #003F88;
 }
 
 .icon_wrap {
-    background-color: #fd6802;
+    background-color: #003F88;
     width: 100px;
     height: 100px;
     display: block;
@@ -2327,7 +2327,7 @@ select.mobile-device {
     right: 0;
     bottom: 0;
     left: 0;
-    background: #fd6802;
+    background: #003F88;
     z-index: 11000;
     position: fixed;
     display: block;
@@ -2800,9 +2800,9 @@ select.mobile-device {
 .btn-light {
     padding: 13px 40px;
     font-size: 18px;
-    border: 2px solid #fd6802;
+    border: 2px solid #003F88;
     color: #ffffff;
-    background-color: #fd6802;
+    background-color: #003F88;
 }
 
 .btn-dark {
@@ -2815,7 +2815,7 @@ select.mobile-device {
 
 .btn-light:hover,
 .btn-light:focus {
-    border-color: #fd6802;
+    border-color: #003F88;
     color: rgba(255, 255, 255);
 	background: #393939;
 }
@@ -2904,7 +2904,7 @@ select.mobile-device {
 	position: relative;
 }
 .banner h2::after {
-    background: #fd6802;
+    background: #003F88;
     content: "";
     height: 35px;
     left: -15px;
@@ -2926,7 +2926,7 @@ select.mobile-device {
 	font-weight: 500;
 }
 .page-title-link li a:hover {
-	color: #fd6802;
+	color: #003F88;
 }
 .page-title-link li::after {
     background: #fcbf02;
@@ -2969,7 +2969,7 @@ select.mobile-device {
 	color: #393939;
 }
 .about-text h3 a:hover{
-	color: #fd6802;
+	color: #003F88;
 }
 
 .about-item:hover .about-icon{
@@ -2978,7 +2978,7 @@ select.mobile-device {
 }
 
 .about-item:hover .about-icon span{
-	color: #fd6802;
+	color: #003F88;
 	transition: all 1s ease-in-out;
 }
 
@@ -3000,9 +3000,9 @@ select.mobile-device {
 
 
 :root{
-    --pricingTable-yellow: #fd6802;
-    --pricingTable-purple: #fd6802;
-    --pricingTable-blue: #fd6802;
+    --pricingTable-yellow: #003F88;
+    --pricingTable-purple: #003F88;
+    --pricingTable-blue: #003F88;
 }
 
 .pricingTable{
@@ -3323,7 +3323,7 @@ select.mobile-device {
 .address-item h3{
 	font-size: 28px;
 	font-weight: 600;
-	color: #fd6802;
+	color: #003F88;
 }
 
 

@@ -38,6 +38,7 @@
 		.form-select {
 			font-size: 1.2rem;
 			padding: 0.5rem;
+            width: 200px;
 		}
 		.btn-effect {
 			position: relative;
@@ -162,7 +163,7 @@
 
     <script>
 		function callApi() {
-			var entity1 = $("#entity1").val();
+			var entity1 = $("#entity_select_1").val();
 			var entity2 = $("#entity2").val();
 			var entity3 = $("#entity3").val();
 			// 调用默认的 API，传入选中的三个实体参数
@@ -171,18 +172,18 @@
 		}
 	</script>
     <div class="container">
-		<h1 class="mt-4 mb-4">示例页面</h1>
+		<h1 class="mt-4 mb-4">判别式语言模型</h1>
 		<div class="row">
 			<div class="col-md-4">
-				<label class="form-label">实体1：</label>
-				<select id="entity1" class="form-select">
+				<label class="form-label">Select a HEAD Entity:</label>
+				<select id="entity_select_1" class="form-select">
 					<option value="entity123" selected>entity123</option>
 					<option value="entity456">entity456</option>
 					<option value="entity789">entity789</option>
 				</select>
 			</div>
 			<div class="col-md-4">
-				<label class="form-label">实体2：</label>
+				<label class="form-label">Select a Relation:</label>
 				<select id="entity2" class="form-select">
 					<option value="entity123" selected>entity123</option>
 					<option value="entity456">entity456</option>
@@ -218,8 +219,39 @@
         </div><!-- end container -->
     </div><!-- end copyrights -->
 
+    <script>
+        var entity_select_1 = $("#entity_select_1");
+        <!-- 将几个下拉框初始化 -->
+        jQuery(document).ready( function($){
+            entity_select_1.select2({
+                placeholder: 'Search and select a head entity',
+                ajax: {
+                    url: urlHost + 'fuzzy_query_node',
+                    data: function (params) {
+                        var query = {
+                            keyword: params.term
+                        }
+                        return query;
+                    },
+                    processResults: function (data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        var result_list = []
+                        for(var i in data){
+                            var entity = data[i];
+                            result_list.push({id:entity["idd"],text:entity["name"]})
+                        }
+                        return {
+                            results: result_list
+                        };
+                    }
+                }
+            })
+        })
+
+    </script>
     <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
 
+        
     <!-- ALL JS FILES -->
     <script src="js/all.js"></script>
     <!-- ALL PLUGINS -->
