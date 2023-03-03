@@ -115,22 +115,147 @@
         </nav>
     </header>
 
-   	<div class="banner-area banner-bg-1">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="banner">
-						<h2>Our Portfolio</h2>
-						<ul class="page-title-link">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Our Portfolio</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<!--   	<div class="banner-area banner-bg-1">-->
+<!--		<div class="container">-->
+<!--			<div class="row">-->
+<!--				<div class="col-md-12">-->
+<!--					<div class="banner">-->
+<!--						<h2>Our Portfolio</h2>-->
+<!--						<ul class="page-title-link">-->
+<!--							<li><a href="#">Home</a></li>-->
+<!--							<li><a href="#">Our Portfolio</a></li>-->
+<!--						</ul>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<div id="pricing" class="section pricing-bg">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Ready to get started?</h3>
+                <p class="lead" >We provide three different methods to</p>
 
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane active fade in" id="tab1">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="pricing-table pricing-table-highlighted">
+                                        <div class="pricing-table-header grd1">
+                                            <h2>Discrimination-based</h2>
+                                        </div>
+                                        <div class="pricing-table-space"></div>
+                                        <div class="pricing-table-features">
+                                            <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
+                                            <select id="entity_select" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                            <p></p>
+                                            <label class="form-label"><strong>Select a Relation:</strong></label>
+                                            <select id="relation" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                        </div>
+                                        <div class="pricing-table-sign-up">
+                                            <a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1">Run</a>
+                                        </div>
+                                        <div class="pricing-table-text">
+                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="pricing-table pricing-table-highlighted">
+                                        <div class="pricing-table-header grd1">
+                                            <h2>Generation-based</h2>
+                                        </div>
+                                        <div class="pricing-table-space"></div>
+                                        <div class="pricing-table-features">
+                                            <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
+                                            <select id="entity_select2" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                            <p></p>
+                                            <label class="form-label"><strong>Select a Relation:</strong></label>
+                                            <select id="relation2" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                        </div>
+                                        <div class="pricing-table-sign-up">
+                                            <a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1">Run</a>
+                                        </div>
+                                        <div class="pricing-table-text">
+                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="pricing-table pricing-table-highlighted">
+                                        <div class="pricing-table-header grd1">
+                                            <h2>LLMs</h2>
+                                        </div>
+                                        <div class="pricing-table-space"></div>
+
+                                        <div class="pricing-table-features">
+                                            <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
+                                            <select id="entity_select3" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                            <p></p>
+                                            <label class="form-label"><strong>Select a Relation:</strong></label>
+                                            <select id="relation3" class="form-select">
+                                                <option value="entity123" selected>entity123</option>
+                                                <option value="entity456">entity456</option>
+                                                <option value="entity789">entity789</option>
+                                            </select>
+                                        </div>
+                                        <div class="pricing-table-sign-up">
+                                            <a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1">Run</a>
+
+                                        </div>
+                                        <div class="pricing-table-text">
+                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end row -->
+                        </div><!-- end pane -->
+                    </div><!-- end content -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <div class="pricing-table-results">
+                <p>use LLM, OpenAI.API_KEY is required</p>
+                <input type="text" class="form-control" placeholder="openAI api_key">
+                <p></p>
+                <a href="#" class="btn btn-light">Run</a>
+            </div>
+            <div id="results" class="pricing-table-results">
+
+                <!-- <div id="colored"> -->
+                <h4 id="colored">结果</h4>
+                <div id="inserted_text">
+                    文本: 张冬梅，女，汉族，1968年2月生，河南淇县人，1988年7月加入中国共产党，1989年9月参加工作，中央党校经济管理专业毕业，中央党校研究生学历
+                    <br>实体: 张冬梅<br>属性值: 汉族<br>属性: 民族<br>置信度: 1<br> <br>
+                    <a href="../feedback.html" target="_blank">Feedback bad case</a>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div>
     <script>
 		function callApi() {
 			var entity1 = $("#entity_select_1").val();
@@ -141,40 +266,8 @@
 			alert("调用 API，参数为：" + entity1 + "、" + entity2 + "、" + entity3);
 		}
 	</script>
-    <div class="container">
-		<h1 class="mt-4 mb-4">判别式语言模型</h1>
-		<div class="row">
-			<div class="col-md-4">
-				<label class="form-label">Select a HEAD Entity:</label>
-				<select id="entity_select_1" class="form-select">
-					<option value="entity123" selected>entity123</option>
-					<option value="entity456">entity456</option>
-					<option value="entity789">entity789</option>
-				</select>
-			</div>
-			<div class="col-md-4">
-				<label class="form-label">Select a Relation:</label>
-				<select id="entity2" class="form-select">
-					<option value="entity123" selected>entity123</option>
-					<option value="entity456">entity456</option>
-					<option value="entity789">entity789</option>
-				</select>
-			</div>
-			<div class="col-md-4">
-				<label class="form-label">实体3：</label>
-				<select id="entity3" class="form-select">
-					<option value="entity123" selected>entity123</option>
-					<option value="entity456">entity456</option>
-					<option value="entity789">entity789</option>
-				</select>
-			</div>
-		</div>
-        <div class="row mt-4">
-			<div class="col-md-12 text-center">
-				<button onclick="callApi()" class="btn btn-primary">调用 API</button>
-			</div>
-		</div>
-    </div>
+
+
 
 
 
