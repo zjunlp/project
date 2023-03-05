@@ -7,6 +7,7 @@
    
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="js/jquery.min.js"></script>
  
      <!-- Site Metas -->
     <title>LambdaKG Demo</title>  
@@ -152,24 +153,24 @@
                                         <div class="pricing-table-space"></div>
                                         <div class="pricing-table-features">
                                             <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
-                                            <select id="entity_select" class="form-select">
+                                            <select id="entity_select_1" class="form-select">
                                                 <option value="entity123" selected>entity123</option>
                                                 <option value="entity456">entity456</option>
                                                 <option value="entity789">entity789</option>
                                             </select>
                                             <p></p>
                                             <label class="form-label"><strong>Select a Relation:</strong></label>
-                                            <select id="relation" class="form-select">
+                                            <select id="relation_select_1" class="form-select">
                                                 <option value="entity123" selected>entity123</option>
                                                 <option value="entity456">entity456</option>
                                                 <option value="entity789">entity789</option>
                                             </select>
                                         </div>
-                                        <div class="pricing-table-sign-up">
+                                        <div class="pricing-table-sign-up" id="discrimination_model_btn">
                                             <a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1">Run</a>
                                         </div>
                                         <div class="pricing-table-text">
-                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                            <p>Based on WN18RR with model SimKGC.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -181,14 +182,14 @@
                                         <div class="pricing-table-space"></div>
                                         <div class="pricing-table-features">
                                             <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
-                                            <select id="entity_select2" class="form-select">
+                                            <select id="entity_select_2" class="form-select">
                                                 <option value="entity123" selected>entity123</option>
                                                 <option value="entity456">entity456</option>
                                                 <option value="entity789">entity789</option>
                                             </select>
                                             <p></p>
                                             <label class="form-label"><strong>Select a Relation:</strong></label>
-                                            <select id="relation2" class="form-select">
+                                            <select id="relation_select_2" class="form-select">
                                                 <option value="entity123" selected>entity123</option>
                                                 <option value="entity456">entity456</option>
                                                 <option value="entity789">entity789</option>
@@ -198,7 +199,7 @@
                                             <a href="#" class="btn btn-light btn-radius btn-brd grd1 effect-1">Run</a>
                                         </div>
                                         <div class="pricing-table-text">
-                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                            <p>Based on WN18RR with model KGT5.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +212,7 @@
 
                                         <div class="pricing-table-features">
                                             <label class="form-label"><strong>Select a HEAD Entity:</strong></label>
-                                            <select id="entity_select3" class="form-select">
+                                            <select id="entity_select_3" class="form-select">
                                                 <option value="entity123" selected>entity123</option>
                                                 <option value="entity456">entity456</option>
                                                 <option value="entity789">entity789</option>
@@ -229,7 +230,7 @@
 
                                         </div>
                                         <div class="pricing-table-text">
-                                            <p>This is a perfect choice for small businesses and startups.</p>
+                                            <p>Based on WN18RR with GPT-3 Text-davinci-3</p>
                                         </div>
                                     </div>
                                 </div>
@@ -274,32 +275,116 @@
 
     <script>
         var entity_select_1 = $("#entity_select_1");
-        <!-- 将几个下拉框初始化 -->
-        jQuery(document).ready( function($){
-            entity_select_1.select2({
-                placeholder: 'Search and select a head entity',
-                ajax: {
-                    url: urlHost + 'fuzzy_query_node',
-                    data: function (params) {
-                        var query = {
-                            keyword: params.term
-                        }
-                        return query;
-                    },
-                    processResults: function (data) {
-                        // Transforms the top-level key of the response object from 'items' to 'results'
-                        var result_list = []
-                        for(var i in data){
-                            var entity = data[i];
-                            result_list.push({id:entity["idd"],text:entity["name"]})
-                        }
-                        return {
-                            results: result_list
-                        };
+        var entity_select_2 = $("#entity_select_2");
+        var relation_select_1 = $("#relation_select_1")
+        var relation_select_2 = $("#relation_select_2")
+        var urlHost = "http://47.92.96.190:9000/"
+        var urlHost = "http://127.0.0.1:9000/"
+        $(function(){
+            $.ajax({
+                type:"post",
+                url: urlHost + 'get_head_entity',
+                dataType: "json",
+                data: {"pid":0},
+                success: function(data){
+                    entity_select_1.empty();
+                    entity_select_1.append("<option value=''> Please select head entity.</option>");
+                    for(var i=0; i<data.length;i++){
+                        entity_select_1.append('<option value=' + data[i]['entity_id'] + '>' + data[i]['entity_name'] + '</option>')
+                    }
+                    entity_select_2.empty();
+                    entity_select_2.append("<option value=''> Please select head entity.</option>");
+                    for(var i=0; i<data.length;i++){
+                        entity_select_2.append('<option value=' + data[i]['entity_id'] + '>' + data[i]['entity_name'] + '</option>')
+                    }
+                }
+            })
+            $.ajax({
+                type:"post",
+                url: urlHost + 'get_head_entity',
+                dataType: "json",
+                data: {"pid":0},
+                success: function(data){
+                    entity_select_2.empty();
+                    entity_select_2.append("<option value=''> Please select head entity.</option>");
+                    for(var i=0; i<data.length;i++){
+                        entity_select_2.append('<option value=' + data[i]['entity_id'] + '>' + data[i]['entity_name'] + '</option>')
                     }
                 }
             })
         })
+        entity_select_1.change(function(){
+            var val = $(this).children("option:selected").val()
+            console.log(val)
+            $.ajax({
+                type:"post",
+                url: urlHost + 'get_relation_by_head_entity?' + "head_entity_id="+ String(val),
+                dataType: "json",
+                success: function(data){
+                    relation_select_1.empty();
+                    console.log(data);
+                    relation_select_1.append("<option value=''> Please select relation.</option>");
+                    for(var i=0; i<data.length;i++){
+                        relation_select_1.append('<option value=' + data[i]['relation_id'] + '>' + data[i]['relation_name'] + '</option>')
+                    }
+                },
+                error: function(){
+                    console.log(data)
+                }
+               
+            })
+            })
+        
+        entity_select_2.change(function(){
+            var val = $(this).children("option:selected").val()
+            console.log(val)
+            $.ajax({
+                type:"post",
+                url: urlHost + 'get_relation_by_head_entity?' + "head_entity_id="+ String(val),
+                dataType: "json",
+                success: function(data){
+                    relation_select_2.empty();
+                    console.log(data);
+                    relation_select_2.append("<option value=''> Please select relation.</option>");
+                    for(var i=0; i<data.length;i++){
+                        relation_select_2.append('<option value=' + data[i]['relation_id'] + '>' + data[i]['relation_name'] + '</option>')
+                    }
+                },
+                error: function(){
+                    console.log(data)
+                }
+               
+            })
+        })
+        var d_btn = $("#discrimination_model_btn")
+        var results = $("#results")
+        d_btn.click(function(){
+            results.empty()
+            var head_entity_id = entity_select_1.children("option:selected").val()
+            var relation_id = relation_select_1.children("option:selected").val()
+            $.ajax({
+                type:"post",
+                url: urlHost + 'get_tail_entity_with_prob?' + "head_entity_id="+ String(head_entity_id) + "&relation_id" + String(relation_id),
+                dataType: "json",
+                success: function(data){
+                    results.empty()
+                    for(i=0;i<data.length;i+=1){
+                        results.append(data[i][0])
+                        results.append("       prob:")
+                        results.append(data[i][1])
+                        results.append("<br>")
+                    }
+                    console.log(data);
+                },
+                error: function(){
+                    console.log(data)
+                }
+               
+            })
+
+        })
+
+
 
     </script>
     <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
