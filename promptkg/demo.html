@@ -286,6 +286,7 @@
                 dataType: "json",
                 data: {"pid":0},
                 success: function(data){
+                    data = data['res']
                     entity_select_1.empty();
                     entity_select_1.append("<option value=''> Please select head entity.</option>");
                     for(var i=0; i<data.length;i++){
@@ -304,6 +305,7 @@
                 dataType: "json",
                 data: {"pid":0},
                 success: function(data){
+                    data = data['res']
                     entity_select_2.empty();
                     entity_select_2.append("<option value=''> Please select head entity.</option>");
                     for(var i=0; i<data.length;i++){
@@ -320,6 +322,7 @@
                 url: urlHost + 'get_relation_by_head_entity?' + "head_entity_id="+ String(val),
                 dataType: "json",
                 success: function(data){
+                    data = data['res']
                     relation_select_1.empty();
                     console.log(data);
                     relation_select_1.append("<option value=''> Please select relation.</option>");
@@ -339,9 +342,13 @@
             console.log(val)
             $.ajax({
                 type:"post",
-                url: urlHost + 'get_relation_by_head_entity?' + "head_entity_id="+ String(val),
+                url: urlHost + 'get_relation_by_head_entity?',
                 dataType: "json",
+                data:{
+                    head_entity_id: String(val)
+                },
                 success: function(data){
+                    data = data['res']
                     relation_select_2.empty();
                     console.log(data);
                     relation_select_2.append("<option value=''> Please select relation.</option>");
@@ -363,9 +370,10 @@
             var relation_id = relation_select_1.children("option:selected").val()
             $.ajax({
                 type:"post",
-                url: urlHost + 'get_tail_entity_with_prob?' + "head_entity_id="+ String(head_entity_id) + "&relation_id" + String(relation_id),
+                url: urlHost + 'get_tail_entity_with_prob?' + "head_entity_id="+ String(head_entity_id) + "&relation_id=" + String(relation_id),
                 dataType: "json",
                 success: function(data){
+                    data = data['res']
                     results.empty()
                     for(i=0;i<data.length;i+=1){
                         results.append(data[i][0])
@@ -375,7 +383,7 @@
                     }
                     console.log(data);
                 },
-                error: function(){
+                error: function(data){
                     console.log(data)
                 }
                
