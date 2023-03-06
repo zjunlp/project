@@ -2809,6 +2809,7 @@ select.mobile-device {
 
 .btn-light {
     padding: 13px 40px;
+    margin:0 auto;
     font-size: 18px;
     border: 2px solid #003F88;
     color: #ffffff;
