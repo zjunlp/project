@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Prompting ChatGPT for Multimodal Reasoning and Action">
+  <meta name="keywords" content="MM-ReAct, ChatGPT, GPT-4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making Language Moldels Better Tool Learners with Execution Feedback</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/tool-box.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">Making Language Moldels Better Tool Learners with Execution Feedback</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shuofei Qiao<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Honghao Gui<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Qianghuai Jia<sup>&#x2663;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;&#x2661;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;*</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Donghai Laboratory
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>Ant Group
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2305.13068" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/TRICE" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="120%" src="./images/figure1.gif">
+
+      <h2 class="subtitle has-text-centered">
+        Large language model learns to use tools from execution feedback.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Tools serve as pivotal interfaces that enable humans to understand and reshape the world. With the advent of foundational models, AI systems can utilize tools to expand their capabilities and interact with the world. Existing tool learning methodologies, encompassing supervised fine-tuning and prompt engineering approaches, often induce large language models to utilize tools indiscriminately, as complex problems often exceed their own competencies. However, introducing tools for simple tasks, which the models themselves can readily resolve, can inadvertently propagate errors rather than enhance performance. This leads to the research question: <b><i>can we teach language models when and how to use tools?</i></b> To meet this need, we propose <b>T</b>ool lea<b>R</b>ning w<b>I</b>th exe<b>C</b>ution f<b>E</b>edback (<b>TRICE</b>), a two-stage end-to-end framework that enables the model to continually learn through feedback derived from tool execution, thereby learning when and how to use tools effectively. Experimental results, backed by further analysis, show that TRICE can make the large language model selectively use tools by improving the accuracy of tool usage while enhancing insufficient tool learning and mitigating excessive reliance on tools. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Framework Design</h2>
+        <img id="model" width="100%" src="images/method.png">
+        <p class="has-text-centered">
+          The overview of our proposed framework <b>TRICE</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          <ul>
+            <li>
+              <b>Training Stage I: Behavior Cloning.</b> During the behavior cloning stage, we aim to enable the LLM to master the schema of tool API calls and develop preliminary skills in selectively utilizing tools. Due to the limited availability of existing tool learning datasets, we leverage pseudo-labels for tool API calls generated by ChatGPT to fine-tune (instruct-tuning) the model.
+            </li>
+            <br>
+            <li>
+              <b>Training Stage II: RLEF (Reinforcement Learning with Execution Feedback).</b> We continue to reinforce our model obtained in stageIwith execution feedback by steering it to align with desirable candidate responses. For each question <i>q</i>, we have <i>k</i> different candidate responses <i>y<sub>i</sub></i> (1 ≤ <i>i</i> ≤ <i>k</i>) marshaled from other LLMs (e.g. ChatGPT, LLaMA) or human experts.
+              We apply a reward strategy <i>R</i> to score each <i>y<sub>i</sub></i> with <i>r<sub>i</sub></i> = <i>R</i>(<i>a</i>, <i>y<sub>i</sub></i>) where <i>a</i> is the gold answer of question <i>q</i>.
+              Our goal is to instruct the model to determine the more desirable response by aligning the LM with scores {<i>r<sub>i</sub></i>}<sub><i>k</i></sub>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    
+    <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <img id="model" width="80%" src="images/main_results.png">
+        <p class="has-text-centered">
+          Performance of TRICE across various tasks with different backbone models. <b>Zero-Shot:</b> models are directly evaluated without training. During this process, the model does not rely on tools. <b>TRICE-Split:</b> models are trained separately for each task. <b>TRICE-Mix:</b> models are trained by combining training data from all tasks.
+        </p>
+        <img id="model" width="50%" src="images/unseen.png">
+        <p class="has-text-centered">
+          Performance to unseen datasets and tools.
+        </p>
+        <br>   
+        <div class="column has-text-justified">
+          <ul>
+            <li>
+              <b>Single Tool Learning.</b> From the rows labeled TRICE-Split, it is evident that training by TRICE, Alpaca and Vicuna perform on par with the GPT-3.5 baseline, exhibiting only a slight decrease of 1.3% and 0.4% on average, respectively.
+              Moreover, across all backbone models, TRICE-Split demonstrates significant improvements compared to the zero-shot setting, 14.7% with ChatGLM, 18.1% with Alpaca, and 14.0% with Vicuna, indicating that TRICE consistently empowers LMs to use tools effectively, irrespective of the underlying model architecture and scale (ChatGLM-6B is encoder-decoder, while Alpaca-7B and Vicuna-7B are decoder-only).
+            </li>
+            <br>
+            <li>
+              <b>Multiple Tool Learning.</b> As indicated in the rows labeled TRICE-Mix, training across tasks achieves state-of-the-art performance by further surpassing the TRICE-Split with an average score gain ranging from 4.2% to 4.5% across different models.
+              Meanwhile, both Alpaca and Vicuna outperform GPT-3.5, exhibiting improvements of 2.9% and 4.1%, respectively.
+              These results highlight the potential of TRICE in multi-tool learning, which paves the way for expanding the capabilities of LLMs to handle more complex and diverse types of tools.
+            </li>
+            <br>
+            <li>
+              <b>Generalization of Tool Learning.</b> We evaluate Vicuna on two math reasoning datasets (MultiArith and AddSub) as well as one LAMA dataset (SQuAD), in addition to previously examined datasets.
+              Our approach enables continuous optimization of the model's performance on unseen datasets, with TRICE-Mix yielding superior results compared to TRICE-Split.
+              This suggests that TRICE equips the model with general tool usage capabilities.
+              Furthermore, we steer the model towards unseen tools by simply modifying the instructions.
+              We present the performance of Vicuna TRICE-Mix augmented by a retriever on HotpotQA which demonstrates an improvement of 7.6%.
+              Despite the disparities between GPT-3.5 on certain datasets, these findings highlight the promising potential of multi-tool training based on TRICE for facilitating the generalization of tool learning.
+            </li>
+          </ul>      
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="80%" src="images/ablation.png">
+        <p class="has-text-centered">
+          Ablation Study: performance of TRICE across all tasks at different training stages. <b>TRICE-I:</b> only train by Behavior Cloning (instruction-tuning) stage. <b>TRICE-II:</b> only train by RLEF (reinforcement learning with execution feedback) stage. <b>TRICE-All:</b> train by both TRICE-I and TRICE-II.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          <b>Ablation Study.</b> It is evident that only trained in stage I, the model acquires efficacious tool usage capabilities, resulting in a substantial performance improvement compared to Zero-Shot.
+          Upon further training in stage II, the model experiences additional performance enhancements in both the Split and Mix training settings.
+          However, the results obtained solely from training in stage II are not satisfactory, indicating that the initial tool generation ability bestowed upon the model in stage I is crucial for more stable training with reinforcement learning.
+        </div>
+        <br>
+        <img id="model" width="60%" src="images/tool_use.png">
+        <p class="has-text-centered">
+          Comparison of tool use rate among different training stages. In the Zero-Shot stage, we consider a need for tools when the model reaches a wrong answer.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          <b>Selective Tool Usage.</b> We notice that after the behavior cloning stage, the model's reliance on tools has significantly deepened on most tasks.
+          This indicates that the model effectively learns the pattern of tool usage in stage I. Still, due to the imbalanced data distribution regarding the presence or absence of tools in the training set, supervised fine-tuning tends to make the model overly dependent on tools.
+          However, after training in stage II, the model not only shows performance improvement but also visibly reduces its dependency on tools, which illustrates that the execution feedback can help mitigate the model's excessive reliance on tools and alleviate error propagation in tool usage.
+          Moreover, it cannot be ignored that the fluctuation of LAMA differs from others.
+          The decision-making process for invoking the QA model poses challenges, leading to insufficient tool learning during stage I.
+          The improvement in tool usage rate during stage II implies that the execution feedback can help address the issue of inadequate tool learning.
+          The above two phenomena highlight the validity of TRICE for selective tool usage.
+        </div>
+        <br>
+        <img id="model" width="80%" src="images/case.png">
+        <p class="has-text-centered">
+          Case study. We mainly show the responses and predictions of stages I and All.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          <b>Case Study.</b> Case 1 suggests that stage II can alleviate the insufficient tool learning in stage I, urging the model to seek assistance from tools for questions it struggles to answer.
+          Though stage I equips the model with a certain level of tool generation capability, it may not excel in making optimal decisions about the tool's input, as shown in Case 2.
+          Stage II mitigates this limitation and enhances the accuracy of tool use.
+          Case 3 confirms that our proposed method enables the model to use tools judiciously.
+          In Case 4, despite having the same tool invocation in both stages I and II, the model may generate completely opposite answers. This indicates that stage II can further optimize the model's ability to leverage the return results of tools.
+          However, as shown in Case 5, our model still exhibits certain flaws leading to errors in tool usage.
+          We speculate that this could be attributed to the scale of our backbone models, which generally range from 6-7B, potentially limiting their tool learning ability.
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Analysis. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{DBLP:journals/corr/abs-2305-13068,
+  author       = {Shuofei Qiao and Honghao Gui and Qianghuai Jia and Huajun Chen and Ningyu Zhang},
+  title        = {Making Language Models Better Tool Learners with Execution Feedback},
+  journal      = {CoRR},
+  year         = {2023},
+  eprinttype   = {arXiv},
+  eprint       = {2305.13068},
+}
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
