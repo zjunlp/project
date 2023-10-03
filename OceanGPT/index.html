@@ -189,9 +189,11 @@
            
           </div>
 
-          <div class="column has-text-centered">
+
+          <!-- <div class="column has-text-centered">
+
             <div class="publication-links">
-              <!-- PDF Link. -->
+              
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2305.13068" 
                    class="external-link button is-normal is-rounded is-dark">
@@ -201,7 +203,7 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Code Link. -->
+             
               <span class="link-block">
                 <a href="https://github.com/zjunlp/TRICE" target="_blank" 
                    class="external-link button is-normal is-rounded is-dark">
@@ -213,7 +215,9 @@
               </span>
             </div>
 
-          </div>
+          </div> -->
+
+
         </div>
       </div>
     </div>
@@ -222,11 +226,11 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <img id="teaser" width="120%" src="./images/figure1.gif">
-
+    <div class="hero-body" align=middle>
+      <!-- <img id="teaser" width="120%" src="./images/figure1.gif"> -->
+      <img id="teaser" width="70%" src="./images/capabilities.png">
       <h2 class="subtitle has-text-centered">
-        Large language model learns to use tools from execution feedback.
+        Capabilities of OceanGPT
       </h2>
     </div>
   </div>
@@ -240,7 +244,8 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Tools serve as pivotal interfaces that enable humans to understand and reshape the world. With the advent of foundational models, AI systems can utilize tools to expand their capabilities and interact with the world. Existing tool learning methodologies, encompassing supervised fine-tuning and prompt engineering approaches, often induce large language models to utilize tools indiscriminately, as complex problems often exceed their own competencies. However, introducing tools for simple tasks, which the models themselves can readily resolve, can inadvertently propagate errors rather than enhance performance. This leads to the research question: <b><i>can we teach language models when and how to use tools?</i></b> To meet this need, we propose <b>T</b>ool lea<b>R</b>ning w<b>I</b>th exe<b>C</b>ution f<b>E</b>edback (<b>TRICE</b>), a two-stage end-to-end framework that enables the model to continually learn through feedback derived from tool execution, thereby learning when and how to use tools effectively. Experimental results, backed by further analysis, show that TRICE can make the large language model selectively use tools by improving the accuracy of tool usage while enhancing insufficient tool learning and mitigating excessive reliance on tools. 
+            <!-- Tools serve as pivotal interfaces that enable humans to understand and reshape the world. With the advent of foundational models, AI systems can utilize tools to expand their capabilities and interact with the world. Existing tool learning methodologies, encompassing supervised fine-tuning and prompt engineering approaches, often induce large language models to utilize tools indiscriminately, as complex problems often exceed their own competencies. However, introducing tools for simple tasks, which the models themselves can readily resolve, can inadvertently propagate errors rather than enhance performance. This leads to the research question: <b><i>can we teach language models when and how to use tools?</i></b> To meet this need, we propose <b>T</b>ool lea<b>R</b>ning w<b>I</b>th exe<b>C</b>ution f<b>E</b>edback (<b>TRICE</b>), a two-stage end-to-end framework that enables the model to continually learn through feedback derived from tool execution, thereby learning when and how to use tools effectively. Experimental results, backed by further analysis, show that TRICE can make the large language model selectively use tools by improving the accuracy of tool usage while enhancing insufficient tool learning and mitigating excessive reliance on tools.  -->
+            Ocean science, which delves into the oceans that are reservoirs of life and biodiversity, is of great significance given that oceans cover over 70% of our planet's surface. Recently, advances in Large Language Models (LLMs) have transformed the paradigm in science. Despite the success in other domains, current LLMs often fall short in catering to the needs of domain experts like oceanographers, and the potential of LLMs for ocean science is under-explored. The intrinsic reason may be the immense and intricate nature of ocean data as well as the necessity for higher granularity and richness in knowledge. To alleviate these issues, we introduce OceanGPT, the first-ever LLM in the ocean domain, which is expert in various ocean science tasks. We propose DoInstruct, a novel framework to automatically obtain a large volume of ocean domain instruction data, which generates instructions based on multi-agent collaboration. Additionally, we construct the first oceanography benchmark, OceanBench, to evaluate the capabilities of LLMs in the ocean domain. Though comprehensive experiments, OceanGPT not only shows a higher level of knowledge expertise for oceans science tasks but also gains preliminary embodied intelligence capabilities in ocean technology.
           </p>
         </div>
       </div>
@@ -252,24 +257,37 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h2 class="title is-3">Framework Design</h2>
-        <img id="model" width="100%" src="images/method.png">
+        <img id="model" width="50%" src="images/procedure.png">
         <p class="has-text-centered">
-          The overview of our proposed framework <b>TRICE</b>.
+          The overview of our framework <b>OceanGPT</b>
         </p>
         <br>
         <div class="column has-text-justified">
           <ul>
             <li>
-              <b>Training Stage I: Behavior Cloning.</b> During the behavior cloning stage, we aim to enable the LLM to master the schema of tool API calls and develop preliminary skills in selectively utilizing tools. Due to the limited availability of existing tool learning datasets, we leverage pseudo-labels for tool API calls generated by ChatGPT to fine-tune (instruct-tuning) the model.
+              <!-- <b>Training Stage I: Behavior Cloning.</b>  -->
+               <b>OceanGPT</b> is the first ocean LLM, which shows superiority for various ocean science tasks.
+              It can answer oceanographic questions according to the instructions of oceanographers, demonstrating expertise in oceanography.
             </li>
-            <br>
-            <li>
+
+                
+            <!-- <li>
               <b>Training Stage II: RLEF (Reinforcement Learning with Execution Feedback).</b> We continue to reinforce our model obtained in stageIwith execution feedback by steering it to align with desirable candidate responses. For each question <i>q</i>, we have <i>k</i> different candidate responses <i>y<sub>i</sub></i> (1 ≤ <i>i</i> ≤ <i>k</i>) marshaled from other LLMs (e.g. ChatGPT, LLaMA) or human experts.
               We apply a reward strategy <i>R</i> to score each <i>y<sub>i</sub></i> with <i>r<sub>i</sub></i> = <i>R</i>(<i>a</i>, <i>y<sub>i</sub></i>) where <i>a</i> is the gold answer of question <i>q</i>.
               Our goal is to instruct the model to determine the more desirable response by aligning the LM with scores {<i>r<sub>i</sub></i>}<sub><i>k</i></sub>.
-            </li>
+            </li> -->
           </ul>
         </div>
+
+        <img id="model" width="80%" src="images/data_building.png">
+
+        <div class="column has-text-justified">
+          <b>DoInstruct</b> is an automated domain instruction evolving framework that constructs the ocean instruction dataset by multi-agent collaboration.
+          Our framework effectively alleviates the difficulty of obtaining ocean domain data.
+          To effectively simulate and obtain those data, DoInstruct obtain ocean instructions by multi-agent collaboration. 
+          Each agent is considered as an expert in a specific domain (topic) and is responsible for generating the corresponding data. 
+        </div>
+
       </div>
     </div>
     <br>
@@ -280,38 +298,23 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h2 class="title is-3">Main Results</h2>
-        <img id="model" width="80%" src="images/main_results.png">
+
+        <img id="model" width="80%" src="images/result-1.png">
         <p class="has-text-centered">
-          Performance of TRICE across various tasks with different backbone models. <b>Zero-Shot:</b> models are directly evaluated without training. During this process, the model does not rely on tools. <b>TRICE-Split:</b> models are trained separately for each task. <b>TRICE-Mix:</b> models are trained by combining training data from all tasks.
+          OceanGPT obtains better performance than previous open-sourced LLMs.
         </p>
-        <img id="model" width="50%" src="images/unseen.png">
+        <br>
+
+        <img id="model" width="80%" src="images/result-all.png">
         <p class="has-text-centered">
-          Performance to unseen datasets and tools.
+          OceanGPT excels in a range of ocean science tasks.
         </p>
-        <br>   
-        <div class="column has-text-justified">
-          <ul>
-            <li>
-              <b>Single Tool Learning.</b> From the rows labeled TRICE-Split, it is evident that training by TRICE, Alpaca and Vicuna perform on par with the GPT-3.5 baseline, exhibiting only a slight decrease of 1.3% and 0.4% on average, respectively.
-              Moreover, across all backbone models, TRICE-Split demonstrates significant improvements compared to the zero-shot setting, 14.7% with ChatGLM, 18.1% with Alpaca, and 14.0% with Vicuna, indicating that TRICE consistently empowers LMs to use tools effectively, irrespective of the underlying model architecture and scale (ChatGLM-6B is encoder-decoder, while Alpaca-7B and Vicuna-7B are decoder-only).
-            </li>
-            <br>
-            <li>
-              <b>Multiple Tool Learning.</b> As indicated in the rows labeled TRICE-Mix, training across tasks achieves state-of-the-art performance by further surpassing the TRICE-Split with an average score gain ranging from 4.2% to 4.5% across different models.
-              Meanwhile, both Alpaca and Vicuna outperform GPT-3.5, exhibiting improvements of 2.9% and 4.1%, respectively.
-              These results highlight the potential of TRICE in multi-tool learning, which paves the way for expanding the capabilities of LLMs to handle more complex and diverse types of tools.
-            </li>
-            <br>
-            <li>
-              <b>Generalization of Tool Learning.</b> We evaluate Vicuna on two math reasoning datasets (MultiArith and AddSub) as well as one LAMA dataset (SQuAD), in addition to previously examined datasets.
-              Our approach enables continuous optimization of the model's performance on unseen datasets, with TRICE-Mix yielding superior results compared to TRICE-Split.
-              This suggests that TRICE equips the model with general tool usage capabilities.
-              Furthermore, we steer the model towards unseen tools by simply modifying the instructions.
-              We present the performance of Vicuna TRICE-Mix augmented by a retriever on HotpotQA which demonstrates an improvement of 7.6%.
-              Despite the disparities between GPT-3.5 on certain datasets, these findings highlight the promising potential of multi-tool training based on TRICE for facilitating the generalization of tool learning.
-            </li>
-          </ul>      
-        </div>
+        <br>
+
+        <img id="model" width="30%" src="images/result-3.png">
+        <p class="has-text-centered">
+          DoInstruct are the effective ocean data generators by multi-agent collaboration.
+        </p>
       </div>
     </div>
     <br>
@@ -321,47 +324,33 @@
     <!-- Paper Analysis -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">Analysis</h2>
-        <img id="model" width="80%" src="images/ablation.png">
-        <p class="has-text-centered">
-          Ablation Study: performance of TRICE across all tasks at different training stages. <b>TRICE-I:</b> only train by Behavior Cloning (instruction-tuning) stage. <b>TRICE-II:</b> only train by RLEF (reinforcement learning with execution feedback) stage. <b>TRICE-All:</b> train by both TRICE-I and TRICE-II.
-        </p>
+        <h2 class="title is-3">Exploring the Potential</h2>
+
+        <br>
+
+        <img id="model" width="60%" src="images/result_ocean_science.png">
         <br>
         <div class="column has-text-justified">
-          <b>Ablation Study.</b> It is evident that only trained in stage I, the model acquires efficacious tool usage capabilities, resulting in a substantial performance improvement compared to Zero-Shot.
-          Upon further training in stage II, the model experiences additional performance enhancements in both the Split and Mix training settings.
-          However, the results obtained solely from training in stage II are not satisfactory, indicating that the initial tool generation ability bestowed upon the model in stage I is crucial for more stable training with reinforcement learning.
+          <b>OceanGPT for Ocean Science.</b>
+          OceanGPT demonstrates a higher level of knowledge expertise when describing the content of radioactive nuclide research. 
+          Its textual content is not only clear in structure and well-organized, but also covers various aspects of radioactive nuclide research, from experimental design to data analysis, and then to risk assessment and disposal guidelines. 
         </div>
-        <br>
-        <img id="model" width="60%" src="images/tool_use.png">
-        <p class="has-text-centered">
-          Comparison of tool use rate among different training stages. In the Zero-Shot stage, we consider a need for tools when the model reaches a wrong answer.
-        </p>
+
+        <figure class='half'>
+          <img id="model" width="29%" src="images/IMG_1284.GIF">
+          <img id="model" width="29%" src="images/IMG_1285.GIF">
+        </figure>
+
+        <img id="model" width="60%" src="images/robotics.png">
+
         <br>
         <div class="column has-text-justified">
-          <b>Selective Tool Usage.</b> We notice that after the behavior cloning stage, the model's reliance on tools has significantly deepened on most tasks.
-          This indicates that the model effectively learns the pattern of tool usage in stage I. Still, due to the imbalanced data distribution regarding the presence or absence of tools in the training set, supervised fine-tuning tends to make the model overly dependent on tools.
-          However, after training in stage II, the model not only shows performance improvement but also visibly reduces its dependency on tools, which illustrates that the execution feedback can help mitigate the model's excessive reliance on tools and alleviate error propagation in tool usage.
-          Moreover, it cannot be ignored that the fluctuation of LAMA differs from others.
-          The decision-making process for invoking the QA model poses challenges, leading to insufficient tool learning during stage I.
-          The improvement in tool usage rate during stage II implies that the execution feedback can help address the issue of inadequate tool learning.
-          The above two phenomena highlight the validity of TRICE for selective tool usage.
+          <b>OceanGPT for Ocean Engineering.</b> 
+          We integrate machine code instructions into its training data.
+          OceanGPT can instruct underwater robots via code or console commands, allowing them to execute basic path-finding operations.
+          Though we make preliminary attempts for ocean robot interaction, it paves the way for future advanced oceanic models to undertake intricate robotic control and planning tasks.
         </div>
-        <br>
-        <img id="model" width="80%" src="images/case.png">
-        <p class="has-text-centered">
-          Case study. We mainly show the responses and predictions of stages I and All.
-        </p>
-        <br>
-        <div class="column has-text-justified">
-          <b>Case Study.</b> Case 1 suggests that stage II can alleviate the insufficient tool learning in stage I, urging the model to seek assistance from tools for questions it struggles to answer.
-          Though stage I equips the model with a certain level of tool generation capability, it may not excel in making optimal decisions about the tool's input, as shown in Case 2.
-          Stage II mitigates this limitation and enhances the accuracy of tool use.
-          Case 3 confirms that our proposed method enables the model to use tools judiciously.
-          In Case 4, despite having the same tool invocation in both stages I and II, the model may generate completely opposite answers. This indicates that stage II can further optimize the model's ability to leverage the return results of tools.
-          However, as shown in Case 5, our model still exhibits certain flaws leading to errors in tool usage.
-          We speculate that this could be attributed to the scale of our backbone models, which generally range from 6-7B, potentially limiting their tool learning ability.
-        </div>
+        
       </div>
     </div>
     <!-- Paper Analysis. -->
@@ -369,7 +358,7 @@
 </section>
 
 
-<section class="section" id="BibTeX">
+<!-- <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
@@ -383,7 +372,7 @@
 }
 </code></pre>
   </div>
-</section>
+</section> -->
 
 <section class="section" id="Acknowledgement">
   <div class="container is-max-desktop content">
