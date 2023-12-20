@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EditLLM</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>    
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="An Easy-to-use Knowledge Editing Framework for Large Language Models.">
+  <meta name="keywords" content="Model Editing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> EditLLM: An Easy-to-use Knowledge Editing Framework for Large Language Models. </title>
+
+  <link rel="icon" href="./static/images/logo.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+  <script src="./data/results/data_setting.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="http://knowlm.zjukg.cn/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>&nbsp&nbspHomePage
+      </a> 
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/logo.png" style="width:3em;vertical-align: middle" alt="Logo"/> 
+            <span class="easyedit" style="vertical-align: middle">EditLLM</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            An Easy-to-use Knowledge Editing Framework  
+            <!-- <br> -->
+            for Large Language Models
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Peng Wang*<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Ningyu Zhang*<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Xin Xie<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Yunzhi Yao<sup style="color:#007bff;">1</sup>,</span><br>
+            <span class="author-block">Bozhong Tian<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Mengru Wang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Zekun Xi<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Siyuan Cheng<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Kangwei Liu<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Guozhou Zheng<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Huajun Chen<sup style="color:#007bff;">1,</sup><sup style="color:#ffac33;">2</sup>,</span>
+          </div>
+          
+          <br>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#007bff;">1</sup>Zhejiang University,</span>
+            <span class="author-block"><sup style="color:#ffac33;">2</sup>Donghai Laboratory,</span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">*Corresponding author</span><br>
+            <span class="author-block">Corresponding to:</span>
+            <span class="author-block"><a href="mailto:pengwang@in.ai">pengwang@zju.edu.cn</a>,</span>
+            <span class="author-block"><a href="mailto:su.809@osu.edu">ninyuzhang@zju.edu.cn</a>,</span>
+          </div>
+          
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://arxiv.org/pdf/2308.07269.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2308.07269"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/EasyEdit"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                <a href="http://knowlm.zjukg.cn/demo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1679035378072952832"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- 💻🔗 -->
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+  </style>
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered">
+        <img src="static/images/FrameWork.png" alt="geometric reasoning" width="100%"/>
+        <p> Overview of the EasyEdit. 
+          EasyEdit is a Python package for edit Large Language Models (LLM) like GPT-J, Llama, GPT-NEO, GPT2, T5(support models from 1B to 65B), 
+          the objective of which is to alter the behavior of LLMs efficiently within a specific domain without negatively impacting performance across other inputs. 
+          It is designed to be easy to use and easy to extend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Language Models (LLMs) usually suffer from knowledge cutoff or fallacy issues,
+            which means they are unaware of unseen events
+            or generate text with incorrect facts owing to
+            the outdated/noisy data. To this end, many
+            knowledge editing approaches for LLMs have
+            emerged - aiming to subtly inject/edit updated
+            knowledge or adjust undesired behavior while
+            minimizing the impact on unrelated inputs.
+            Nevertheless, due to significant differences
+            among various knowledge editing methods and
+            the variations in task setups, there is no standard implementation framework available for
+            the community, which hinders practitioners to
+            apply knowledge editing to applications. To
+            address these issues, we propose EASYEDIT,
+            an easy-to-use knowledge editing framework
+            for LLMs. It supports various cutting-edge
+            knowledge editing approaches and can be readily apply to many well-known LLMs such as
+            T5, GPT-J, LlaMA, etc. Empirically, we report
+            the knowledge editing results on LlaMA-2 with
+            EASYEDIT, demonstrating that knowledge editing surpasses traditional fine-tuning in terms of
+            reliability and generalization.
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 editing">
+    <img src="static/images/logo.png" style="width:1em;vertical-align: middle" alt="Logo"/>
+    <span class="easyedit" style="vertical-align: middle">Design and Implementation</span>
+  </h1>
+  </div>
+</section>
+       
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            EasyEdit provides a complete editing and evaluation process built on Pytorch and Huggingface.
+            This section commences with an exploration of the assemblability aspect of EasyEdit, followed by a detailed explanation of the design and implementation of each component within the EasyEdit framework.
+            Additionally, we demonstrate a straightforward example of applying MEND to LLaMA, altering the output of <i>the U.S. President</i> to <i>Joe Biden</i>.
+          </p>
+          <img src="static/images/demo.gif" alt="algebraic reasoning" class="center">
+          <br>
+          <div class="content has-text-justified">
+            <p>
+              The interface's objective is to empower users to modify models without requiring in-depth knowledge of the specifics of editing methods, thereby facilitating extensive editing research and explorations into LLMs' knowledge storage mechanisms.
+            </p>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Editor</h3>
+              <div class="content has-text-left custom-content-padding">
+              <p>
+                The Editor serves a pivotal role in knowledge editing as it directly establishes the editing tasks and corresponding editing scenarios.
+                The users supply the editor descriptor and the edit target, but the input format varies according to the different editing objects.
+                To facilitate unified editing across diverse architecture models, we meticulously develop a component PREPARE_REQUESTS to transform editing inputs. 
+              </p>
+              <p>
+                In EasyEdit, we provide an <i>edit</i> interface for editing models, incorporating components such as Hparams, Method, and Evaluate.
+                Specifically, various knowledge editing strategies can be executed by invoking the APPLY_TO_MODEL function available in different methods.
+              </p>
+            </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Method</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  As the core component of knowledge editing, editing methods alter the model's behavior through modification of its internal parameters (e.g. MLP, Attention Mechanisms) or utilizing preceding editing facts explicitly, among other strategies.
+                  Impressive related works abound in this field, and they can be generally grouped into three categories.
+                </p>
+                <p>
+                  <b>(1) Memory-based:</b> This category, encompassing methods such as SERAC and IKE, emphasizes the use of memory elements to store and manipulate information during editing.
+                  SERAC applies retrieval and classification routing, while IKE uses context-edit facts to guide the model in generating edited facts.
+                </p>
+                <p>
+                <b>(2) Meta-learning:</b> These methods learn the weight updates, which are then added to the original weights for editing.
+                Examples include KE, which uses a bidirectional-LSTM to predict weight updates, and MEND, which adjusts model parameters through low-rank decomposition of gradients.
+                </p>
+                <p>
+                <b>(3) Locate-Then-Edit:</b> This paradigm focuses on knowledge localization to modify the parameters of specific neurons responsible for storing the editing facts.
+                </p>
+                EasyEdit integrates methods like KN, which employs gradient-based methods to update specific neurons.
+                Moreover, EasyEdit supports ROME and MEMIT (batchable editing), leveraging causal intervention to pinpoint knowledge within a specific MLP layer and enabling the modification of the entire matrix.
+                </p>
+                <p>
+                  In EasyEdit, we provide an <i>edit</i> interface for editing models, incorporating components such as Hparams, Method, and Evaluate.
+                  Specifically, various knowledge editing strategies can be executed by invoking the APPLY_TO_MODEL function available in different methods.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Hparams</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  When initializing an editing method, it is crucial to specify the related hyperparameters.
+                  These include the model to be edited, the layers targeted for modification, and, optionally, the type of external model, among other parameters.
+                </p>
+                <p>
+                  Moreover, all hyperparameter classes derive from a common base class, HYPERPARAMS, which includes necessary attributes and abstract methods.
+                  This base class supports loading hyperparameters in both <i>yamlM</i> and <i>json</i> formats. 
+                  It also allows for the modification of parameter values during the editing process, enhancing the controllability over the editing outcomes. 
+                  This is facilitated through real-time feedback from metrics.
+                  Additionally, the HYPERPARAMS base class can be used to initialize the Trainer module, streamlining the workflow.</p>
+                <p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Trainer</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  Certain editing methods, which employ meta-learning or utilize classifiers, necessitate the training of additional parameters or the implementation of extra network structures.</p>
+                  <div class="content has-text-centered">
+                    <img src="static/images/edit_classifier.png" alt="error distribution" width="70%">
+                    <p> Comparison of several model editing methods. </p>
+                  </div>
+                <p>
+                  Similar to Hyperparameters (Hparams), all Trainer classes inherit from a common base class, BASETRAINER. 
+                  It includes essential attributes and abstract methods such as run and validate steps. 
+                  Subclasses of the BASETRAINER define specific training steps for editing, such as calculating editing loss and locality loss, as well as the strategies for combining these losses.
+                  In EasyEdit, various Trainers can be easily called with one click.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Knowledge Editing SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 editing">
+    <!-- <img src="static/images/logo.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
+    <span class="easyedit" style="vertical-align: middle">Knowledge Editing</span>
+  </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Evaluation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Evaluation</h2>
+        <div class="content has-text-justified">
+          <p>
+            Following the setup in Yao et al.(2023), we employ five dimensions of metrics to assess the performance of editing methods, including <b>Reliability</b>, <b>Generalization</b>, <b>Locality</b>, <b>Portability</b>, and <b>Efficiency</b>.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/metric-example.png" alt="error distribution" width="50%">
+            <p> Depiction of the edit scope for edit descriptor WHO IS THE PRESIDENT OF THE USA? It contains an example for knowledge editing evaluation, including Reliability, Generalization, Portability and Locality. </p>
+          </div>
+            <p><strong>Reliability:</strong> This metric measures the average accuracy on the given editing instance $z_e$.</p>
+            <p><strong>Generalization:</strong> In-scope inputs should be appropriately influenced by the edit, this metric gauges the average accuracy on in-scope inputs $I(x_e)$.</p>
+            <p><strong>Locality:</strong> Editing should adhere to the principle of locality, it evaluates whether out-of-scope inputs $O(x_e)$ can maintain unchanged as the base model.</p>
+            <p><strong>Portability:</strong> The robust generalization of the edit, assessing whether the edited knowledge can be effectively applied to related content.</p>
+            <p><strong>Efficiency:</strong> Editing should be time and resource-efficient. This metric quantifies efficiency by measuring editing time and VRAM consumption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <!-- Evaluation. -->
+    <div class="columns is-centered has-text-centered" style="margin-bottom: 3rem;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiment Results</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-centered">
+            <img src="static/images/results_knowledge.png" alt="error distribution" width="78%">
+            <p>Results of existing knowledge edit methods on the constructed benchmark. '-'' refers to the
+              results that the methods empirically fail to edit LLMs. For WikiBio and Convsent, we do not test
+              the portability as they are about specific topics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Editing Personality SECTION -->
+<section class="hero is-light is-small"> 
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 editing">
+      <span class="easyedit" style="vertical-align: middle">Editing Personality</span>
+    </h1>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container">
+    <!-- Evaluation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiment Results</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-centered">
+            <img src="static/images/results_personality.png" alt="error distribution" width="60%">
+            <p>The main result of the baselines on PersonalityEdit. The ↑ indicates the metric goes
+              higher if the editing method performs better, and ↓ indicates the lower the better. We do not report
+              the results of SERAC (The metrics based on generated text are set to '-') because it fails to generate
+              fluent text after editing personalities. We also do not report the MEND result of llama-2-13b-chat as
+              well as both the MEND and SERAC result of llama-2-70b-chat due to the failure implementation on
+              multi-gpu. Note that when training llama-2-7b-chat with MEND, the trained model cannot always
+              produce fluency text, so we filter out the incoherent case, and reported the generation result.
+              .</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Editing Personality SECTION -->
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 editing">
+    <span class="easyedit" style="vertical-align: middle">Editing Security</span>
+  </h1>
+  </div>
+</section> -->
+
+<!-- <section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiment Results</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-centered">
+            <img src="static/images/results_security.png" alt="error distribution" width="60%">
+            <p>xxx</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>
+    @article{wang2023easyedit,
+      title={EasyEdit: An Easy-to-use Knowledge Editing Framework for Large Language Models},
+      author={Wang, Peng and Zhang, Ningyu and Xie, Xin and Yao, Yunzhi and Tian, Bozhong and Wang, Mengru and Xi, Zekun and Cheng, Siyuan and Liu, Kangwei and Zheng, Guozhou and others},
+      journal={arXiv preprint arXiv:2308.07269},
+      year={2023}
+    }
+    @article{wang2023easyedit,
+      title={EasyEdit: An Easy-to-use Knowledge Editing Framework for Large Language Models},
+      author={Wang, Peng and Zhang, Ningyu and Xie, Xin and Yao, Yunzhi and Tian, Bozhong and Wang, Mengru and Xi, Zekun and Cheng, Siyuan and Liu, Kangwei and Zheng, Guozhou and others},
+      journal={arXiv preprint arXiv:2308.07269},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://mathvista.github.io/">MathVista</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+</footer>
+
+<script>
+  function changeButtonText() {
+    var button = document.getElementById('toggleButton');
+    if (button.innerHTML === "Switch to Validation Set") {
+      button.innerHTML = "Switch to Test Set";
+    } else {
+      button.innerHTML = "Switch to Validation Set";
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var tables = document.querySelectorAll('table');
+    
+    tables.forEach(function(table) {
+        if (!table) return;
+
+        var initialRows = Array.from(table.rows).slice(1);
+        table.addEventListener('click', function(event) {
+            var clickedCell = event.target.closest('td, th');
+            if (!clickedCell) return;
+            var headerRow = clickedCell.parentNode;
+            var columnIndex = Array.from(headerRow.cells).indexOf(clickedCell);
+            var type = clickedCell.getAttribute('data-type');
+
+            if (headerRow.rowIndex === 0) {
+                if (columnIndex === 0) {
+                    table.tBodies[0].innerHTML = '';
+                    initialRows.forEach(row => table.tBodies[0].appendChild(row.cloneNode(true)));
+                }
+            }
+        });
+    });
+});
+
+function sortTable(table, column, type, asc) {
+    var tbody = table.tBodies[0];
+    var rows = Array.from(tbody.rows);
+
+    rows.sort(function(a, b) {
+        var valA = a.cells[column].textContent;
+        var valB = b.cells[column].textContent;
+
+        if (type === 'number') {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+        }
+
+        return asc ? valA - valB : valB - valA;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+
+<style>
+ .hidden {
+      display: none;
+  }
+  .sortable:hover {
+      cursor: pointer;
+  }
+  .asc::after {
+      content: ' ↑';
+  }
+  .desc::after {
+      content: ' ↓';
+  }
+  #toggleButton {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    color: #555555;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition-duration: 0.4s;
+  }
+
+  #toggleButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* 鼠标悬停时的阴影效果 */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  th {
+      background-color: #f2f2f2;
+      border-bottom: 2px solid #ddd;
+  }
+
+  td:hover {background-color: #ffffff;}
+</style>
+
+</body>
+</html>
