@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Prompting ChatGPT for Multimodal Reasoning and Action">
+  <meta name="keywords" content="MM-ReAct, ChatGPT, GPT-4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InstructIE: A Bilingual Instruction-based Information Extraction Dataset</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/tool-box.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">InstructIE: A Bilingual Instruction-based Information Extraction Dataset</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              HongHao Gui<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shuofei Qiao<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Jintian Zhang<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Hongbin Ye<sup>&#x2661;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Mengshu Sun<sup>&#x2663;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Lei Liang<sup>&#x2663;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;*</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;*</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Zhejiang Lab
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>Ant Group
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2305.11527.pdf" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="120%" src="./images/figure1.gif">
+
+      <h2 class="subtitle has-text-centered">
+        Overview of dataset construction. <b>(a) Identifying</b> all entity mentions. <b>(b) Disambiguating</b> entity mentions to obtain their corresponding unique Wikidata ID. <b>(c) Matching</b> relationships for each entity pair. <b>(d)</b> Removing irrelevant triplets by <b>Schema Constraint</b>. <b>(e) Rule Refinement and Filtering</b>.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Traditional information extraction (IE) methodologies, constrained by pre-defined classes and static training paradigms, often falter in adaptability, especially in the dynamic world. To bridge this gap, we attempt to adopt an <b>Instruction-based IE</b> paradigm in this paper. Yet, we observe that most existing IE datasets tend to be <b>overly redundant in their label sets</b>, leading to instructions often involving numerous labels not directly relevant to the extraction content. To tackle this issue, we introduce a bilingual theme-centric IE instruction dataset, <b>InstructIE</b>, and for the first time, incorporate the design of a theme scheme, effectively simplifying the label structure. Furthermore, we develop an innovative framework named <b>KG2Instruction</b>, specifically designed for the automatic generation of such datasets. Experimental evaluations based on InstructIE reveal that while current models already show promise in Instruction-based IE tasks, opportunities for their potential optimization also emerge.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Framework Design</h2>
+        <img id="model" width="100%" src="images/method.jpeg">
+        <p class="has-text-centered">
+          Comparison of traditional approaches with <b>Instruction-based IE</b> in handling emergent classes (unseen during training).
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          <ul>
+            <li>
+              Although traditional approaches possess unique capabilities, a notable limitation is their inherent constraint to <b>pre-defined classes</b>, coupled with a <b>once-and-for-all</b> training pattern. Such inflexibility hampers adaptability, especially in the ever-evolving real world that demands more scalable solutions. 
+            </li>
+            <br>
+            <li>
+              In an ideal scenario, the Information Extraction (IE) system should be capable of interpreting natural language instructions and producing the expected responses accordingly. As user requirements evolve, real-time feedback can be achieved by adjusting the instructions, which in turn guides the model to adapt its behavior. This innovative paradigm is denoted as <b>Instruction-based IE</b>.
+            </li>
+          </ul>
+        </div>
+        <img id="model" width="100%" src="images/instruction.jpeg">
+        <div class="column has-text-justified">
+          Illustration of Instruction-based IE instructions include <b>Instruction warehouse</b> containing multiple instruction forms for different tasks, <b>Schema warehouse</b> containing some of the most relevant labels under each theme, and <b>Format warehouse</b> containing multiple output formats for different tasks.
+        </div>
+        <img id="model" width="100%" src="images/entitytype.jpeg">
+        <div class="column has-text-justified">
+          Classification of entity types, categorized into <b>14</b> kinds. The inner ring represents abstract entity type divisions, while the outer ring delineates more specific entity type subdivisions.
+        </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    
+    <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <p class="has-text-centered">
+          Our experimental design seeks to systematically investigate the efficacy and applicability of diverse methodologies within the realm of Instruction-based IE. Central to this inquiry are several strategies: (1) <b>Zero-shot learning</b>, (2) <b>In-context learning</b>, (3) <b>Fine-tuning</b> (including QLora). 
+        </p>
+        <p class="has-text-centered">
+          We utilize a blend of span-based  micro-F1 and the rouge-2 score, expressed as <b>Score = 0.5 × F1 + 0.5 × rouge-2</b>.
+        </p>
+        <img id="model" width="80%" src="images/main_results.jpeg">
+
+        <div class="column has-text-justified">
+          <ul>
+            <li>
+              <b>Zero-shot Learning Performance.</b> In Instruction-based IE tasks, even for LLMs like ChatGPT, zero-shot learning still faces challenges. Evidently, the open-source 13B model lags considerably behind ChatGPT in zero-shot learning, emphasizing its deficits in instruction comprehension and knowledge representation.
+            </li>
+            <br>
+            <li>
+              <b>Few-shot Learning Performance.</b> ChatGPT registers improvements of ↑4.46 and ↑10.89 in Chinese and English datasets, respectively. Parallelly, other models also post substantial improvements, effectively narrowing the gap with ChatGPT. Such results indicate the capacity of these models to internalize instructions from contextual examples and generate outputs accordingly. 
+            </li>
+            <br>
+            <li>
+              <b>Fine-tuning Performance.</b> Distinctly, Baichuan2-13B-Base stands out in Chinese tasks, and Vicuna-v1.5-13B-16k excels in English tasks, achieving high scores of <b>59.93</b> and <b>49.96</b> respectively. When juxtaposing MT5-Base with its peers, it becomes apparent that fine-tuning a specific subset of parameters within larger models yields superior performance compared to comprehensive tuning in smaller ones. This observation might be attributed to QLora, which seemingly guides models to tune format sub-distribution in their outputs, rather than innate knowledge.
+            </li>
+            <br>
+            <li>
+              <b>Model Size and Its Impact.</b> When contrasting the 7B and 13B iterations of both Baichuan2 and Llama2, it becomes evident that the model’s size is intrinsically linked to its performance in instruction-based IE tasks. Additionally, a comparative analysis involving KnowLM, Baichuan2, and Vicuna underscores an essential insight: even among models of the same size, the foundational performance of the base model exerts a profound influence on the output.
+            </li>
+          </ul>      
+        </div>
+        <br>   
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="80%" src="images/case.jpeg">
+        <div class="column has-text-justified">
+            Upon a thorough analysis of the model’s predictions, we identify that the majority of errors can be categorized into the following four groups: 
+            <b>(a) Entity Mismatch.</b>: Within a given triplet, either only the head entity or only the tail entity fails to align with the gold standard, while all other components remain accurate.
+            <b>(b) Spurious Relation.</b>: The model produces relations not reflected in the gold standard, indicating potential over-generation or hallucination.
+            <b>(c) Boundary Mismatch.</b> Boundary Mismatch: The predicted head or tail entity depiction partially overlaps with the gold standard but fails to capture it entirely.
+            <b>(d) Incongruent Predictions.</b>: Several components of the prediction fail to align, rendering the output akin to arbitrary generation.
+        </div>
+        <img id="model" width="60%" src="images/case_figure.jpeg">
+        <br>
+        <div class="column has-text-justified">
+          The introduction of contextual examples significantly diminishes the error rate in the "<b>Spurious Relation</b>" category. 
+          Nevertheless, in tandem, there is a discernible rise in error rates for "Entity Mismatch", "<b>Boundary Mismatch</b>", and "<b>Incongruent Predictions</b>". 
+          We posit that these contextual examples enhance the model’s capacity to understand instructions, subsequently enabling it to focus more on the extraction and articulation of relations in alignment with the provided instructions.
+        </div>
+        <br>
+        <img id="model" width="80%" src="images/ablation.jpeg">
+        <div class="column has-text-justified">
+          <ul>
+            <li>
+              <b>Generalization to Unseen Theme.</b> we exclude all data related to the three major themes of "<b>Natural Science</b>", "<b>Medicine</b>", and "<b>Event</b>" from the InstructIE-zh dataset and train the Baichuan2-7B-Base model based on this variation.
+              The average performance of this model on these three unseen themes surpasses ChatGPT’s performance in 5-shot in-context learning, with a specific advantage of ↑<b>1.17</b>. 
+              Such results intimate that, through specialized instruction tuning, the model not only adapts but also excels in themes it has not encountered before.
+            </li>
+            <br>
+            <li>
+              <b>Influence of Instructional Design.</b>  We standardize the instruction format across all data and train it on the Baichuan2-7B-Base, producing a model variant named <b>SINGLE</b>.
+              While its precision rises, its recall and F1 score drop by ↓<b>3.7</b> and ↓<b>0.89</b> respectively. These metrics intimate that, in the presence of diverse instructions, the model exhibits enhanced robust ness in instruction interpretation and tends to assimilate information more holistically.
+            </li>
+            <br>
+            <li>
+              <b>No output vs output "NAN".</b>  For relationships that exist in instructions but do not exist in actual sentences, the model might adopt two strategies: either proffer no output or output "NAN" to explicitly state the relationship doesn’t exist. 
+              Based on this, we train another model variant, called W/ NAN, which explicitly mandates a "NAN" response in its instructions. 
+              Experimental results reveal that as recall remains stable, the model’s precision substantially increases by ↑<b>10.58</b>, leading to an F1 boost of ↑<b>4.07</b>. 
+              This confirms that by encouraging the model to explicitly output "NAN" to indicate "non-existence", it effectively reduces the risk of the model producing spurious relationships.
+            </li>
+            <br>
+            <li>
+          </ul>      
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{DBLP:journals/corr/abs-2305-11527,
+        author       = {Honghao Gui and
+                        Jintian Zhang and
+                        Hongbin Ye and
+                        Ningyu Zhang},
+        title        = {InstructIE: {A} Chinese Instruction-based Information Extraction Dataset},
+        journal      = {CoRR},
+        volume       = {abs/2305.11527},
+        year         = {2023},
+        url          = {https://doi.org/10.48550/arXiv.2305.11527},
+        doi          = {10.48550/arXiv.2305.11527},
+        eprinttype    = {arXiv},
+        eprint       = {2305.11527},
+        timestamp    = {Thu, 25 May 2023 15:41:47 +0200},
+        biburl       = {https://dblp.org/rec/journals/corr/abs-2305-11527.bib},
+        bibsource    = {dblp computer science bibliography, https://dblp.org}
+      }
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
