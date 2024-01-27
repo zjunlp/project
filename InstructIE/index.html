@@ -203,7 +203,7 @@
               <!-- PDF Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/pdf/2305.11527.pdf" 
-                   class="external-link button is-normal is-rounded is-dark">
+                   class="external-link button is-normal is-rounded">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
@@ -213,7 +213,7 @@
               <!-- Code Link. -->
               <span class="link-block">
                 <a href="" target="_blank" 
-                   class="external-link button is-normal is-rounded is-dark">
+                   class="external-link button is-normal is-rounded">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -222,26 +222,35 @@
               </span>
               <!-- Google Drive Link. -->
               <span class="link-block">
-                <a href="你的Google Drive链接" target="_blank" 
-                  class="external-link button is-normal is-rounded is-dark">
+                <a href="https://huggingface.co/zjunlp/knowlm-13b-ie" target="_blank" 
+                  class="external-link button is-normal is-rounded">
                   <span class="icon">
-                      <img src="./static/images/google_drive.png" alt="Drive"/>
+                      <img src="./static/images/KnowLM.png" alt="Drive"/>
                   </span>
-                <span>Google Drive</span>
+                <span>KnowLM-IE</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="你的Baidu Netdick链接" target="_blank" 
-                  class="external-link button is-normal is-rounded is-dark">
+                <a href="https://modelscope.cn/datasets/ZJUNLP/InstructIE" target="_blank" 
+                  class="external-link button is-normal is-rounded">
                   <span class="icon">
-                      <img src="./static/images/baidu_netdisk.png" alt="Drive"/>
+                      <img src="./static/images/modelscope.png" alt="Drive"/>
                   </span>
-                <span>Baidu Netdick</span>
+                <span>ModelScope</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="你的Hugging Face链接" target="_blank" 
-                  class="external-link button is-normal is-rounded is-dark">
+                <a href="https://wisemodel.cn/datasets/zjunlp/InstructIE" target="_blank" 
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <img src="./static/images/wisemodel.png" alt="Drive"/>
+                  </span>
+                <span>WiseModel</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/zjunlp/KnowLM-IE/tree/main" target="_blank" 
+                  class="external-link button is-normal is-rounded">
                   <span class="icon">
                       <img src="./static/images/hugging_face.png" alt="Drive"/>
                   </span>
@@ -262,7 +271,7 @@
     <div class="hero-body">
       <img id="teaser" width="120%" src="./images/figure1.gif">
 
-      <h2 class="subtitle has-text-centered">
+      <h2>
         Overview of dataset construction. <b>(a) Identifying</b> all entity mentions. <b>(b) Disambiguating</b> entity mentions to obtain their corresponding unique Wikidata ID. <b>(c) Matching</b> relationships for each entity pair. <b>(d)</b> Removing irrelevant triplets by <b>Schema Constraint</b>. <b>(e) Rule Refinement and Filtering</b>.
       </h2>
     </div>
@@ -290,9 +299,9 @@
       <div class="column is-six-fifths">
         <h2 class="title is-3">Framework Design</h2>
         <img id="model" width="100%" src="images/method.jpeg">
-        <p class="has-text-centered">
+        <h2>
           Comparison of traditional approaches with <b>Instruction-based IE</b> in handling emergent classes (unseen during training).
-        </p>
+        </h2>
         <br>
         <div class="column has-text-justified">
           <ul>
@@ -323,12 +332,12 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h2 class="title is-3">Main Results</h2>
-        <p class="has-text-centered">
+        <div class="column has-text-justified">
           Our experimental design seeks to systematically investigate the efficacy and applicability of diverse methodologies within the realm of Instruction-based IE. Central to this inquiry are several strategies: (1) <b>Zero-shot learning</b>, (2) <b>In-context learning</b>, (3) <b>Fine-tuning</b> (including QLora). 
-        </p>
-        <p class="has-text-centered">
-          We utilize a blend of span-based  micro-F1 and the rouge-2 score, expressed as <b>Score = 0.5 × F1 + 0.5 × rouge-2</b>.
-        </p>
+          <p>
+            We utilize a blend of span-based  micro-F1 and the rouge-2 score, expressed as <b>Score = 0.5 × F1 + 0.5 × rouge-2</b>.
+          </p>
+        </div>
         <img id="model" width="80%" src="images/main_results.jpeg">
 
         <div class="column has-text-justified">
