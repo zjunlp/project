@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="FactCHD: Benchmarking Fact-Conflicting Hallucination Detection">
+  <meta name="keywords" content="Hallucination, Benchmark, Fact-Conflicting, Detection">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FactCHD: Benchmarking Fact-Conflicting Hallucination Detection</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/meta.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">FactCHD: Benchmarking Fact-Conflicting Hallucination Detection</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiang Chen<sup>&#x2660;&#x2663;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Duanzheng Song<sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Honghao Gui<sup>&#x2660;&#x2663;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Chenxi Wang<sup>&#x2660;&#x2663;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;&#x2663;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yong Jiang<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Fei Huang<sup>&#x2662;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Chengfei Lv<sup>&#x2662;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Dan Zhang<sup>&#x2660;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;&#x2661;&#x2663;*</sup>
+            </span>,
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Donghai Laboratory.
+            </span>
+            <span class="author-block">
+              <sup>&#x2662;</sup>Alibaba Group
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph
+            </span>
+            
+         
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2310.12086" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/FactCHD" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/zjunlp/FactCHD" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/images/hugging_face.png" alt="Drive"/>
+                    <!-- <i class="fab fa-huggingface"></i> -->
+                  </span>
+                  <span>Datasets</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="100%" src="./images/first.gif">
+
+      <h2 class="subtitle has-text-centered">
+        Armed with just one tool library, the <b>Meta-Agent</b> can automatically differentiate based on the target task information and produce a sub-agent group that can collaborate to complete the task.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Despite their impressive generative capabilities, LLMs are hindered by fact-conflicting hallucinations in real-world applications. The accurate identification of hallucinations in texts generated by
+            LLMs, especially in complex inferential scenarios, is a relatively unexplored area. To address this gap,
+            we present <b>FactCHD</b>, a dedicated benchmark designed for the detection of fact-conflicting hallucinations from LLMs. <b>FactCHD</b> features a diverse
+            dataset that spans various factuality patterns, including vanilla, multi-hop, comparison, and set opera-
+            tion. A distinctive element of <b>FactCHD</b> is its integration of fact-based evidence chains, significantly
+            enhancing the depth of evaluating the detectors’ explanations. Experiments on different LLMs expose
+            the shortcomings of current approaches in detecting factual errors accurately. Furthermore, we introduce <b>TRUTH-TRIANGULATOR</b> that synthesizes reflective considerations by tool-enhanced ChatGPT and LoRA-tuning based on Llama2, aiming to yield
+            more credible detection through the amalgamation of predictive results and evidence.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+
+    <!-- Hallucination Detection. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Hallucination Detection</h2>
+        <img id="model" width="48%" src="images/intro.png">
+        <p class="has-text-centered">
+          Figure 1: <b>Illustration of fact-conflicting hallucination detection example from FACTCHD</b>, where the green part represents factual explanation core (body part) in the chain of evidence.
+        </p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Hallucination Detection. -->
+
+     <!-- Paper Benchmark. -->
+     <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">FactCHD Construction</h2>
+        <img id="model" width="100%" src="images/method.png">
+        <p class="has-text-centered">
+          Figure 2: <b>Overview of the construction process of FactCHD</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          We develop FactCHD, a dataset containing a wealth of training instances and an additional 6,960 carefully selected samples for evaluating fact-conflicting hallucinations from LLMs. Our dataset maintains a balanced representation of FACTUAL and NON-FACTUAL categories, 
+          offering a robust framework for assessment. The statistics and domain distribution of FactCHD are depicted in Figure 2.
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Benchmark. -->
+
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">TRUTH-TRIANGULATOR Framework</h2>
+      <img id="model" width="100%" src="images/truth.png">
+      <p class="has-text-centered">
+        Figure 3: <b>Overview TRUTH-TRIANGULATOR</b>. Here we designate the “Truth Guardian” based on Llama2-7B-chat-LoRA while
+         the “Truth Seeker” based on GPT-3.5-turbo (tool) in our experiments. We want the “Fact Verdict Manager” to collect evidence from
+          different viewpoints to enhance the reliability and accuracy of the obtained conclusion.
+      </p>
+      <br>
+      <div class="column has-text-justified">
+        We categorize tool-enhanced ChatGPT as the Truth Seeker, which aims to make informed judgments by seeking external knowledge. However, the information returned by exter-
+        nal knowledge sources may inevitably be incomplete, erroneous, or redundant, thus potentially misleading the large-scale model. On the other hand, the detect-specific expert
+        as the Truth Guardian relies on its knowledge and expertise in the task, tending towards more conservative predictions. To address these challenges, we propose the TRUTH-
+        TRIANGULATOR framework inspired by the “Triangulation for Truth” theory, involving verifying and confirming information by cross-referencing multiple independent perspectives.
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- Paper Model. -->
+    
+  <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <img id="model" width="80%" src="images/exp.png">
+        <p class="has-text-centered">
+          Table 1: <b>Results on FACTCLS and EXPMATCH (abbreviated as CLS. and EXP.) along with FACTCHD estimated by each method.</b>
+        </p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="80%" src="images/case_analysis.png">
+        <p class="has-text-centered">
+          Figure 2: <b>Case analysis of out-of-distribution examples from ChatGPT using TRUTH-TRIANGULATOR.</b>
+        </p>
+        <br>
+      </div>
+    </div>
+    <!-- Paper Analysis. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @article{chen2024factchd,
+        title={FactCHD: Benchmarking Fact-Conflicting Hallucination Detection}, 
+        author={Xiang Chen and Duanzheng Song and Honghao Gui and Chenxi Wang and Ningyu Zhang and 
+          Jiang Yong and Fei Huang and Chengfei Lv and Dan Zhang and Huajun Chen},
+        year={2024},
+        eprint={2310.12086},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL}
+  }
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
