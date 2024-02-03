@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>EasyInstruct</title>
+  <link rel="icon" type="image/x-icon" href="static/images/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <img src="static/images/logo.png" width="35%">
+            <h1 class="title is-3 publication-title">An Easy-to-use Instruction Processing Framework<br>for Large Language Models. </h1>
+            <h1 class="title is-3 publication-title"></h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block"><a>Yixin Ou</a><sup>♠♡</sup>,</span>
+              <span class="author-block"><a>Ningyu Zhang</a><sup>♠♡*</sup>,</span>
+              <span class="author-block"><a>Honghao Gui</a><sup>♠♡</sup>,</span>
+              <span class="author-block"><a>Ziwen Xu</a><sup>♠♡</sup>,</span>
+              <span class="author-block"><a>Shuofei Qiao</a><sup>♠♡</sup>,</span>
+              <span class="author-block"><a>Zhen Bi</a><sup>♠♡</sup>,</span>
+              <span class="author-block"><a>Huajun Chen</a><sup>♠♡*</sup></span>
+            </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>♠</sup>Zhejiang University</span>
+                    <span class="author-block"><sup>♡</sup>Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Corresponding Author</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                  
+                  <!-- ArXiv abstract Link -->
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>Paper</span>
+                    </a>
+                  </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/zjunlp/EasyInstruct" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                  </span>
+
+                  <!-- Demo Link -->
+                  <span class="link-block">
+                    <a href="https://huggingface.co/spaces/zjunlp/EasyInstruct" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <!-- <i class="ai ai-arxiv"></i> -->
+                      <svg class="svg-inline--fa fa-images fa-w-18" aria-hidden="true" focusable="false" data-prefix="far" data-icon="images" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M480 416v16c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V176c0-26.51 21.49-48 48-48h16v48H54a6 6 0 0 0-6 6v244a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6v-10h48zm42-336H150a6 6 0 0 0-6 6v244a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6V86a6 6 0 0 0-6-6zm6-48c26.51 0 48 21.49 48 48v256c0 26.51-21.49 48-48 48H144c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h384zM264 144c0 22.091-17.909 40-40 40s-40-17.909-40-40 17.909-40 40-40 40 17.909 40 40zm-72 96l39.515-39.515c4.686-4.686 12.284-4.686 16.971 0L288 240l103.515-103.515c4.686-4.686 12.284-4.686 16.971 0L480 208v80H192v-48z"></path></svg>
+                    </span>
+                    <span>Demo</span>
+                    </a>
+                  </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Instruction tuning has gained increasing attention and emerged as a crucial technique to enhance the capabilities of Large Language Models (LLMs), which bridges the gap between the next-word prediction objective of LLMs and human preference.
+            To construct a high-quality instruction dataset, many instruction processing approaches have been proposed, aiming to achieve a delicate balance between data quantity and data quality.
+            Nevertheless, due to inconsistencies that persist among various instruction processing methods, there is no standard implementation framework available for the community, which hinders practitioners from further developing and advancing.
+            To facilitate instruction processing research, we present <b>EasyInstruct</b>, an easy-to-use instruction processing framework for LLMs, which modularizes instruction generation, selection, and prompting, while also considering their combination and interaction.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<section class="section" id="Overview">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">🌟Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            EasyInstruct is a Python package which is proposed as an easy-to-use instruction processing framework for Large Language Models(LLMs) like GPT-4, LLaMA, ChatGLM in your research experiments. EasyInstruct modularizes instruction generation, selection, and prompting, while also considering their combination and interaction.
+          </p>
+        </div>
+        <img src="static/images/overview.png" width="100%">
+        <div class="content has-text-justified">
+          <ul type="1">
+            <li>The <code>APIs & Engines</code> module standardizes the instruction execution process, enabling the execution of instruction prompts on specific LLM API services or locally deployed LLMs.</li>
+            <li>The <code>Generators</code> module streamlines the instruction generation process, enabling automated generation of instruction data based on chat data, corpus, or knowledge graphs.</li>
+            <li>The <code>Selectors</code> module standardizes the instruction selection process, enabling the extraction of high-quality instruction datasets from raw, unprocessed instruction data.</li>
+            <li>The <code>Prompts</code> module standardizes the instruction prompting process.</li>
+          </ul>
+            
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            The instruction generation methods implemented in <code>Generators</code> are categorized into three groups, based on their respective seed data sources: chat data, corpus, and knowledge graphs. The evaluation metrics in <code>Selectors</code> are divided into two categories, based on the principle of their implementation: statistics-based and LM-based.
+          </p>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            We detail the components of <code>Generators</code> and <code>Selectors</code> modules in the table below:
+          </p>
+        </div>
+        <img src="static/images/Table1.png" width="80%">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Design">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">🎨Design Principles</h2>
+        <div class="content has-text-justified">
+          <p>
+            The framework is designed to cater to users with varying levels of expertise, providing a user-friendly experience ranging from code-free execution to low-code customization and advanced customization options:
+          </p>
+          <ul type="1">
+            <li><b>Zero-Code Instruction Processing</b>. <span style="font-size: 95%;">Novice users, who do not require coding knowledge, can leverage pre-defined configuration files and shell scripts to accomplish code-free instruction processing. By running these scripts, they can complete instruction processing tasks without the need for coding skills.</span></li>
+            <li><b>Low-Code Customization</b>. <span style="font-size: 95%;">Intermediate users have the option to customize various process inputs and outputs using a low-code approach. This allows them to have more control over the different stages within the framework.
+            <li><b>Advanced Components Extension</b>. <span style="font-size: 95%;">Experienced users can easily extend our components based on their specific scenarios and requirements. 
+            To customize their classes, users can inherit the base classes of modules and override the necessary methods as per their requirements.
+            This flexibility enables them to implement their functional components, tailored to their unique needs.
+          </span></li></ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Quickstart">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">⏩Quickstart</h2>
+        <div class="content has-text-justified">
+          <p>
+            We provide two ways for users to quickly get started with EasyInstruct. You can either use the shell script or the Gradio app based on your specific needs.
+          </p>
+          <h3 class="title is-4">Shell Script</h3>
+            <p>
+              <b>Step1: Prepare a configuration file.</b> Users can easily configure the parameters of EasyInstruct in a YAML-style file or just quickly use the default parameters in the configuration files we provide. Following is an example of the configuration file for Self-Instruct:
+            </p>
+        </div>
+        <img src="static/images/config.png" width="70%">
+        <div class="content has-text-justified">
+          <p>
+            <b>Step2: Run the shell script.</b> Users should first specify the configuration file and provide their own OpenAI API key. Then, run the following shell script to launch the instruction generation or selection process.
+          </p>
+        </div>
+        <img src="static/images/shell.png" width="60%">
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Gradio App</h3>
+          <p>
+            We provide a Gradio app for users to quickly get started with EasyInstruct. 
+            Users can choose to launch the Gradio app locally on their own machines or alternatively, they can try the hosted Gradio app that we provide on HuggingFace Spaces.
+          </p>
+          <iframe
+            src="https://zjunlp-easyinstruct.hf.space"
+            frameborder="0"
+            width="100%"
+	          height="1200"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Evaluation">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">📊Evaluation</h2>
+        <div class="content has-text-justified">
+          <p>
+            In experiments, we mainly consider four instruction datasets as follows: (a) <b><i>self_instruct_5k</i></b> is constructed by employing the <i>Self-Instruct</i> method to distill instruction data from text-davinci-003; (b) <b><i>alpaca_data_5k</i></b> is randomly sampled from the Alpaca dataset; (c) <b><i>evol_instruct_5k</i></b> is constructed by employing the <i>Evol-Instruct</i> method; (d) <b><i>easyinstruct_5k</i></b> is collected by integrating the three instruction datasets above and applying multiple <code>Selctors</code> in EasyInstruct to extract high-quality instruction datasets.
+          </p>
+          <p>
+            To conduct the experiments on the effect of instruction datasets, we adopt a LLaMA2 (7B) model.
+            We fine-tune all our models with LoRA in the format proposed in Alpaca.
+            The evaluation is conducted by comparing the generated results from different fine-tuned models based on the AlpacaFarm evaluation set.
+            Following AlpacaFarm, for each comparison, we employ ChatGPT as the evaluator to automatically compare two outputs from different models and label which one they prefer, reporting the win rate as the evaluation metric.
+          </p>
+          <p>
+            <b>Instruction Diversity.</b> To study the diversity of the instruction datasets considered in our experiments, we identify the verb-noun structure in the generated instructions and plot the top 20 most prevalent root verbs and their top 4 direct nouns in the figure below.
+            Overall, we see a wide range of intents and textual formats within these instructions.
+          </p>
+        </div>
+        <img src="static/images/diversity_results.png" width="100%">
+        <div class="content has-text-justified">
+          <p>
+            <b>Main Results.</b> We compare the generated outputs from models fine-tuned separately on the four instruction datasets with the outputs from the base version of the LLaMA2 (7B) model on the AlpacaFarm evaluation set.
+            As depicted in the figure below, there are improvements in the win rate metric for all the settings.
+            Moreover, the model performs optimally under the <b><i>easyinstruct_5k</i></b> setting, indicating the importance of a rich instruction selection strategy.
+          </p>
+        </div>
+        <img src="static/images/base_results.png" width="60%">
+        <div class="content has-text-justified">
+          <p>
+            <b>Case Study.</b> To conduct a qualitative evaluation of EasyInstruct, we sample several instruction examples selected by the <code>Selctors</code> module in <b><i>easyinstruct_5k</i></b> for the case study.
+            We also attach the corresponding evaluation scores for each of these instruction examples, as shown in the table below.
+            We observe that the selected instructions often possess fluent language and meticulous logic.
+          </p>
+        </div>
+        <img src="static/images/Table2.png" width="80%">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">🚩Citation</h2>
+<pre><code>@misc{easyinstruct,
+  author = {Yixin Ou and Ningyu Zhang and Honghao Gui and Zhen Bi and Yida Xue and Runnan Fang and Kangwei Liu and Lei Li and Shuofei Qiao and Huajun Chen},
+  title = {EasyInstruct: An Easy-to-use Instruction Processing Framework for Large Language Models},
+  year = {2023},
+  url = {https://github.com/zjunlp/EasyInstruct},
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
