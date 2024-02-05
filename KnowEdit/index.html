@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EditLLM</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>    
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="An Easy-to-use Knowledge Editing Framework for Large Language Models.">
+  <meta name="keywords" content="Model Editing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> A Comprehensive Study of Knowledge Editing for Large Language Models </title>
+
+  <link rel="icon" href="./static/images/logo.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+  <script src="./data/results/data_setting.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="http://knowlm.zjukg.cn/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> 
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="">
+            <b>Project A</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="">
+            Project B 
+            <a class="navbar-item" href="">
+              Project C
+            </a>
+            <a class="navbar-item" href="">
+              Project D
+            </a>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/logo.png" style="width:3em;vertical-align: middle" alt="Logo"/> 
+            <span class="easyedit" style="vertical-align: middle">KnowEdit</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            A Comprehensive Study of Knowledge Editing
+            <!-- <br> -->
+            for Large Language Models
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Ninyu Zhang*<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Yunzhi Yao*<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Bozhong Tian*<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Peng Wang*<sup style="color:#007bff;">1</sup>,</span><br>
+            <span class="author-block">Shumin Deng*<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Mengru Wang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Zekun Xi<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Shengyu Mao<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Jintian Zhang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Yuansheng Ni<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Siyuan Cheng<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Ziwen Xu<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Xin Xu<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Jia-Chen Gu<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Yong Jiang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Pengjun Xie<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Fei Huang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Lei Liang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Zhiqiang Zhang<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Xiaowei Zhu<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Jun Zhou<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Huajun Chen&dagger;<sup style="color:#007bff;">1</sup></span>
+          </div>
+          
+          <br>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#007bff;">1</sup>Zhejiang University,</span>
+            <span class="author-block"><sup style="color:#ffac33;">2</sup>National University of Singapore,</span>
+            <span class="author-block"><sup style="color:#000000;">3</sup>Univers of California, Los Angeles,</span>
+            <span class="author-block"><sup style="color:#000000;">4</sup>Ant Group</span>
+            <span class="author-block"><sup style="color:#000000;">5</sup>Alibaba Group</span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">*Equal Contribution   &dagger;Corresponding Author</span><br>
+            <span class="author-block">Corresponding to:</span>
+            <span class="author-block"><a href="mailto:pengwang@in.ai">zhangninyu@zju.edu.cn</a>,</span>
+            <span class="author-block"><a href="mailto:su.809@osu.edu">yyztodd@zju.edu.cn</a>,</span>
+          </div>
+          
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <!-- <a href="https://arxiv.org/pdf/2401.01286.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a> -->
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2401.01286"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/papers/2401.01286"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/zjunlp/KnowEdit"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/EasyEdit"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <!-- <span class="link-block">
+                <a href="http://knowlm.zjukg.cn/demo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span> -->
+              <!-- Twitter Link. -->
+              <!-- <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1679035378072952832"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+  </style>
+<!-- <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="content has-text-centered">
+        <img src="static/images/FrameWork.png" alt="geometric reasoning" width="100%"/>
+        <p> Overview of the EasyEdit. 
+          EasyEdit is a Python package for edit Large Language Models (LLM) like GPT-J, Llama, GPT-NEO, GPT2, T5(support models from 1B to 65B), 
+          the objective of which is to alter the behavior of LLMs efficiently within a specific domain without negatively impacting performance across other inputs. 
+          It is designed to be easy to use and easy to extend.</p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">🔔News</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>[2024-01-03]: We release a new paper:"<a href="https://arxiv.org/abs/2401.01286"><b>A Comprehensive Study of Knowledge Editing for Large Language Models</b></a>" with a new benchmark <a href="https://huggingface.co/datasets/zjunlp/KnowEdit"><b>KnowEdit</b></a>! We are looking forward to any comments or discussions on this topic :)</b>
+          </p>
+      </div>      
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Language Models (LLMs) have shown extraordinary capabilities in understanding and generating text that closely mirrors human communication. However, a primary limitation lies in the significant computational demands during training, arising from their extensive parameterization. This challenge is further intensified by the dynamic nature of the world, necessitating frequent updates to LLMs to correct outdated information or integrate new knowledge, thereby ensuring their continued relevance. Note that many applications demand continual model adjustments post-training to address deficiencies or undesirable behaviors. There is an increasing interest in efficient, lightweight methods for on-the-fly model modifications. To this end, recent years have seen a burgeoning in the techniques of knowledge editing for LLMs, which aim to efficiently modify LLMs' behaviors within specific domains while preserving overall performance across various inputs. In this paper, we first define the knowledge editing problem and then provide a comprehensive review of cutting-edge approaches. Drawing inspiration from educational and cognitive research theories, we propose a unified categorization criterion that classifies knowledge editing methods into three groups: resorting to external knowledge, merging knowledge into the model, and editing intrinsic knowledge. Furthermore, we introduce a new benchmark, KnowEdit, for a comprehensive empirical evaluation of representative knowledge editing approaches. Additionally, we provide an in-depth analysis of knowledge location, which can give a deeper understanding of the knowledge structures inherent within LLMs. Finally, we discuss several potential applications of knowledge editing, outlining its broad and impactful implications.
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 editing">
+    <img src="static/images/logo.png" style="width:1em;vertical-align: middle" alt="Logo"/>
+    <span class="easyedit" style="vertical-align: middle">Knowledge Editing for LLMs</span>
+  </h1>
+  </div>
+</section>
+       
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Task Definition</h2>
+        <div class="content has-text-justified">
+          <p>
+            The initial goal of knowledge editing is to modify the specific knowledge $k$ in the LLM and improve the consistency and performance of the LLM without fine-tuning the whole model.
+            Knowledge editing is challenging due to the distributed and entangled nature of knowledge in LLMs.
+          </p>
+          <p>
+            Suppose the original model is $\theta$ and given the knowledge $k$ to be changed, by knowledge editing process $F$, we would get the post-edited model $\theta^{'}$:
+          </p>
+          <p class="content has-text-centered">$\theta' = F(\theta, k)$</p>
+          <p>The post-edited model $\theta^{'}$ is supposed to override undesired model beliefs on the knowledge $k$ and keep other knowledge intact:</p>
+          <p class="content has-text-centered">
+            $\begin{cases}
+            \theta^{'}(k) \neq \theta(k) \\
+             \forall k^{'} \neq k, \theta^{'}(k^{'}) = \theta(k^{'}) 
+            \end{cases}$
+          </p>
+          <p>
+            As a knowledge base, it's paramount that knowledge editing cater to three fundamental settings: knowledge insertion, knowledge modification, and knowledge erasure.
+          </p>
+          <br>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered m-5">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Knowledge Insertion</h3>
+              <div class="content has-text-left custom-content-padding">
+              <p>
+                As fields and entities progress, it becomes imperative for LLMs to assimilate emergent information. Knowledge insertion fulfills this by bestowing upon LLMs new knowledge previously outside their purview:
+              </p>
+              <p class="has-text-centered">
+                $\theta' = F(\theta, \{\emptyset\} \rightarrow \{k\})$
+              </p>
+            </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Knowledge Modification</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  Knowledge modification refers to altering knowledge already stored in LLMs:
+                </p>
+                <p class="has-text-centered">
+                  $\theta' = F(\theta, \{k\} \rightarrow \{k'\})$
+                </p>
+                <p>
+                  This can be classified into two categories:
+                </p>
+                <ul>
+                  <li>
+                    <b>Knowledge amendment</b> - This aims at rectifying the inaccuracies embedded in LLMs to ensure the delivery of accurate information. As vast repositories of knowledge, LLMs are prone to housing outdated or erroneous information. Knowledge amendment serves to correct these fallacies, ensuring that models always generate accurate, up-to-date information.
+                  </li>
+                  <li>
+                    <b>Knowledge disruption</b> - Modifying LLMs to answer counterfactual or error prompts. This is more challenging as counterfactual notions initially receive lower scores compared to factual knowledge, as shown by Meng et al. This necessitates more targeted modification efforts.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Knowledge Erasure</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  Knowledge erasure targets the excision or obliteration of pre-existing knowledge in a model, primarily to reset distinct facts, relationships, or attributes. Formally, we have:
+                </p>
+                <p class="has-text-centered">
+                  $\theta' = F(\theta, \{k\} \rightarrow \{\emptyset\})$
+                </p>
+                <p>
+                  Implementing knowledge erasure is pivotal to expunge biases and noxious knowledge and to curtail the recollection of confidential or private data, thereby fostering responsible and trustworthy AI.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            In conclusion, the interplay between knowledge insertion, modification, and erasure forms essential aspects of model editing techniques. When combined, these techniques empower LLMs to transform, self-correct, and ethically adapt as needed.
+          </p>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-left">
+            <p>
+              The development of LLMs has reached a point where their capabilities closely resemble human cognitive processes, especially in learning and acquiring knowledge. Drawing inspiration from how humans learn, we can analogously apply these concepts to the process of editing LLMs as Figure shows below.
+            </p>
+          </div>
+          <div class="content has-text-centered">
+            <img src="static/images/analogy.png" alt="error distribution" width="50%">
+            <p>Applying Human Learning Phases to Knowledge Editing in LLMs: We see an analogy of Human Learning Phases and Knowledge Editing in LLMs and categorize current knowledge editing methods based on the learning phases of humans: recognition, association, and mastery.</p>
+          </div>
+          <div class="content has-text-left">
+            <p>
+              Educational and cognitive research delineates human knowledge acquisition into three distinct phases: recognition, association, and mastery. These phases offer a framework for conceptualizing the methods of knowledge editing in LLMs and we list them in Table below.
+            </p>
+          </div>
+          <div class="content has-text-centered">
+            <img src="static/images/table_Comparison.jpg" alt="error distribution" width="80%">
+            <p>
+              Comparison between representative approaches of knowledge editing for LLMs.
+              <b>No Training</b> refers to the methods that do not require additional training; 
+              <b>Batch Edit</b> means whether the methods can support editing multiple cases simultaneously in just one process.
+              <b>Edit Area</b> refers to where the model's components are used;
+              <b>Editor #Params</b> indicates the parameters that need to be updated for editing. 
+              $L$ refers to the number of layers to update.
+              $d_h$ denotes the dimensionality of the hidden layers in the Transformers. 
+              $d_m$ refers to the intermediate dimension that exists between the up projection and the down projection. 
+              $N$ symbolizes the total number of neurons that undergo updates within each individual layer.
+            </p>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">New Benchmark: <b>KnowEdit</b></h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-left">
+            <p>
+              To evaluate the effectiveness of knowledge editing methods, several datasets have been proposed. In this Section, we present an overview of the current datasets used for knowledge editing and introduce a new benchmark, <a href="https://huggingface.co/datasets/zjunlp/KnowEdit"><b>KnowEdit</b></a>, which serves as a comprehensive evaluation framework for various knowledge editing techniques.
+            </p>
+            <p>
+              For this study, we have curated a set of six datasets that are well-suited for assessing knowledge editing methods. A detailed statistical overview of these datasets is presented in Table below, and they encompass a range of editing types, including fact manipulation, sentiment modification, and hallucination generation.
+            </p>
+          </div>
+          <div class="content has-text-centered">
+            <img src="static/images/table_data.jpg" alt="error distribution" width="85%">
+            <p>Statistics on the benchmark <b>KnowEdit</b>, with six selected datasets for the evaluation of knowledge editing methods. We select different knowledge types for the insertion, modification, and erasure settings.</p>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Evaluation for Knowledge Editing</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-left">
+            <p>
+              Knowledge editing aims to alter model behavior based on modified facts. 
+              However, knowledge is interconnected; changing one fact may ripple outwards and affect other facts in complex ways. 
+              This interdependence makes assessing the effects of editing difficult. 
+              We summarize key evaluation criteria from prior work into four categories: edit success, portability, locality, and fluency.  
+            </p>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered m-5">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Edit Success</h3>
+              <div class="content has-text-left custom-content-padding">
+              <p>
+                The purpose of editing is to change the model's output of given knowledge.
+                Previous work adopt two metrics named <b><i>reliability</i></b> and <b><i>generalization</i></b>.
+                Reliability aims to test whether the post-edited model give the target answer.
+                However, for the knowledge editing, the given text and the paraphrase.
+                We follow previous work~\cite{mitchell2022fast,Li2023PMETPM} and collectively refer to reliability and generalization the as <b>edit success</b>.
+                Hence, here, edit suceess means the post-edit model should not only answer the question itself correctly but also give the right answer for input with similar expressions.  
+              </p>
+            </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Portability</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  Meanwhile, knowledge is not isolated, and solely changing the given knowledge is not enough for downstream use.
+                  When the knowledge is corrected, the model is supposed to reason about the downstream effects of the correction.
+                  Here, we follow previous work to evaluate whether the edited model can address the implications of an edit for real-world applications and name it as portability to evaluate what would ensue after the knowledge editing.
+                  Portability contains three different parts:  
+                </p>
+                <ul>
+                  <li>
+                    <b>Alias:</b> The editing of one subject should not vary from its expression. Wikidata maintains a set of aliases for every entity. Hence, here, we follow Cohen et al, Cohen et al. to replace the question’s subject with an alias or synonym to evaluate post-edited model's performance on other descriptions of the subject.
+                  </li>
+                  <li>
+                    <b>Compositionality and Reasoning:</b> This requires the post-edit model to conduct reasoning with the changed facts. For example, when we change the current president of the U.S. from Donald Trump to Joe Biden, the answer to the question ``Who is the First Lady of the United States?'' should also be changed.
+                  </li>
+                  <li>
+                    <b>Logical Generalization:</b> These are the changes that are semantically related to the modified fact and expected to change by the edit; they were indeed modified. For example, as mentioned by Yao et al., when the fact of $(s,r,o)$ are changed, the reversed relation of the knowledge $(o,\hat{r},s)$ should also be changed.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Locality</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  When editing the knowledge, we may inadvertently change the knowledge that we don't want to modify.
+                  A good edit is supposed to modify the knowledge locality without influencing the knowledge that is unrelated.
+                  The evaluation of locality includes two levels:  
+                </p>
+                <ul>
+                  <li>
+                      <b>In-Distribution:</b> this one includes the knowledge that comes from the same distribution. As shown in previous work, overediting is a common phenomenon. Here, we follow Menget al. , Cohen et al. , Yao et al. and construct the related in-distribution knowledge, including \emph{forgetfulness} and \emph{relation specificity}. 
+                      Forgetfulness evaluates whether the post-edit model retains the original objects in one-to-many relationships. 
+                      The principle of relation specificity posits that any other attributes of the subject, which have been previously updated, should remain unaltered following the editing process.
+                  </li>
+                  <li>
+                    <b>Out-of-Distribution:</b> the other knowledge that is not associated with the target one should not be influenced. That is, we also don't want the edited model to lose their general ability to deal with other tasks. Hence, here we test the edited model on the popular NLP benchmark in <b>Experiment</b>.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Generative Capacity</h3>
+                <div class="content has-text-left custom-content-padding">
+                <p>
+                  Previous work find that, after editing the model, some models tend to generate repeated things and often generate the edited target whenever encountering the subject words.
+                  Additionally, the metric <b>fluency</b> are employed to evaluate the generative capacity of the post-edited model.
+                  Here we follow ROME and employ the <i>fluency</i> to measure the model's generation ability after editing.
+                  In particular, we calculate the weighted average of bi-gram and tri-gram entropies to assess the diversity of text generations. 
+                  A decrease in this value indicates increased repetitiveness in the generated text.  
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Knowledge Editing SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 editing">
+    <!-- <img src="static/images/logo.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
+    <span class="easyedit" style="vertical-align: middle">Experiments</span>
+  </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-left">
+          In our study, we conduct experiments using current methods and datasets to investigate knowledge editing techniques in the context of LLMs.
+          By conducting experiments using these methods and leveraging appropriate datasets, we aimed to evaluate the performance and efficacy of knowledge editing techniques in LLMs. 
+          Our goal was to gain insights into the challenges, limitations, and potential improvements associated with editing knowledge in these models.
+        </div>
+        <h2 class="title is-3">Experiment Settings</h2>
+        <div class="content has-text-justified">
+          <p>
+            All the experiments are conducted by EasyEdit. As to the evaluation of the post-edited model, some of the previous works computed the probability difference of the output for pre-edit and post-edit models: $P[y^{*}|\theta^{'}] - P[y|\theta]$. 
+            $y^{*}$ is the edit target, and $y$ is the original model's prediction.
+            However, the higher probability for $y^{*}$ does not mean an idea outcome, and for realistic usage, when we edit the model, we hope it generates the desired output.
+            Hence, for the evaluation of fact datasets such as WikiData$_{recent}$, ZsRE, and \wikicf, we compute the metric as Yao et al. which computes the accuracy of the outputs.
+            Suppose $x_k$ is the expression for the updated knowledge $k$ and $y_k^{*}$ is the corresponding target output for editing.  
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <p>
+            $\begin{equation}
+                \text{Edit Succ.} = \sum_{(x_{k}, y_{k}^{*})} \mathbb{1}\{ {\operatorname{argmax}_y f_{\theta^{'}}\left(y \mid x_{k}\right)=y_{k}^{*}} \}
+            \end{equation}$
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Also, for portability, we compute the post-edited model's performance on the given sets.
+            As to the calculation of locality, some work computes the post-edited model's performance on the locality set $O(x_{k})$.
+            Here, for a better comparison, we test whether the model keeps its original answer.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <p>
+            \begin{equation}
+            \text{Locality} = \mathbb{E}_{x_{k}, y_k^{*} \sim O(x_{k})} \mathbb{1} \left\{f_{\theta^{'}}\left(y \mid x_{k}\right)=f_{\theta}\left(y \mid x_{k}\right) \right\}
+            \end{equation}
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Meanwhile, for the sentiment edit task Convsent, we compute the Edit Succ. and Locality as the original dataset:
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <p>
+            \begin{equation}
+                \text{Edit Succ.}_\text{Convsent} \triangleq \mathbf{z}_{\text{sentiment}} \cdot \mathbf{z}_{\text{topic}}
+            \end{equation}
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Where $\mathbf{z}_{\text{sentiment}}$ goes to one if the edited model generates correct sentiment responses and $\mathbf{z}_{\text{topic}}$ one if the edited model's answer related to the target topic.
+            The locality of Convsent~is computed as the KL-divergence so the lower the number, the better the performance is:
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            \begin{equation}
+            \text{Locality}_\text{Convsent} \triangleq \mathbb{KL}\left(f_{\theta}\left(\cdot \mid x_{k}\right) \| f_{\theta^{'}}\left(\cdot \mid x_{k}\right)\right)
+            \end{equation}
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            For the knowledge erasure task Sanitation, we calculate edit success as whether the model answers ``I don't know.'' for the given knowledge. As for the locality, we compute the performance on the retain sets as whether the model keeps their original answer. 
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <div class="content has-text-left">
+          <p>
+            We list the results of current knowledge editing methods on <b>Llama2-7b-chat</b> in Table below.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/table_main_result.jpg" alt="error distribution" width="78%">
+          <p>
+            Results of existing knowledge edit methods on the constructed benchmark. The symbol $\uparrow$ indicates that higher numbers correspond to better performance, while $\downarrow$ denotes the opposite, with lower numbers indicating better performance. The locality of Convsent is computed as the KL-divergence so the lower the number, the better the performance is. For WikiBio and Convsent, we do not test the portability as they are about specific topics.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Impact of Knowledge Editing on General Tasks</h2>
+        <div class="content has-text-left">
+          <p>
+            In this Section, we explore the impact of applying knowledge editing methods on the performance of a language model across various domains. Our main goal is to determine if incorporating edits related to specific factual knowledge can unintentionally hinder the model's proficiency in unrelated areas.  
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/radar.png" alt="error distribution" width="30%">
+          <p>
+            Average sub-metrics performance of results on several fact edit datasets in Portability and Locality.  
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            When directly fine-tuning the entire model on the provided edited cases, a significant decline in the post-edited model's performance on general tasks is observed. We find that the post-edited model becomes inclined to generate outputs resembling the edited cases, which highlights the presence of overfitting. An intriguing observation from Table below is that, on a holistic level, the edited models managed to sustain a performance level that is close to their unedited counterparts. 
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/table_general_task.jpg" alt="error distribution" width="60%">
+          <p>
+            The zero-shot performance on the general LLM benchmark with Llama2-Chat-7B as the base model. Here, we conduct 5 consecutive edits for each method using the Wiki$_{recent}$ dataset to evaluate the post-edited model's general ability. We adopt the OpenCompass to evaluate the model and use the HuggingFace setting. The MMLU and AGIEval are both the average performance of the sub-tasks.
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            This suggests that the negative impact of the editing was limited to directly altered topics. 
+            However, one exception to this trend is the FT-L model's performance on TriviaQA, which shows a noticeable decline from an initial score of 45.39 to 34.60 after the edit. 
+            Nevertheless, taking a broader perspective, we can observe commendable consistency.
+            This implies that contemporary knowledge editing methods are effective in executing five targeted factual updates with minimal disruptions to the model's cognitive capabilities and adaptability across diverse knowledge domains.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Multi-Task Knowledge Editing</h2>
+        <div class="content has-text-left">
+          <p>
+            Previous work considered a sequential edit for a lifelong knowledge editing. 
+            However, they always conduct sequential editing on a single dataset from the same distribution. 
+            This is a bit different from Continuous learning.
+            Knowledge editing is not a task focusing on single-domain knowledge or fact. 
+            In reality, we may want to modify our model from different perspectives from different distributions.   
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            <b>Cross-domain Editing</b>
+          </p>
+          <p>Both MEND and SERAC methods rely on a training dataset to help the model learn how to edit parameters. We evaluate their performance in a cross-domain setting and present the results in Table below.</p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/table_ood_results.jpg" alt="error distribution" width="60%">
+          <p>
+            Cross-Domain Editing Results.
+            Performance (accuracy) of the compared methods, which are firstly trained on a source dataset and then directly conduct prediction on a target dataset (denoted as source $\Rightarrow$ target).  
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            For the MEND method, the hyper-network trained using the ZsRE dataset exhibits better cross-domain performance than that trained with the recent dataset.
+            This can be attributed to the enormous size of the ZsRE dataset, allowing MEND's hyper-network to enhance its parameter-editing capabilities. 
+            Meanwhile, the SERAC approach, by leveraging its cache, exhibits significant cross-domain editing prowess.  
+          </p>
+          <p>
+            <b>Continual Editing</b>
+          </p>
+          <p>
+            Methods like LoRA and ROME do not require a training set and can be applied directly to different domains.
+            Hence, we consider a more challenging setting for continual editing.
+            We mix different knowledge editing cases using the ZsRE, Wiki$_{recent}$ and Wiki$_{counterfact}$.
+            We combine different numbers of settings, including 10, 100, 500, and 1000, and edit the knowledge from different sets randomly.
+            Here, we mainly consider three methods: FT-L, ROME, and AdaLoRA.
+            We report the empirical findings in Figure below.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/figure_sequential.png" alt="error distribution" width="80%">
+          <p>
+            Sequential editing results in randomly selected data from WikiData$_{counterfact}$, ZsRE ~and WikiData$_{recent}$ with different numbers.
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            When dealing with sequential editing, we can observe that these three methods all suffer from 1,000 editing times with a dramatic drop in all evaluation metrics, and the trend is similar for three different tasks.
+            Relatively, AdaLoRA shows a stable performance for about 100 edits.
+            Current editing methods tend to edit the same area for different knowledge (<i>e.g.</i> ROME the fifth layer, MEND the last three layers), while the knowledge is not stored in this area.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Error and Case Analysis</h2>
+        <div class="content has-text-left">
+          <p>
+            As shown in the results, different methods demonstrate different performance on different tasks.
+            Here, we conduct a study to comprehensively understand their limitations and advantages. 
+            In analyzing the failure modes of knowledge editing methods, we categorize the deficiencies into four primary types:  
+          </p>
+          <ul>
+            <li>
+              <b>Meaningless Token Generation:</b> The edited model produces meaningless tokens such as `\n' or repetitive letter combinations that lack semantic meaning or grounding.
+            </li>
+            <li>
+              <b>Missing Token Generation:</b> The model generates only a subset of the target answer, omitting critical tokens.
+            </li>
+            <li>
+              <b>Knowledge-Irrelevant Generation:</b> The model produces text unrelated to the expected factual knowledge.
+            </li>
+            <li>
+              <b>Partial Token Replacement:</b> The generated answer contains substitutions or replacements of key tokens from the target, often retaining fragments from the original incorrect output.
+            </li>
+          </ul>
+          <p>
+            The occurrence of these error types helps identify the limitations of the editing methods. 
+            Meaningless and missing token cases highlight difficulties in fully encoding the target fact, while knowledge-irrelevant and partial replacement generations suggest that the edits fail to supplant previously learned information.
+            We conduct an error analysis on the ZsRE tasks and counted the error cases for each editing method. The results are presented in Figure below. 
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/bad_case_pattern.png" alt="error distribution" width="80%">
+          <p>
+            Bad cases statistics for different knowledge editing methods.  
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Here, we can find the main error type is the partial token replacement due to the conflict of the knowledge in the original model and our target one.
+            The analysis reveals that the main error type is partial token replacement, indicating a conflict between the knowledge in the original model and the target knowledge. 
+            Specifically, the SERAC method tends to generate meaningless tokens due to the limited generation ability of the small model used. 
+            The AdaLoRA method may miss some tokens related to the target knowledge. 
+            For the fine-tuning methods, the percentage of fact-irrelevant words is higher compared to other editing methods, and it is the most common error type (47.3\%) for FT-L. 
+            This suggests that the objective of fine-tuning might not be suitable for editing specific knowledge. 
+            Additionally, in the following section, we find that FT-L tends to modify more areas in the parameters, leading to more irrelevant generations.
+          </p>
+          <p>
+            We also show the generated texts for different editing methods for the cases in Table below.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="static/images/table_case.jpg" alt="error distribution" width="80%">
+          <p>
+            Results for one case of different editing methods. Prompts are presented in <em>italicized</em> text. 
+            Words highlighted in <span style="color: green;">green</span> signify keywords that reflect correct behavior, 
+            while those in <span style="color: red;">red</span> denote keywords associated with incorrect behavior.
+            Texts in <span style="color: cyan;">cyan</span> are repeated or meaningless sentences.
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Here, we can find that current editing methods, like IKE, MEND, ROME can successfully modify the material of the Queen Amina Statue from bronze to limestone and generate fluent texts. 
+            SERAC and FT-L, despite changing the facts successfully, tend to generate repeated sentences or meaningless entities.
+            Additionally, AdaLoRA failed to change the fact and kept the original answer, "bronze".
+          </p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- Analysis -->
+<section class="hero is-light is-small"> 
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 editing">
+      <span class="easyedit" style="vertical-align: middle">Analysis</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Evaluation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <div class="content has-text-left">
+            <p>Current research has explored the effectiveness of knowledge editing methods in LLMs, but the underlying reasons for their superior performance remain unexplored. 
+              Additionally, the comparison between model editing and fine-tuning approaches, as well as the efficacy of knowledge location methods, requires further investigation.
+              This study proposes a simple attempt to bridge these gaps by examining the differences between model editing and fine-tuning, exploring the effectiveness of knowledge location techniques, and understanding the knowledge structure within LLMs.
+              We hope further investigation will unveil the mechanisms of knowledge in LLMs.</p>
+            </div>
+        </div>
+        <h2 class="title is-3">Comparison of Different Knowledge Editing Methods</h2>
+        <div class="content has-text-left">
+          <p>
+            The effectiveness of current knowledge editing methods is commendable, but the reasons behind their superior performance compared to other approaches remain elusive.
+            In this section, we focus on methods that involve parameter adjustments within the model, specifically MEND, ROME, MEMIT, and FT-L.
+            As these methods modify the model's parameters, a fundamental question arises: what makes some knowledge editing methods, like MEND, superior in terms of locality and overall performance?
+            We formally represent the change as $\boldsymbol{W}' = \boldsymbol{W} + \Delta \boldsymbol{W}_{\text{edit}}$, where $\boldsymbol{W}$ is the original weight matrix, and $\Delta \boldsymbol{W}_{\text{edit}}$ represents the modifications made during editing. 
+            Therefore, our primary focus in this section is to discern the differences between the matrices $\Delta \boldsymbol{W}_{\text{edit}}$ for different editing methods.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="columns is-centered m-5">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Sparsity</h3>
+              <div class="content has-text-left custom-content-padding">
+                <p>
+                  An important characteristic of knowledge editing is its intention to modify a specific piece of knowledge within the model.
+                  This suggests an intuitive hypothesis that the $\Delta \boldsymbol{W}$ matrix is likely to be sparse.
+                  Following the approach of De Cao et al. , we present visualizations that capture weight updates resulting from knowledge edits, as depicted in Figure below.  
+                </p>
+              </div>
+              <div class="content has-text-centered custom-content-padding">
+                <img src="static/images/heatmap.png" alt="error distribution" width="50%">
+                <p>
+                  The heatmap shows how different model editing methods affect the weights of the model.
+                  Darker colors indicate more changes in the weights. The heatmap reveals which parts of the model
+                  are most sensitive to changes for each method.  
+                </p>
+              </div>
+              <div class="content has-text-left custom-content-padding">
+                <p>
+                  ROME, MEND, and MEMIT exhibit a distinct pattern of sparse updates, while fine-tuning spreads its modifications more uniformly across weights.
+                  Particularly, for knowledge editing methods like ROME and MEMIT, it is intriguing to observe a concentrated focus on one or several columns of the value layer.
+                  This finding aligns with earlier research that emphasizes the value layer's pivotal role in encapsulating correlated knowledge.
+                  Regarding the MEND methods, we propose that the learned hypernetwork can be viewed as a tool or a "probe" that helps us explore and understand the internal mechanisms used by the model to encode knowledge, providing insights into how the model represents and processes information.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5 ">
+            <div class="content has-text-centered">
+              <h3 class="title is-3">Mapping to Embedding Space</h3>
+              <div class="content has-text-left custom-content-padding">
+                <p>
+                  To further investigate the differences between different editing methods, we conduct an embedding space analysis following the approach of Dar et al.
+                  They analyze the Transformer's parameters by mapping the weights of the LLMs to the vocabulary space and find that the embedding space can interpret these weights. 
+                  Here, we map the two matrices, $\boldsymbol{W}'$ and $\boldsymbol{W}$, to observe the differences between these methods. 
+                  From the sparsity analysis, we select the top five columns of the updated value matrix $\Delta \boldsymbol{W}$ and map the corresponding columns of $\boldsymbol{W}'$ and $\boldsymbol{W}$ into the embedding matrices $\boldsymbol{E}$ to obtain the logits in the vocabulary space.
+                  We then compute the Hit@10 and Hit@50 of the new knowledge in the output logits.
+                  We select cases from ZsRE where all four methods successfully edit the knowledge and present the average performance in Figure below. 
+                </p>
+              </div>
+              <div class="content has-text-centered custom-content-padding">
+                <img src="static/images/embedding_map.png" alt="error distribution" width="34%">
+                <p>
+                  The Hit@10 and Hit@50 performance for the target knowledge in the model’s parameters before and after editing.  
+                </p>
+              </div>
+              <div class="content has-text-left custom-content-padding">
+                <p>
+                  From the figure, we observe that MEND and MEMIT significantly inject the target knowledge into the parameters. 
+                  Notably, MEND demonstrates a remarkable capacity for editing, with the Hit@50 rate already exceeding 90\% before the edit. 
+                  This means that MEND might be able to find and change the right neurons that hold the target knowledge without having to do a full knowledge-locating analysis.
+                  After the editing process, we observe a substantial increase in the Hit@10 score.
+                  In fact, in our experiments, the Hit@1 for MEND is also above 90\% after editing, demonstrating its strong editing capacity. 
+                  For MEMIT, we also observe an increase in Hit@50 (59.7\% $\rightarrow$ 70.2\%), and the original neurons already have a high Hit score before editing.
+                  However, for ROME and FT-L, we do not observe an increase in performance, indicating that their editing mechanisms require further investigation to understand their specific characteristics and limitations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">The Effectiveness of Knowledge Locating in LLMs</h2>
+        <div class="content has-text-left">
+          <p>
+            We adopt the computing of the \textbf{Relative Similarity} (RSim) as: $ \max \left(\frac{\text { Sim }_{\text {cand }}-\text { Sim }_{\text {all }}}{1-\text { Sim }_{\text {all }}}, 0\right)$.
+            We adopt their dataset klob-r (designed for measuring consistency) and klob-c (designed for measuring relevance) and apply them to the casual analysis method proposed by ROME~\cite{meng2022locating}.
+            Since the casual analysis is a layer-wise intervention, here we compute the similarity using the overlap between the identified layers.
+            We show the RSim score in Figure below.   
+          </p>
+        </div>
+        <div class="content has-text-centered custom-content-padding">
+          <img src="static/images/rsim.jpg" alt="error distribution" width="45%">
+          <p>
+            RSim for the different number of layers.  
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            Here, we can find the Rsim score is less than 0.6 when we consider more than five layers for both consistency and relevance, which means the locating results for unrelated knowledge and related knowledge chains didn't show much difference. To be more tangible, we conduct a case study here.
+          </p>
+        </div>
+        <h2 class="title is-3">Case Study</h2>
+        <div class="content has-text-left">
+          <p>
+            We consider three settings for a given fact associated with the entity <i>SMAP</i>   and show it in Figure below.
+          </p>
+        </div>
+        <div class="content has-text-centered custom-content-padding">
+          <img src="static/images/location.png" alt="error distribution" width="100%">
+          <p>
+            First, we conduct a causal analysis of the fact with the entity [$\text{SMAP} \xrightarrow{\text{created in}}\text{Japan}$]. 
+            Second, we consider a related question with the fact,[$\text{SMAP} \xrightarrow{\text{created in}} \text{Japan} \xrightarrow{\text{language}} \text{Japanese}$], where the model should answer the question based on the fact.
+            Then, we adopt an unrelated fact [$\text{SMAP} \xrightarrow{\text{type of}}\text{seminal group}$]. 
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            We first conduct a causal analysis of the fact: [$\text{SMAP} \xrightarrow{\text{created in}}\text{Japan}$]. 
+            Then, we consider a related question with the fact [$\text{SMAP} \xrightarrow{\text{created in}} \text{Japan} \xrightarrow{\text{language}} \text{Japanese}$], where the model should answer the question based on the fact.
+            Finally, we adopt an unrelated fact [$\text{SMAP} \xrightarrow{\text{type of}}\text{seminal group}$] with the question. 
+            The results show that these facts are possibly related to the same place around 5 layers.
+            However, as Ju and Zhang mentioned, <b>the locating results for specific knowledge and its related knowledge chain should exhibit greater similarity compared to those for unrelated knowledge.</b>
+            Currently, casual analysis methods seem to just locate the area that is related to the entity itself, not the whole fact.
+            Whether the model performs these answers by cheating with answers memorized from the pretraining corpus or via a multi-step reasoning mechanism is still unclear.
+            This is strongly related to the knowledge editing tasks.
+            More broadly, better insight into models' knowledge processes could unlock capabilities like explainability and fact verification.
+            However, fully understanding how exactly knowledge is organized and interconnected within such large models presents an ongoing challenge. 
+            Key open questions include developing methods to trace factual usage during reasoning, designing location techniques that identify knowledge most salient for model outputs, and learning how architectural properties relate to knowledge utilization. 
+            Unpacking these knowledge architectures will be integral to enabling more precise and robust model interventions through approaches like knowledge editing but currently manipulating only the MLP weights is not enough.
+          </p>
+        </div>
+        <h2 class="title is-3">The Implicit Knowledge Structure in LLMs</h2>
+        <div class="content has-text-left">
+          <p>
+            Understanding the knowledge structure in LLM is crucial for effective knowledge editing.
+            Previous research often conceptualized knowledge within LLMs as resembling triples in Knowledge Graphs (KG), comprising subjects, relations, and objects. 
+            This analogy, while useful, simplifies the intricate nature of knowledge representation in LLMs.
+          </p>
+          <p>
+            Editing knowledge in a KG, where the task usually involves modifying a single relationship between two nodes, is comparatively straightforward.
+            KGs inherently support easy reasoning tasks and allow for the preservation of the rest of the knowledge structure.
+            This resilience is illustrated in Figure below, where edits and subsequent recovery processes result in the complete restoration of the original KG structure.
+          </p>
+        </div>
+        <div class="content has-text-centered custom-content-padding">
+          <img src="static/images/kg_com.png" alt="error distribution" width="68%">
+          <p>
+            Comparison of editing effects on Knowledge Graphs vs. LLMs: Demonstrating the abil-
+            ity of Knowledge Graphs to fully restore their original structure after edits and recovery processes,
+            in contrast to LLMs where similar recovery efforts fail to reinstate the original model  
+          </p>
+        </div>
+        <div class="content has-text-left">
+          <p>
+            On the other hand, knowledge editing in LLMs presents unique challenges due to the entangled nature of knowledge within these models. 
+            Unlike KGs, where knowledge is neatly compartmentalized, in LLMs, knowledge is distributed across various parameters and layers, making it difficult to isolate and edit specific information without affecting other knowledge areas.
+            The current perspective of viewing knowledge in LLMs as triples is somewhat limited and fails to capture the full complexity and interconnected nature of these models. This complexity is further highlighted by previous work, who discuss the challenges of modifying intrinsic knowledge within parameters.
+          </p>
+          <p>
+            Furthermore, previous research has revealed that knowledge editing in LLMs can lead to unintended propagation effects.
+            Li et al. illustrates that current knowledge editing methods can result in <b>knowledge conflict</b> and <b>knowledge distortion</b> within LLMs.
+            Unlike structured knowledge bases, neural networks lack strict constraints on knowledge structure and interrelationships. 
+            This makes it difficult to confine edits to a localized scope within the model, and the free-form nature of LLMs further complicates the editing process.
+            Consequently, a more comprehensive understanding of the LM's mechanisms is required.
+          </p>
+          <p>
+            Currently, methods like T-Patcher or IKE offer <b>plug-and-play functionality and easy reversibility</b>. 
+            They provide flexibility and user-friendliness and can be easily integrated into or detached from the LLMs as needed. 
+            These methods aim to mitigate some of the challenges associated with knowledge editing in LLMs, allowing for convenient and reversible modifications.
+            As the field evolves, it is imperative to continue developing methods that not only address the challenges of knowledge editing but also harness the full potential of these complex systems, turning vanilla LLMs into <b>WikiModels</b>, a.k.a., neural knowledge bases that is feasibility for editing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>
+    @article{zhang2024comprehensive,
+      title={A Comprehensive Study of Knowledge Editing for Large Language Models},
+      author={Zhang, Ningyu and Yao, Yunzhi and Tian, Bozhong and Wang, Peng and Deng, Shumin and Wang, Mengru and Xi, Zekun and Mao, Shengyu and Zhang, Jintian and Ni, Yuansheng and others},
+      journal={arXiv preprint arXiv:2401.01286},
+      year={2024}
+    }
+    @article{wang2023easyedit,
+      title={EasyEdit: An Easy-to-use Knowledge Editing Framework for Large Language Models},
+      author={Wang, Peng and Zhang, Ningyu and Xie, Xin and Yao, Yunzhi and Tian, Bozhong and Wang, Mengru and Xi, Zekun and Cheng, Siyuan and Liu, Kangwei and Zheng, Guozhou and others},
+      journal={arXiv preprint arXiv:2308.07269},
+      year={2023}
+    }
+    @article{yao2023editing,
+      title={Editing Large Language Models: Problems, Methods, and Opportunities},
+      author={Yao, Yunzhi and Wang, Peng and Tian, Bozhong and Cheng, Siyuan and Li, Zhoubo and Deng, Shumin and Chen, Huajun and Zhang, Ningyu},
+      journal={arXiv preprint arXiv:2305.13172},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://mathvista.github.io/">MathVista</a> and <a href="https://mmmu-benchmark.github.io/">MMMU</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+</footer>
+
+<script>
+  function changeButtonText() {
+    var button = document.getElementById('toggleButton');
+    if (button.innerHTML === "Switch to Validation Set") {
+      button.innerHTML = "Switch to Test Set";
+    } else {
+      button.innerHTML = "Switch to Validation Set";
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var tables = document.querySelectorAll('table');
+    
+    tables.forEach(function(table) {
+        if (!table) return;
+
+        var initialRows = Array.from(table.rows).slice(1);
+        table.addEventListener('click', function(event) {
+            var clickedCell = event.target.closest('td, th');
+            if (!clickedCell) return;
+            var headerRow = clickedCell.parentNode;
+            var columnIndex = Array.from(headerRow.cells).indexOf(clickedCell);
+            var type = clickedCell.getAttribute('data-type');
+
+            if (headerRow.rowIndex === 0) {
+                if (columnIndex === 0) {
+                    table.tBodies[0].innerHTML = '';
+                    initialRows.forEach(row => table.tBodies[0].appendChild(row.cloneNode(true)));
+                }
+            }
+        });
+    });
+});
+
+function sortTable(table, column, type, asc) {
+    var tbody = table.tBodies[0];
+    var rows = Array.from(tbody.rows);
+
+    rows.sort(function(a, b) {
+        var valA = a.cells[column].textContent;
+        var valB = b.cells[column].textContent;
+
+        if (type === 'number') {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+        }
+
+        return asc ? valA - valB : valB - valA;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+
+<style>
+ .hidden {
+      display: none;
+  }
+  .sortable:hover {
+      cursor: pointer;
+  }
+  .asc::after {
+      content: ' ↑';
+  }
+  .desc::after {
+      content: ' ↓';
+  }
+  #toggleButton {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    color: #555555;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition-duration: 0.4s;
+  }
+
+  #toggleButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* 鼠标悬停时的阴影效果 */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  th {
+      background-color: #f2f2f2;
+      border-bottom: 2px solid #ddd;
+  }
+
+  td:hover {background-color: #ffffff;}
+</style>
+
+</body>
+</html>
