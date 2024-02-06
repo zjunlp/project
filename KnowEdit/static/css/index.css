@@ -1,5 +1,15 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+}
+
 body {
   font-family: 'Noto Sans', sans-serif;
+  padding-top: 50px
 }
 
 
@@ -179,3 +189,25 @@ body {
   padding-right: 4rem; 
 }
 
+.menu {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 25%;
+  height: 100%;
+  background-color: #f4f4f4;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.menu-active {
+  transform: translateX(0);
+}
+
+#mainContent {
+  transition: margin-left 0.3s ease; 
+}
+
+.content-active {
+  margin-left: 250px;
+}
