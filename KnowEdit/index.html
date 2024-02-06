@@ -8,6 +8,7 @@
         }
     </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/f8ddf9854a.js" crossorigin="anonymous"></script>
   <script>
     MathJax = {
       tex: {
@@ -57,49 +58,67 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
+    </div>
 
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
-            <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
-          </a>
-          <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
-            <b>EasyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
-          </a>
-          <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
-            <b>EasyInstruct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
-          </a>
-          <a class="navbar-item" href="https://openkg-org.github.io/EasyDetect/" target="_blank">
-            <b>EasyDetect</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
-          </a>
-            <a class="navbar-item" href="https://zjunlp.github.io/ChatCell/" target="_blank">
-          ChatCell
-          </a>
-          <a class="navbar-item" href="https://zjunlp.github.io/SafetyEdit/" target="_blank">
-          SafetyEdit
-          </a>
-          <a class="navbar-item" href="https://zjunlp.github.io/project/KnowAgent/" target="_blank">
-            KnowAgent
-             </a>
-          <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
-            AutoAct  
-             </a>
-            <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
-              TRICE
+    <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+            <a class="navbar-item" id="toggleMenu">
+              <span class="icon">
+                  <i class="fas fa-list"></i>
+              </span>
             </a>
-            <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
-              InstructIE
+            <a class="navbar-item" href="http://knowlm.zjukg.cn/">
+              <span class="icon">
+                  <i class="fas fa-home"></i>
+              </span>
             </a>
-               <a class="navbar-item" href="https://zjunlp.github.io/project/IEPile" target="_blank">
-              IEPile
-            </a>
-
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More Research
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
+                    <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                  </a>
+                  <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
+                    <b>EasyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                    <b>EasyInstruct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                  </a>
+                  <a class="navbar-item" href="https://openkg-org.github.io/EasyDetect/" target="_blank">
+                    <b>EasyDetect</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/ChatCell/" target="_blank">
+                    ChatCell
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/SafetyEdit/" target="_blank">
+                    SafetyEdit
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/KnowAgent/" target="_blank">
+                    KnowAgent
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
+                    AutoAct  
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
+                    TRICE
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
+                    InstructIE
+                  </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/project/IEPile" target="_blank">
+                    IEPile
+                  </a>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
@@ -163,7 +182,7 @@
             <span class="author-block">Yunzhi Yao*<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Bozhong Tian*<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Peng Wang*<sup style="color:#007bff;">1</sup>,</span><br>
-            <span class="author-block">Shumin Deng*<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Shumin Deng*<sup style="color:#ed4b82;">2</sup>,</span>
             <span class="author-block">Mengru Wang<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Zekun Xi<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Shengyu Mao<sup style="color:#007bff;">1</sup>,</span>
@@ -172,14 +191,14 @@
             <span class="author-block">Siyuan Cheng<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Ziwen Xu<sup style="color:#007bff;">1</sup>,</span>
             <span class="author-block">Xin Xu<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Jia-Chen Gu<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Yong Jiang<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Pengjun Xie<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Fei Huang<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Lei Liang<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Zhiqiang Zhang<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Xiaowei Zhu<sup style="color:#007bff;">1</sup>,</span>
-            <span class="author-block">Jun Zhou<sup style="color:#007bff;">1</sup>,</span>
+            <span class="author-block">Jia-Chen Gu<sup style="color:#6fbf73;">3</sup>,</span>
+            <span class="author-block">Yong Jiang<sup style="color:#ffac33;">5</sup>,</span>
+            <span class="author-block">Pengjun Xie<sup style="color:#ffac33;">5</sup>,</span>
+            <span class="author-block">Fei Huang<sup style="color:#ffac33;">5</sup>,</span>
+            <span class="author-block">Lei Liang<sup style="color:#9b51e0;">4</sup>,</span>
+            <span class="author-block">Zhiqiang Zhang<sup style="color:#9b51e0;">4</sup>,</span>
+            <span class="author-block">Xiaowei Zhu<sup style="color:#9b51e0;">4</sup>,</span>
+            <span class="author-block">Jun Zhou<sup style="color:#9b51e0;">4</sup>,</span>
             <span class="author-block">Huajun Chen&dagger;<sup style="color:#007bff;">1</sup></span>
           </div>
           
@@ -187,10 +206,10 @@
           
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup style="color:#007bff;">1</sup>Zhejiang University,</span>
-            <span class="author-block"><sup style="color:#ffac33;">2</sup>National University of Singapore,</span>
-            <span class="author-block"><sup style="color:#000000;">3</sup>Univers of California, Los Angeles,</span>
-            <span class="author-block"><sup style="color:#000000;">4</sup>Ant Group</span>
-            <span class="author-block"><sup style="color:#000000;">5</sup>Alibaba Group</span>
+            <span class="author-block"><sup style="color:#ed4b82;">2</sup>National University of Singapore,</span><br>
+            <span class="author-block"><sup style="color:#6fbf73;">3</sup>Univers of California, Los Angeles,</span>
+            <span class="author-block"><sup style="color:#9b51e0;">4</sup>Ant Group</span>
+            <span class="author-block"><sup style="color:#ffac33;">5</sup>Alibaba Group</span>
           </div>
 
           <br>
@@ -268,8 +287,9 @@
               <span class="link-block">
                 <a href="https://twitter.com/zxlzr/status/1744612116039180343"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <p style="font-size:18px">🌐</p>
+                   <span class="icon has-text-white">
+                    <i class="fa-brands fa-x-twitter"></i>
+                      <!-- <p style="font-size:18px">🌐</p> -->
                   </span>
                   <span>Twitter</span>
                 </a>
