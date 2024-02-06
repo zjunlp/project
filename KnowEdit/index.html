@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EditLLM</title>
+  <title>KnowEidt</title>
     <style>
         .hidden {
             display: none;
@@ -45,7 +45,6 @@
   <link rel="stylesheet" href="./static/css/leaderboard.css">
 
   <script type="text/javascript" src="static/js/sort-table.js" defer></script>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
@@ -59,24 +58,13 @@
 <body>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="http://knowlm.zjukg.cn/">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a> 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
+    <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
         </a>
+
         <div class="navbar-dropdown">
           <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
             <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
@@ -111,13 +99,51 @@
                <a class="navbar-item" href="https://zjunlp.github.io/project/IEPile" target="_blank">
               IEPile
             </a>
+
         </div>
-      </div>
     </div>
-  </div>
 </nav>
 
+<aside class="menu" id="sidebarMenu">
+  <p class="menu-label">
+    KnowEdit
+  </p>
+  <ul class="menu-list">
+    <li><a href="#News">News</a></li>
+    <li><a href="#Abstract">Abstract</a></li>
+    <li><a href="#BibTeX">BibTeX</a></li>
+  </ul>
+  <p class="menu-label">
+    Knowledge Editing for LLMs
+  </p>
+  <ul class="menu-list">
+    <li><a href="#Task-Definition">Task Definition</a></li>
+    <li><a href="#Method">Method</a></li>
+    <li><a href="#Benchmark">New Benchmark: KnowEdit</a></li>
+    <li><a href="#Evaluation">Evaluation for Knowledge Editing</a></li>
+  </ul>
+  <p class="menu-label">
+    Experiments
+  </p>
+  <ul class="menu-list">
+    <li><a href="#Experiment">Experiment Settings</a></li>
+    <li><a href="#Results">Main Results</a></li>
+    <li><a href="#Impact">Impact of Knowledge Editing on General Tasks</a></li>
+    <li><a href="#Multi-Task">Multi-Task Knowledge Editing</a></li>
+    <li><a href="#Error-and-Case-Analysis">Error and Case Analysis</a></li>
+  </ul>
+  <p class="menu-label">
+    Analysis
+  </p>
+  <ul class="menu-list">
+    <li><a href="#Comparison">Comparison of Different Knowledge Editing Methods</a></li>
+    <li><a href="#Effectiveness">The Effectiveness of Knowledge Locating in LLMs</a></li>
+    <li><a href="#Case-Study">Case Study</a></li>
+    <li><a href="#Implicit">The Implicit Knowledge Structure in LLMs</a></li>
+  </ul>
+</aside>
 
+<div id="mainContent">
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -263,31 +289,20 @@
     margin-right: auto;
     width: 80%;
   }
-  </style>
-<!-- <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <div class="content has-text-centered">
-        <img src="static/images/FrameWork.png" alt="geometric reasoning" width="100%"/>
-        <p> Overview of the EasyEdit. 
-          EasyEdit is a Python package for edit Large Language Models (LLM) like GPT-J, Llama, GPT-NEO, GPT2, T5(support models from 1B to 65B), 
-          the objective of which is to alter the behavior of LLMs efficiently within a specific domain without negatively impacting performance across other inputs. 
-          It is designed to be easy to use and easy to extend.</p>
-      </div>
-    </div>
-  </div>
-</section> -->
+</style>
 
+<!-- News -->
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">🔔News</h2>
+        <h2 class="title is-3" id="News">🔔News</h2>
         <div class="content has-text-justified">
           <p>
             <b>[2024-01-03]: We release a new paper:"<a href="https://arxiv.org/abs/2401.01286"><b>A Comprehensive Study of Knowledge Editing for Large Language Models</b></a>" with a new benchmark <a href="https://huggingface.co/datasets/zjunlp/KnowEdit"><b>KnowEdit</b></a>! We are looking forward to any comments or discussions on this topic :)</b>
           </p>
       </div>      
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3" id="Abstract">Abstract</h2>
         <div class="content has-text-justified">
           <p>
             Large Language Models (LLMs) have shown extraordinary capabilities in understanding and generating text that closely mirrors human communication. However, a primary limitation lies in the significant computational demands during training, arising from their extensive parameterization. This challenge is further intensified by the dynamic nature of the world, necessitating frequent updates to LLMs to correct outdated information or integrate new knowledge, thereby ensuring their continued relevance. Note that many applications demand continual model adjustments post-training to address deficiencies or undesirable behaviors. There is an increasing interest in efficient, lightweight methods for on-the-fly model modifications. To this end, recent years have seen a burgeoning in the techniques of knowledge editing for LLMs, which aim to efficiently modify LLMs' behaviors within specific domains while preserving overall performance across various inputs. In this paper, we first define the knowledge editing problem and then provide a comprehensive review of cutting-edge approaches. Drawing inspiration from educational and cognitive research theories, we propose a unified categorization criterion that classifies knowledge editing methods into three groups: resorting to external knowledge, merging knowledge into the model, and editing intrinsic knowledge. Furthermore, we introduce a new benchmark, KnowEdit, for a comprehensive empirical evaluation of representative knowledge editing approaches. Additionally, we provide an in-depth analysis of knowledge location, which can give a deeper understanding of the knowledge structures inherent within LLMs. Finally, we discuss several potential applications of knowledge editing, outlining its broad and impactful implications.
@@ -298,7 +313,7 @@
 </div>
 </section>
 
-<!-- DATASET SECTION -->
+<!-- Knowledge Editing for LLMs -->
 <section class="hero is-light is-small">
   <div class="hero-body has-text-centered">
   <h1 class="title is-1 editing">
@@ -312,7 +327,7 @@
   <div class="container">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Task Definition</h2>
+        <h2 class="title is-3" id="Task-Definition">Task Definition</h2>
         <div class="content has-text-justified">
           <p>
             The initial goal of knowledge editing is to modify the specific knowledge $k$ in the LLM and improve the consistency and performance of the LLM without fine-tuning the whole model.
@@ -411,7 +426,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
+        <h2 class="title is-3" id="Method">Method</h2>
         <div class="content has-text-justified">
           <div class="content has-text-left">
             <p>
@@ -448,7 +463,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">New Benchmark: <b>KnowEdit</b></h2>
+        <h2 class="title is-3" id="Benchmark">New Benchmark: <b>KnowEdit</b></h2>
         <div class="content has-text-justified">
           <div class="content has-text-left">
             <p>
@@ -469,7 +484,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Evaluation for Knowledge Editing</h2>
+        <h2 class="title is-3" id="Evaluation">Evaluation for Knowledge Editing</h2>
         <div class="content has-text-justified">
           <div class="content has-text-left">
             <p>
@@ -587,7 +602,7 @@
           By conducting experiments using these methods and leveraging appropriate datasets, we aimed to evaluate the performance and efficacy of knowledge editing techniques in LLMs. 
           Our goal was to gain insights into the challenges, limitations, and potential improvements associated with editing knowledge in these models.
         </div>
-        <h2 class="title is-3">Experiment Settings</h2>
+        <h2 class="title is-3" id="Experiment">Experiment Settings</h2>
         <div class="content has-text-justified">
           <p>
             All the experiments are conducted by EasyEdit. As to the evaluation of the post-edited model, some of the previous works computed the probability difference of the output for pre-edit and post-edit models: $P[y^{*}|\theta^{'}] - P[y|\theta]$. 
@@ -653,7 +668,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Main Results</h2>
+        <h2 class="title is-3" id="Results">Main Results</h2>
         <div class="content has-text-left">
           <p>
             We list the results of current knowledge editing methods on <b>Llama2-7b-chat</b> in Table below.
@@ -670,7 +685,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Impact of Knowledge Editing on General Tasks</h2>
+        <h2 class="title is-3" id="Impact">Impact of Knowledge Editing on General Tasks</h2>
         <div class="content has-text-left">
           <p>
             In this Section, we explore the impact of applying knowledge editing methods on the performance of a language model across various domains. Our main goal is to determine if incorporating edits related to specific factual knowledge can unintentionally hinder the model's proficiency in unrelated areas.  
@@ -706,7 +721,7 @@
     
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Multi-Task Knowledge Editing</h2>
+        <h2 class="title is-3" id="Multi-Task">Multi-Task Knowledge Editing</h2>
         <div class="content has-text-left">
           <p>
             Previous work considered a sequential edit for a lifelong knowledge editing. 
@@ -765,7 +780,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Error and Case Analysis</h2>
+        <h2 class="title is-3" id="Error-and-Case-Analysis">Error and Case Analysis</h2>
         <div class="content has-text-left">
           <p>
             As shown in the results, different methods demonstrate different performance on different tasks.
@@ -854,7 +869,7 @@
               We hope further investigation will unveil the mechanisms of knowledge in LLMs.</p>
             </div>
         </div>
-        <h2 class="title is-3">Comparison of Different Knowledge Editing Methods</h2>
+        <h2 class="title is-3" id="Comparison">Comparison of Different Knowledge Editing Methods</h2>
         <div class="content has-text-left">
           <p>
             The effectiveness of current knowledge editing methods is commendable, but the reasons behind their superior performance compared to other approaches remain elusive.
@@ -936,7 +951,7 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">The Effectiveness of Knowledge Locating in LLMs</h2>
+        <h2 class="title is-3" id="Effectiveness">The Effectiveness of Knowledge Locating in LLMs</h2>
         <div class="content has-text-left">
           <p>
             We adopt the computing of the \textbf{Relative Similarity} (RSim) as: $ \max \left(\frac{\text { Sim }_{\text {cand }}-\text { Sim }_{\text {all }}}{1-\text { Sim }_{\text {all }}}, 0\right)$.
@@ -956,7 +971,7 @@
             Here, we can find the Rsim score is less than 0.6 when we consider more than five layers for both consistency and relevance, which means the locating results for unrelated knowledge and related knowledge chains didn't show much difference. To be more tangible, we conduct a case study here.
           </p>
         </div>
-        <h2 class="title is-3">Case Study</h2>
+        <h2 class="title is-3" id="Case-Study">Case Study</h2>
         <div class="content has-text-left">
           <p>
             We consider three settings for a given fact associated with the entity <i>SMAP</i>   and show it in Figure below.
@@ -986,7 +1001,7 @@
             Unpacking these knowledge architectures will be integral to enabling more precise and robust model interventions through approaches like knowledge editing but currently manipulating only the MLP weights is not enough.
           </p>
         </div>
-        <h2 class="title is-3">The Implicit Knowledge Structure in LLMs</h2>
+        <h2 class="title is-3" id="Implicit">The Implicit Knowledge Structure in LLMs</h2>
         <div class="content has-text-left">
           <p>
             Understanding the knowledge structure in LLM is crucial for effective knowledge editing.
@@ -1059,8 +1074,6 @@
   </div>
 </section>
 
-
-
 <footer class="footer">
   <!-- <div class="container"> -->
     <div class="content has-text-centered">
@@ -1079,6 +1092,8 @@
   <!-- </div> -->
 
 </footer>
+
+</div>
 
 <script>
   function changeButtonText() {
@@ -1131,6 +1146,43 @@ function sortTable(table, column, type, asc) {
 
     rows.forEach(row => tbody.appendChild(row));
 }
+
+var toggleButton = document.getElementById('toggleMenu');
+var sidebarMenu = document.getElementById('sidebarMenu');
+var mainContent = document.getElementById('mainContent');
+var navbarBurger = document.querySelector('.navbar-burger');
+
+toggleButton.addEventListener('click', function() {
+    sidebarMenu.classList.toggle('menu-active');
+    mainContent.classList.toggle('content-active');
+    
+    if (navbarBurger.classList.contains('is-active')) {
+        navbarBurger.click();
+    }
+});
+
+document.querySelectorAll('#sidebarMenu a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault(); 
+        var target = document.querySelector(this.getAttribute('href'));
+        var headerOffset = 80;
+        var elementPosition = target.getBoundingClientRect().top;
+        var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+
+        if (sidebarMenu.classList.contains('menu-active')) {
+            sidebarMenu.classList.remove('menu-active');
+        }
+        
+        if (mainContent && mainContent.classList.contains('content-active')) {
+            mainContent.classList.remove('content-active');
+        }
+    });
+});
 </script>
 
 
