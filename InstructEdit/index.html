@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="InstructEdit: Instruction-Based Knowledge Editing for Large Language Models">
+  <meta name="keywords" content="InstructEdit, Knowledge Editing, Model Editing, Instruction Tuning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InstructEdit: Instruction-Based Knowledge Editing for Large Language Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/editor.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">InstructEdit: Instruction-Based Knowledge Editing for Large Language Models</h2>
+          <div class="is-size-4">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Bozhong Tian<sup>&#x2660;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Siyuan Cheng<sup>&#x2663;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiaozhuan Liang<sup>&#x2660;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;†</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yi Hu<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Kouying Xue<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yanjie Gou<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xi Chen<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;†</sup>
+            </span>,
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <!-- <span class="author-block">
+              <sup>&#x2661;</sup>Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph
+            </span> -->
+            <span class="author-block">
+              <sup>&#x2663;</sup>Tencent
+            </span>
+            <!-- <span class="author-block">
+              <sup>&#x2662;</sup>Alibaba Group
+            </span> -->
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>†</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- HF Paper.
+              <span class="link-block">
+                <a href="https://huggingface.co/papers/2401.05268" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/EasyEdit" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1745412748023128565" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="80%" src="./images/intro.gif" style="display: block; margin-left: auto; margin-right: auto;">
+
+      <h2 class="subtitle has-text-centered">
+        The vanilla Multi-Task Editor still struggles to choose the right tool for varied tasks without aid. 
+    <b>InstructEdit</b>, enabling the Multi-Task Editor to respond aptly with instructional guidance.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Knowledge editing for large language models can offer an efficient solution to alter a model’s 
+            behavior without negatively impacting the overall performance. However, the current approach 
+            encounters issues with limited generalizability across tasks, necessitating <b>one distinct editor for each task</b>, 
+            which significantly hinders the broader applications. To address this, we take the first 
+            step to analyze the multi-task generalization issue in knowledge editing. Specifically, 
+            we develop an instruction-based editing technique, termed <b>InstructEdit</b>, which 
+            facilitates the editor's adaptation to various task performances simultaneously using simple instructions. 
+            With only one unified editor for each LLM, we empirically demonstrate that <b>InstructEdit</b> can improve the editor's control, 
+            leading to an average 14.86% increase in Reliability in multi-task editing setting. Furthermore, experiments involving holdout 
+            unseen task illustrate that <b>InstructEdit</b> consistently surpass previous strong baselines. To further investigate the 
+            underlying mechanisms of instruction-based knowledge editing, we analyze the principal components of the editing gradient directions, 
+            which unveils that instructions can help control optimization direction with stronger OOD generalization
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+
+    <!-- Motivation -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Motivation</h2>
+        <img id="model" width="80%" src="images/motivate.png">
+        <p class="has-text-centered">
+          <div class="column has-text-justified">
+            Table 1: Motivating knowledge editing results in multi-task generalization. 
+            Directly transferring to the unseen task (CounterFact and ZsRE) can result in a significant performance decay.
+          </div>
+        </p>
+        <br>
+
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Motivation -->
+
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">InstructEdit</h2>
+        <img id="model" width="100%" src="images/main.png">
+        <p class="has-text-centered">
+          Figure 1: <b>The overview of our proposed method InstructEdit</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          As shown in Figure 1, assuming access to multi-domain task data: Law, Geography, Medicine, and Math.
+          <b>Single-Task Editing</b> Original editing is domain-specific (e.g., a Geography Editor edits geography-related knowledge but can't transfer it to Medicine).
+          <b>Multi-Task Editing</b> Previous methods (Pre-Editor) trained across domains (Law, Geography, and Math) often misdirect In-Distribution Task Editing. For OOD Task Editing (Medicine), a lack of guidance leads to missing the correct edit region. Instructions enable precise editing and improve generalization.
+          <b>Instruction Construction</b> We utilize GPT-4 to generate instructions through well-crafted prompts, evaluate metrics using the Trial Editor, and then employ GPT-4 for continuous Instruction Optimization, enhancing the instructions until there is no further improvement in metrics.
+        </div>
+        <img id="model" width="40%" src="images/instruction.png">
+        <p class="has-text-centered">
+          <div class="column has-text-justified">
+            Table 2: Examples of the instructions.
+            As for ConvSent, we need to replace [LABEL] and [TOPIC] according to the input..
+          </div>
+        </p>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    
+    <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <img id="model" width="80%" src="images/main_results.png">
+        <p class="has-text-centered">
+          Table 3: <b>Multi-Task Editing Setting</b>: Editors train on a hybrid of CounterFact, Recent, and ConvSent datasets, and test on their specific test sets.
+          <b>Hold Out Editing Setting</b>: The abovementioned editors are tested on ZsRE (OOD data).
+          All metrics are "the higher, the better".
+          The best results of each model are marked in <b>bold</b> and the second-best results are marked with <u>underline</u>.
+        </p>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="80%" src="images/analysis.png">
+        <p class="has-text-centered">
+          Figure 2: (a) Compares instruction effects on knowledge editing gradient \( \tilde{\nabla}_{u_\ell} \). <b>Recent (InstructEdit)</b> and <b>Recent (Multi-Task)</b> 
+          illustrate \( \tilde{\nabla}_{u_\ell} \) on Recent using <b>InstructEdit</b> and MEND in multi-task settings, respectively. <b>Recent (Single-Task)</b> 
+          shows MEND's results of training on Recent alone. (b) Demonstrates task scaling's impact on <b>InstructEdit</b>, with <b>Recent \( \rightarrow \) ZsRE</b> 
+          for training on Recent and testing on ZsRE, and <b>Recent&CF \( \rightarrow \) ZsRE</b> for joint training on Recent, CounterFact, 
+          and testing on ZsRE. (c) Illustrates the reliability and generalization performance across task scaling. (d) Balances ConvSent by extracting 1,427 
+          entries for <b>ConvSent (Balanced)</b>.
+        </p>
+        <br>
+        <img id="model" width="80%" src="images/seen_unseen.png">
+        <p class="has-text-centered">
+          Figure 3: <b>InstructEdit</b> demonstrates proficiency in generalizing to Unseen instructions, achieving results comparable to Seen instructions.
+        </p>
+      </div>
+    </div>
+    <!-- Paper Analysis. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+PLACEHOLDER
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
