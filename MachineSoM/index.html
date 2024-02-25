@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Prompting ChatGPT for Multimodal Reasoning and Action">
+  <meta name="keywords" content="MM-ReAct, ChatGPT, GPT-4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exploring Collaboration Mechanisms for LLM Agents: A Social Psychology View</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/logo.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+
+/* 轮播图样式 */
+/* 轮播图样式 */
+      .slider {
+            width: 100%;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: 0.6s ease-in-out;
+        }
+
+        .slider-btns {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .slider-btn {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .slider-btn.active {
+            background-color: #333;
+            color: white;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 24px;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            user-select: none;
+            z-index: 2;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+    /* 轮播图图片自适应样式 */
+  .carousel img {
+    max-width: 100%;
+    height: auto;
+  }
+  .carousel img {
+    width: 100%;
+    height: auto;
+    display: block; /* 确保图片不会有额外的空间 */
+  }
+
+  .carousel .item-1, .carousel .item-2, .carousel .item-3 {
+    width: 100%; /* 每项的宽度与轮播容器相同 */
+    height: auto;
+  }
+  .carousel {
+    width: 100%; /* 或者其他具体宽度 */
+    overflow: hidden; /* 隐藏超出容器的部分 */
+    height: auto;
+  }
+  .carousel-text {
+    /* 根据需要添加样式 */
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .carousel-buttons {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.carousel-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.carousel-button:hover {
+  background-color: #367c39;
+}
+
+
+  /* 轮播图容器样式，可根据需要调整 */
+  .carousel-container {
+    width: 100%; /* 或其他固定宽度 */
+    margin: auto;
+    height: auto;
+  }
+
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">
+            <img src="images/logo.jpg" alt="Logo" style="height: 50px; vertical-align: middle;">
+            Exploring Collaboration Mechanisms for LLM Agents:<br> A Social Psychology View</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Jintian Zhang<sup>*</sup><sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xin Xu<sup>*</sup><sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&dagger;</sup><sup>&#x2660;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ruibo Liu<sup>&#x2663;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Bryan Hooi<sup>&#x2661;</sup>
+            </span>
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shumin Deng<sup>&dagger;</sup><sup>&#x2661;</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>National University of Singapore, NUS-NCS Joint Lab
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>Google DeepMind
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>&dagger;</sup>Corresponding Author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2310.02124.pdf" 
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/MachineSoM" target="_blank" 
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Google Drive Link. -->
+
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/1KefQzwfINdTZI-vM_eYJis0npc32gBJt/view?usp=sharing" target="_blank" 
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <img src="./static/images/drive.png" alt="Drive" style="height: 17px; width: 17px; vertical-align: middle;"/>
+                  </span>
+                <span>Google Drive</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="120%" src="./images/gif.gif">
+      <h2>
+        An example of the <b>chess move validity</b> task. Given previous chess game moves, agents are required to predict a valid next move for a specified piece.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!--摘要-->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            As Natural Language Processing (NLP) systems are increasingly employed in intricate social environments, a pressing query emerges: <strong><i style="color: red;">Can these NLP systems mirror human-esque collaborative intelligence, in a multi-agent society consisting of multiple large language models (LLMs)?</i></strong> This paper probes the collaboration mechanisms among contemporary NLP systems by melding practical experiments with theoretical insights. 
+            We fabricate four unique 'societies' comprised of LLM agents, 
+            where each agent is characterized by a specific 'trait' ( 
+              <img src="images/easygoing.png" alt="Logo" style="height: 15px; width: 18px; vertical-align: middle;"> <span style="font-style: italic; font-weight: bold; color: red; text-decoration: underline;">easy-going</span> or 
+              <img src="images/overconfident.png" alt="Logo" style="height: 16px; width: 21px; vertical-align: middle;"> <span style="font-style: italic; font-weight: bold; color: blue; text-decoration: underline;">overconfident</span> ) and engages in collaboration with a distinct 'thinking pattern' 
+              (<img src="images/debate.png" alt="Logo" style="height: 15px; width: 15px; vertical-align: middle;"> <span style="font-style: italic; font-weight: bold; text-decoration: underline;">debate</span> or 
+                <img src="images/reflection.png" alt="Logo" style="height: 16px; width: 16px; vertical-align: middle;"> <span style="font-style: italic; font-weight: bold; text-decoration: underline;">reflection</span>). Through evaluating these multi-agent societies on three benchmark datasets, we discern that certain collaborative strategies not only outshine previous top-tier approaches, but also optimize efficiency (using fewer API tokens). Moreover, our results further illustrate that LLM agents manifest human-like social behaviors, such as conformity and consensus reaching, mirroring foundational social psychology theories. In conclusion, we integrate insights from social psychology to contextualize the collaboration of LLM agents, inspiring further investigations into the collaboration mechanism for LLMs. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+    <!-- Simulation Setup -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Simulation Setup</h2>
+        
+        <!--轮播1-->
+        <div class="slider slider1">
+          <!-- 左右按钮 -->
+          <button class="prev" onclick="plusSlides(-1,'slider1')">&#10094;</button>
+          <button class="next" onclick="plusSlides(1,'slider1')">&#10095;</button>
+
+          <!-- 图片 -->
+          <div class="slides">
+              <div class="slide">
+                  <img src="./images/setting/setting_overview.png" alt="First Slide">
+                  <br><br>
+                  <div><b>TODO</b></div>
+                  <br><br><br><br>
+              </div>
+              <div class="slide">
+                  <img src="./images/setting/setting_detail1.png" alt="Second Slide">
+                  <br><br>
+                  <div><b>TODO</b></div>
+                  <br><br><br><br>
+              </div>
+              <div class="slide">
+                  <img src="./images/setting/setting_detail2.png" alt="Third Slide">
+                  <br><br>
+                  <div><b>TODO</b></div>
+                  <br><br><br><br>
+              </div>
+              <div class="slide">
+                
+                <br><br>
+                <div><b>TODO</b></div>
+                <br><br><br><br>
+            </div>
+          </div>
+
+          <!-- 按钮 -->
+          <div class="slider-btns">
+              <button class="slider-btn active" onclick="currentSlide(1,'slider1')">Overview</button>
+              <button class="slider-btn" onclick="currentSlide(2,'slider1')">Single Agent</button>
+              <button class="slider-btn" onclick="currentSlide(3,'slider1')">Society</button>
+              <button class="slider-btn" onclick="currentSlide(4,'slider1')">Dataset & Metric</button>
+          </div>
+        </div>
+        <!--/轮播1-->
+
+        
+        <h2>
+          TODO
+        </h2>
+        <br>
+        
+        
+        </div>
+    </div>
+    <!-- /Simulation Setup -->
+    <br>
+    <br>
+    <!-- Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+
+        <!--轮播图-->
+        <section class="section">
+          <div class="container is-max-desktop content">
+              <div class="slider slider2">
+                  <!-- 左右按钮 -->
+                  <button class="prev" onclick="plusSlides(-1,'slider2')">&#10094;</button>
+                  <button class="next" onclick="plusSlides(1,'slider2')">&#10095;</button>
+
+                  <!-- 图片 -->
+                  <div class="slides">
+                      <div class="slide">
+                          <img src="./images/main_result/gpt.png" alt="First Slide">
+                          <br><br><br><br><br><br><br>
+                          <div class="slide-caption"></div>
+                      </div>
+                      <div class="slide">
+                          <img src="./images/main_result/gpt-july.png" alt="Second Slide">
+                      </div>
+                      <div class="slide">
+                          <img src="./images/main_result/llama13.png" alt="Third Slide">
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/main_result/llama70.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/main_result/qwen.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/main_result/mixtral.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                  </div>
+
+                  <!-- 按钮 -->
+                  <div class="slider-btns">
+                      <button class="slider-btn active" onclick="currentSlide(1,'slider2')">GPT-3.5-turbo-1106</button>
+                      <button class="slider-btn" onclick="currentSlide(2,'slider2')">GPT-3.5-turbo-july</button>
+                      <button class="slider-btn" onclick="currentSlide(3,'slider2')">LlaMA-2 13B Chat</button>
+                      <br><br>
+                      <button class="slider-btn" onclick="currentSlide(4,'slider2')">LlaMA-2 70B Chat</button>
+                      <button class="slider-btn" onclick="currentSlide(5,'slider2')">Qwen 72B Chat</button>
+                      <button class="slider-btn" onclick="currentSlide(6,'slider2')">Mixtral-8x7B</button>
+                  </div>
+              </div>
+          </div>
+        </section>
+        <br>   
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- /Main Results -->
+
+    <!-- Conformity -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Conformity</h2>
+        <!--轮播图-->
+        <section class="section">
+          <div class="container is-max-desktop content">
+              <div class="slider slider3">
+                  <!-- 左右按钮 -->
+                  <button class="prev" onclick="plusSlides(-1,'slider3')">&#10094;</button>
+                  <button class="next" onclick="plusSlides(1,'slider3')">&#10095;</button>
+
+                  <!-- 图片 -->
+                  <div class="slides">
+                      <div class="slide">
+                          <img src="./images/conformity/gpt.png" alt="First Slide">
+                          <br><br><br><br><br><br><br>
+                          <div class="slide-caption"></div>
+                      </div>
+                      <div class="slide">
+                          <img src="./images/conformity/llama13.png" alt="Third Slide">
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/conformity/llama70.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/conformity/qwen.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/conformity/mixtral.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                  </div>
+
+                  <!-- 按钮 -->
+                  <div class="slider-btns">
+                      <button class="slider-btn active" onclick="currentSlide(1,'slider3')">GPT-3.5</button>
+                      <button class="slider-btn" onclick="currentSlide(2,'slider3')">LlaMA-2 13B</button>
+                      <button class="slider-btn" onclick="currentSlide(3,'slider3')">LlaMA-2 70B</button>
+                      <button class="slider-btn" onclick="currentSlide(4,'slider3')">Qwen</button>
+                      <button class="slider-btn" onclick="currentSlide(5,'slider3')">Mixtral</button>
+                  </div>
+              </div>
+          </div>
+        </section>
+
+        <br>
+      </div>
+    </div>
+    <!-- /Conformity -->
+
+    <!-- Consensus -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Consensus</h2>
+        <!--轮播图-->
+        <section class="section">
+          <div class="container is-max-desktop content">
+              <div class="slider slider4">
+                  <!-- 左右按钮 -->
+                  <button class="prev" onclick="plusSlides(-1,'slider4')">&#10094;</button>
+                  <button class="next" onclick="plusSlides(1,'slider4')">&#10095;</button>
+
+                  <!-- 图片 -->
+                  <div class="slides">
+                      <div class="slide">
+                          <img src="./images/consensus/gpt.png" alt="First Slide">
+                          <br><br><br><br><br><br><br>
+                          <div class="slide-caption"></div>
+                      </div>
+                      <div class="slide">
+                          <img src="./images/consensus/llama13.png" alt="Third Slide">
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                          <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/consensus/llama70.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/consensus/qwen.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                      <div class="slide">
+                        <img src="./images/consensus/mixtral.png" alt="Third Slide">
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                        <div class="slide-caption"> </div>
+                      </div>
+                  </div>
+
+                  <!-- 按钮 -->
+                  <div class="slider-btns">
+                      <button class="slider-btn active" onclick="currentSlide(1,'slider4')">GPT-3.5</button>
+                      <button class="slider-btn" onclick="currentSlide(2,'slider4')">LlaMA-2 13B</button>
+                      <button class="slider-btn" onclick="currentSlide(3,'slider4')">LlaMA-2 70B</button>
+                      <button class="slider-btn" onclick="currentSlide(4,'slider4')">Qwen</button>
+                      <button class="slider-btn" onclick="currentSlide(5,'slider4')">Mixtral</button>
+                  </div>
+              </div>
+          </div>
+        </section>
+
+        <br>
+      </div>
+    </div>
+    <!-- /Consensus -->
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{DBLP:journals/corr/abs-2310-02124,
+        author       = {Jintian Zhang and
+                        Xin Xu and
+                        Ningyu Zhang and
+                        Ruibo Liu and
+                        Bryan Hooi and
+                        Shumin Deng},
+        title        = {Exploring Collaboration Mechanisms for {LLM} Agents: {A} Social Psychology
+                        View},
+        journal      = {CoRR},
+        volume       = {abs/2310.02124},
+        year         = {2023},
+        url          = {https://doi.org/10.48550/arXiv.2310.02124},
+        doi          = {10.48550/ARXIV.2310.02124},
+        eprinttype    = {arXiv},
+        eprint       = {2310.02124},
+        timestamp    = {Thu, 19 Oct 2023 13:12:52 +0200},
+        biburl       = {https://dblp.org/rec/journals/corr/abs-2310-02124.bib},
+        bibsource    = {dblp computer science bibliography, https://dblp.org}
+      }
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+
+
+// 创建两个独立的索引，分别用于两个轮播图
+// 创建一个对象来存储每个轮播图的状态
+var sliders = {
+    slider1: { index: 1 },
+    slider2: { index: 1 },
+    slider3: { index: 1 },
+    slider4: { index: 1 },
+    slider5: { index: 1 },
+    slider6: { index: 1 },
+    slider7: { index: 1 },
+    slider8: { index: 1 },
+};
+
+// 初始化轮播图
+showSlides(sliders.slider1.index, 'slider1');
+showSlides(sliders.slider2.index, 'slider2');
+showSlides(sliders.slider3.index, 'slider3');
+showSlides(sliders.slider4.index, 'slider4');
+showSlides(sliders.slider5.index, 'slider5');
+showSlides(sliders.slider6.index, 'slider6');
+showSlides(sliders.slider7.index, 'slider7');
+showSlides(sliders.slider8.index, 'slider8');
+
+function plusSlides(n, sliderClass) {
+    var slider = sliders[sliderClass];
+    var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+    var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+    var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+    var slideWidth = slides[0].clientWidth;
+
+    slider.index += n;
+    if (slider.index > slides.length) { slider.index = 1 }
+    if (slider.index < 1) { slider.index = slides.length }
+    var slideMove = -(slider.index - 1) * slideWidth;
+
+    updateSlider(slidesWrapper, dots, slideMove, slider.index);
+}
+
+function currentSlide(n, sliderClass) {
+    var slider = sliders[sliderClass];
+    var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+    var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+    var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+    var slideWidth = slides[0].clientWidth;
+    var slideMove = -(n - 1) * slideWidth;
+
+    slider.index = n;
+    updateSlider(slidesWrapper, dots, slideMove, slider.index);
+}
+
+function updateSlider(slidesWrapper, dots, slideMove, slideIndex) {
+    for (var i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+    dots[slideIndex - 1].className += " active";
+}
+
+
+        // var slideIndex = 1;
+        // showSlides(slideIndex);
+
+        // function plusSlides(n) {
+        //     var slides = document.getElementsByClassName("slide");
+        //     slideIndex += n;
+        //     if (slideIndex > slides.length) {slideIndex = 1}
+        //     if (slideIndex < 1) {slideIndex = slides.length}
+        //     showSlides(slideIndex);
+        // }
+
+        // function currentSlide(n) {
+        //     showSlides(slideIndex = n);
+        // }
+
+        
+
+        // function showSlides(n) {
+        //     var slides = document.getElementsByClassName("slide");
+        //     var dots = document.getElementsByClassName("slider-btn");
+        //     var slidesWrapper = document.querySelector('.slides');
+
+        //     // 计算滑动的位置
+        //     var slideWidth = slides[0].clientWidth; // 获取单个幻灯片的宽度
+        //     var slideMove = -(n - 1) * slideWidth; // 计算应该滑动的距离
+
+        //     for (var i = 0; i < slides.length; i++) {
+        //         dots[i].className = dots[i].className.replace(" active", "");
+        //     }
+
+        //     // 使用 transform 属性来平滑地滑动幻灯片
+        //     slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+            
+        //     // 更新圆点按钮状态
+        //     dots[n-1].className += " active";
+        // }
+
+
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+
+
+
+</script>
+</body>
+</html>
