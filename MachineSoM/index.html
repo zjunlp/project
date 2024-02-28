@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], }, chtml: { scale: 0.8 }};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js'></script>
   <meta charset="utf-8">
   <meta name="description"
         content="Exploring Collaboration Mechanisms for LLM Agents: A Social Psychology View">
@@ -42,6 +46,50 @@
 
   <style>
 
+  quotebody {
+        font-family: 'Times New Roman', serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin: 0;
+        background-color: #fff;
+        color: #333;
+        text-align: center; /* Centering text */
+    }
+
+    .quote-container {
+        max-width: 600px;
+        padding: 20px;
+    }
+
+    .quote {
+        font-size: 20px;
+        font-style: italic;
+        margin: 0;
+    }
+
+    .author {
+        font-size: 16px;
+        margin-top: 20px; /* Space between quote and author */
+    }
+
+    /*上面是名言*/
+
+    .triangle-down {
+        width: 0;
+        height: 0;
+        display: inline-block;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 20px solid black; /* Adjust the color as needed */
+        margin-left: 5px; /* Optional, for spacing */
+        vertical-align: middle;
+    }
+    .collapsed {
+      display: none;
+      transition: height 0.3s ease-out;
+    }
 /* 轮播图样式 */
 /* 轮播图样式 */
       .slider {
@@ -66,6 +114,9 @@
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
+            display: flex; /* 使用Flexbox布局 */
+    justify-content: center; /* 水平居中所有按钮 */
+    flex-wrap: nowrap; /* 防止按钮换行 */
         }
 
         .slider-btn {
@@ -77,6 +128,8 @@
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            white-space: nowrap; /* 防止文本换行 */
+            height: 30px;
         }
 
         .slider-btn.active {
@@ -156,6 +209,21 @@
 .carousel-button:hover {
   background-color: #367c39;
 }
+
+.double-underline {
+    text-decoration: underline;
+    position: relative;
+  }
+
+  .double-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.8px; /* 调整这个值来改变两条下划线之间的距离 */
+    width: 100%;
+    border-bottom: 1px solid; /* 下划线的样式 */
+    height: 1px;
+  }
 
 
   /* 轮播图容器样式，可根据需要调整 */
@@ -272,6 +340,7 @@
 
 
 <section class="hero">
+  
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
@@ -353,15 +422,25 @@
               </span>
             </div>
 
+            <quotebody>
+              <div class="quote-container">
+                  <blockquote class="quote">"What magical trick makes us intelligent? The trick is that there is no trick. The power of intelligence stems from our vast diversity, not from any single, perfect principle."</blockquote>
+                  <div class="author">—— Marvin Minsky, The Society of Mind, p. 308</div>
+              </div>
+          </quotebody>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
+
+
 <section class="hero teaser">
   <div class="container is-max-desktop">
+    
     <div class="hero-body">
       <img id="teaser" width="120%" src="./images/gif.gif">
       <h2>
@@ -397,10 +476,10 @@
     <!-- Simulation Setup -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">Simulation Setup</h2>
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Simulation Setup <div class="triangle-down"></div></h2> <!-- onclick="toggleCollapse()"-->
         
         <!--轮播1-->
-        <div class="slider slider1">
+        <div id="collapseContent" class="slider slider1">
           <!-- 左右按钮 -->
           <button class="prev" onclick="plusSlides(-1,'slider1')">&#10094;</button>
           <button class="next" onclick="plusSlides(1,'slider1')">&#10095;</button>
@@ -410,25 +489,59 @@
               <div class="slide">
                   <img src="./images/setting/setting_overview.png" alt="First Slide">
                   <br><br>
-                  <div><b>TODO</b></div>
+                  <div><b>Figure 2: The overview of machine society simulation. Multiple agents with different traits make up diverse machine societies. These agents engage in debate or self-reflection across multiple rounds to complete tasks.</b></div>
+                  <br>
+                  <!-- <p align="left">这是左对齐的段落。</p> -->
                   <br><br><br><br>
               </div>
               <div class="slide">
                   <img src="./images/setting/setting_detail1.png" alt="Second Slide">
                   <br><br>
-                  <div><b>TODO</b></div>
-                  <br><br><br><br>
+                  <p style="text-align: left; padding-bottom: 15px;">This figure presents the definition of an individual agent.</p>
+                  <p style="text-align: left; padding-bottom: 15px;">First, we define the traits of an agent, where we have designed two fundamental and contrasting personalities: easygoing and overconfident. The advantage of an overconfident personality is the ability to concentrate resources on significant tasks without wasting time in communication. This trait is often seen in startups where a single shareholder holds a majority stake. On the other hand, the advantage of an easygoing personality is the recognition and correction of one's mistakes. To make this concept more vivid, we represent agents with 'puzzles'. An agent without any missing pieces symbolizes overconfidence, as they tend to be impermeable to external influences. In contrast, agents with missing pieces represent the easygoing nature, indicating openness to others' opinions and fostering better collaboration.</p>
+                  <p style="text-align: left; padding-bottom: 15px;">We then define the thinking patterns of an agent during problem-solving. We have conceptualized two primary methods: debate and reflection. In simple terms, the debate thinking pattern involves acquiring opinions from others, akin to a debate competition. In contrast, the reflection pattern relies solely on oneself, similar to how individuals are isolated from others' answers during an exam. In our paper, 'p<sub>0</sub>' denotes debate, while 'p<sub>1</sub>' represents reflection. For mnemonic purposes, the number '0' resembles an open mouth, symbolizing the need to engage in debate, and the number '1' resembles a closed mouth, indicative of self-reflection.</p>
+                  <br>
               </div>
               <div class="slide">
                   <img src="./images/setting/setting_detail2.png" alt="Third Slide">
-                  <br><br>
-                  <div><b>TODO</b></div>
+                  <br><br><br>
+                  <p style="text-align: left; padding-bottom: 15px;">This figure illustrates the definition of society. A society is composed of multiple agents. In the main experiment, we define the number of agents as three. This is partly to facilitate decision-making (minority yields to majority) and partly to reduce diversity. We have set the number of collaboration rounds to three.</p>
+                  <p style="text-align: left; padding-bottom: 15px;">Due to the differing traits of agents, there exist various types of societies. Based on permutations and combinations, we can identify four distinct types of societies.</p>
+                  <p style="text-align: left; padding-bottom: 15px;">Given the diversity in agents' thinking patterns, each round of collaboration presents a unique set of combinations. We term the specific array of thinking patterns chosen by agents in any round as the 'collaborative strategy'. Our classification hinges on whether all agents in a round adopt identical thinking patterns. The focus of our main experiment is on those collaborative strategies where uniformity in thinking patterns is observed within a round, while other variations are examined in our ablation studies. Based on permutations and combinations, we identify a total of 2^3 distinct collaborative strategies in the main experiment.</p>
                   <br><br><br><br>
               </div>
               <div class="slide">
                 
                 <br><br>
-                <div><b>TODO</b></div>
+                <p style="font-weight: bold; text-align: left; font-size: 20px; padding-bottom: 15px;">Datasets</p>
+                <p align="left">We conduct a rigorous evaluation of the reasoning and decision-making capabilities of various machine societies across three distinct tasks, utilizing diverse collaborative strategies:</p>
+                <ul style="padding-left: 40px; list-style-type: none; text-align: left;">
+                  <li style="margin-bottom: 15px; margin-top: 15px;"><span style="font-weight: bold; font-style: italic; font-family: 'Times New Roman', serif;">High School Multiple-Choice. </span>Leveraging the MMLU dataset, where problems span high school subjects such as statistics, mathematics, computer science, biology, chemistry, and physics, agents are required to identify the correct answer among four multiple-choice options. Our evaluation set consists of 50 randomly selected
+                    questions from this dataset.</li>
+                  <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic; font-family: 'Times New Roman', serif;">Math. </span>Drawing from MATH dataset, a repository of math
+                    problems sourced from competitive events
+                    and expressed in LaTeX, we assess the model
+                    proficiency in advanced mathematical and scientific reasoning. The dataset segments these problems into five graded difficulty levels, and
+                    for our evaluation, we have randomly chosen
+                    50 cases from Level 3 to 5.</li>
+                  <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic; font-family: 'Times New Roman', serif;">Chess Move Validity. </span>Utilizing the dataset
+                    from the chess state tracking task within
+                    the comprehensive BIG-Bench Benchmark, a sequence of chess
+                    moves denoted in UCI notation is provided.
+                    Agents are required to predict a legitimate subsequent move for a specified chess piece.</li>
+                </ul>
+                <br><br>
+                <p style="font-weight: bold; text-align: left; font-size: 20px; padding-bottom: 15px;">Evaluation Metric</p>
+                <p style="text-align: left; padding-bottom: 15px;">To enhance result reliability,
+                  we present average <b>accuracy (denoted as 'Acc')</b> and their respective standard deviations across five trials. Notably,
+                  our experiments exhibit substantial standard deviations. Hence, we introduce <b>WIN-TIE (denoted as 'W-T')</b> metric,
+                  indicating the frequency (over five trials) where the
+                  accuracy either matches or surpasses the continuous debate baseline. Meanwhile,
+                  we gauge the average token <b>costs (denoted as 'Cost')</b> consumed.</p>
+                <p style="text-align: left;">
+                  It's important to note that there are two categories of metrics for both <b><i>Cost</i></b> and <b><i>W-T</i></b>. '<u>Cost</u>' represents the average number of tokens consumed across all societies for a particular strategy, whereas '<span class="double-underline">Cost</span>' denotes the average number of tokens expended by a single society across all strategies. '<u>W-T</u>' indicates the non-loss situations in all societies for the current strategy compared to strategy <i>p<sub>0</sub>p<sub>0</sub>p<sub>0</sub></i> (with a value range of 0 to 20), and '<span class="double-underline">W-T</span>' reflects the non-loss situations in one society across seven strategies relative to strategy <i>p<sub>0</sub>p<sub>0</sub>p<sub>0</sub></i> (with a value range of 0 to 35).
+                  
+                </p>
                 <br><br><br><br>
             </div>
           </div>
@@ -444,13 +557,13 @@
         <!--/轮播1-->
 
         
-        <h2>
-          TODO
-        </h2>
+        <p style="text-align: left; padding-top: 10px;">
+          The above displays the detailed settings and corresponding motivations of the social simulation, as well as the dataset and evaluation metrics. You can click the buttons above to view the respective contents.
+        </p>
         <br>
         
         
-        </div>
+      </div>
     </div>
     <!-- /Simulation Setup -->
     <br>
@@ -458,8 +571,7 @@
     <!-- Main Results -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">Main Results</h2>
-
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Main Results <div class="triangle-down"></div></h2>
         <!--轮播图-->
         <section class="section">
           <div class="container is-max-desktop content">
@@ -467,40 +579,26 @@
                   <!-- 左右按钮 -->
                   <button class="prev" onclick="plusSlides(-1,'slider2')">&#10094;</button>
                   <button class="next" onclick="plusSlides(1,'slider2')">&#10095;</button>
-
                   <!-- 图片 -->
                   <div class="slides">
                       <div class="slide">
                           <img src="./images/main_result/gpt.png" alt="First Slide">
-                          <br><br><br><br><br><br><br>
-                          <div class="slide-caption"></div>
+                          <br><br><br><br><br><br>
                       </div>
                       <div class="slide">
                           <img src="./images/main_result/gpt-july.png" alt="Second Slide">
                       </div>
                       <div class="slide">
                           <img src="./images/main_result/llama13.png" alt="Third Slide">
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
                       </div>
                       <div class="slide">
                         <img src="./images/main_result/llama70.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
                       </div>
                       <div class="slide">
                         <img src="./images/main_result/qwen.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
                       </div>
                       <div class="slide">
                         <img src="./images/main_result/mixtral.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
                       </div>
                   </div>
 
@@ -527,7 +625,7 @@
     <!-- Conformity -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">Conformity</h2>
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Conformity <div class="triangle-down"></div></h2>
         <!--轮播图-->
         <section class="section">
           <div class="container is-max-desktop content">
@@ -540,32 +638,38 @@
                   <div class="slides">
                       <div class="slide">
                           <img src="./images/conformity/gpt.png" alt="First Slide">
-                          <br><br><br><br><br><br><br>
-                          <div class="slide-caption"></div>
+                          <br>
+                          <p>
+                            Figure 6: Variation of answer correctness in the situation of conformity, under 3-round collaboration, on ChatGPT, where conformity brings about benefits: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) > Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>); conformity brings about detriments: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) < Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>).
+                          </p><br><br>
                       </div>
                       <div class="slide">
                           <img src="./images/conformity/llama13.png" alt="Third Slide">
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
+                          <br>
+                          <p>
+                            Figure 28: Variation of answer correctness in the situation of conformity, using LlaMA2-13B-chat, where conformity brings about benefits: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) > Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>); conformity brings about detriments: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) < Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>).
+                          </p>
                       </div>
                       <div class="slide">
                         <img src="./images/conformity/llama70.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 37: Variation of answer correctness in the situation of conformity, using LlaMA2-70B-chat, where conformity brings about benefits: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) > Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>); conformity brings about detriments: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) < Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>).
+                        </p>
                       </div>
                       <div class="slide">
                         <img src="./images/conformity/qwen.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 51: Variation of answer correctness in the situation of conformity, using Qwen 72B, where conformity brings about benefits: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) > Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>); conformity brings about detriments: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) < Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>).
+                        </p>
                       </div>
                       <div class="slide">
                         <img src="./images/conformity/mixtral.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 65: Variation of answer correctness in the situation of conformity, using Mixtral-8x7B, where conformity brings about benefits: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) > Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>); conformity brings about detriments: Ratio(<span style="color: #652a96;">False→True</span> + <span style="color: #00a746;">True→True</span>) < Ratio(<span style="color: #e78b85;">True→False</span> + <span style="color: #325497;">False→False</span>).
+                        </p>
                       </div>
                   </div>
 
@@ -578,6 +682,12 @@
                       <button class="slider-btn" onclick="currentSlide(5,'slider3')">Mixtral</button>
                   </div>
               </div>
+              <p style="text-align: left; padding-top: 10px;">
+                For conformity, we solely focus on agents actively engaging in debate, disregarding those in reflection during a given round. Let the answer of the i-th agent at j-th round be denoted as \(a_{i,j}\) . For the k-th agent at j-th round, if \(Frequency(\{a_{i,j−1}|i ∈[1, n]\}) = a_{k,j} \), we identify this as the occurrence of conformity by agent k at j-th round, where \(Frequency(\cdot)\) represents the most frequently given answer (excluding instances where all answers occur only once, as such cases are considered as nonconformity). Additionally, we categorize the correctness of answers both before and after conformity into four cases, with 'True' denoting correct and 'False' denoting incorrect.
+              </p>
+              <p style="text-align: left; padding-top: 10px; ">
+                We classify the phenomenon of conformity into four distinct categories, based on how answers change. The rationale behind this classification stems from the notion that conformity within human societies acts as a double-edged sword. Its benefits or drawbacks are often best assessed by looking at the outcomes. To illustrate with a couple of unsuitable examples: Imagine a scenario where, at a red traffic light, one individual decides to jaywalk and others follow suit. This type of conformity is detrimental. Conversely, consider a situation during an examination where I am surrounded by high-achieving students. I sneak a glance at their answers and notice they match mine. In this case, I choose not to alter my answer (or, if their answers differ from mine, I adjust mine to theirs), and it turns out that the official answer aligns with these answers, making this form of conformity advantageous (It’s important to note that this is merely an example for illustration purposes. Cheating is unethical, and we certainly do not condone it).
+              </p>
           </div>
         </section>
 
@@ -589,7 +699,7 @@
     <!-- Consensus -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">Consensus</h2>
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Consensus <div class="triangle-down"></div></h2>
         <!--轮播图-->
         <section class="section">
           <div class="container is-max-desktop content">
@@ -602,32 +712,39 @@
                   <div class="slides">
                       <div class="slide">
                           <img src="./images/consensus/gpt.png" alt="First Slide">
-                          <br><br><br><br><br><br><br>
-                          <div class="slide-caption"></div>
+                          <br>
+                          <p>
+                            Figure 7: Average quantity of consensus clusters (i.e., unique answers among multiple agents) under different rounds of collaboration with 3-round collaborative strategies, using ChatGPT. Smaller quantity of consensus clusters, more easier it is to reach a consensus. Round 0 is equal to self-consistency. More details are in Appendix G.1.
+                          </p>
+                          <br><br>
                       </div>
                       <div class="slide">
                           <img src="./images/consensus/llama13.png" alt="Third Slide">
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
-                          <div class="slide-caption"> </div>
+                          <br>
+                          <p>
+                            Figure 29: Average quantity of consensus clusters (i.e., unique answers among multiple agents) under different rounds of collaboration with 3-round collaborative strategies, on LlaMA2-13B-chat. Smaller quantity of consensus clusters, more easier it is to reach a consensus. Round 0 is equal to self-consistency.
+                          </p>
                       </div>
                       <div class="slide">
                         <img src="./images/consensus/llama70.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 38: Average quantity of consensus clusters (i.e., unique answers among multiple agents) under different rounds of collaboration with 3-round collaborative strategies, on LlaMA2-70B-chat. Smaller quantity of consensus clusters, more easier it is to reach a consensus. Round 0 is equal to self-consistency.
+                        </p>
                       </div>
                       <div class="slide">
                         <img src="./images/consensus/qwen.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 52: Average quantity of consensus clusters (i.e., unique answers among multiple agents) under different rounds of collaboration with 3-round collaborative strategies, using Qwen 72B. Smaller quantity of consensus clusters, more easier it is to reach a consensus. Round 0 is equal to self-consistency.
+                        </p>
                       </div>
                       <div class="slide">
                         <img src="./images/consensus/mixtral.png" alt="Third Slide">
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
-                        <div class="slide-caption"> </div>
+                        <br>
+                        <p>
+                          Figure 66: Average quantity of consensus clusters (i.e., unique answers among multiple agents) under different rounds of collaboration with 3-round collaborative strategies, using Mixtral-8×7B. Smaller quantity of consensus clusters, more easier it is to reach a consensus. Round 0 is equal to self-consistency.
+                        </p>
                       </div>
                   </div>
 
@@ -640,6 +757,10 @@
                       <button class="slider-btn" onclick="currentSlide(5,'slider4')">Mixtral</button>
                   </div>
               </div>
+              <p style="text-align: left; padding-top: 10px; ">
+                For consensus, we examine the evolution of the number of distinct answers (i.e., consensus clusters) with increasing rounds of collaboration. Let the answer of the i-th agent at time j be denoted as ai,j . For the j-th round, consensus clusters is defined as \( \left \|\text{Set}(\{a_{i,j}|i\in[1,n]\})\right \| \), where \( \left \|\text{Set}(\cdot)\right \| \) represents the count of different answers. 
+                Here, we have gathered and analyzed the overall performances of various societies.
+              </p>
           </div>
         </section>
 
@@ -647,6 +768,65 @@
       </div>
     </div>
     <!-- /Consensus -->
+
+    <!-- Take away-->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Take away <div class="triangle-down"></div></h2>
+        <!--轮播图-->
+        <section class="section">
+          <div class="container is-max-desktop content">
+              <div class="slider slider5">
+                  <!-- 左右按钮 -->
+                  <button class="prev" onclick="plusSlides(-1,'slider5')">&#10094;</button>
+                  <button class="next" onclick="plusSlides(1,'slider5')">&#10095;</button>
+                  <!-- 图片 -->
+                  <div class="slides">
+                      <div class="slide">
+                        <ul style="padding-left: 40px; list-style-type: none; text-align: center; padding-right: 60px;">
+                          <li style="margin-bottom: 15px; margin-top: 15px;"><span style="font-weight: bold; font-style: italic; ">1. Starting or dominating multi-agent collaboration with debate, yields relatively optimal outcomes.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">2. Totally reflection strategy like <b><i>p<sub>1</sub>p<sub>1</sub>p<sub>1</sub></i></b> is generally worst in performance.
+                          </span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">3. For difficult tasks, debate combined with continuous reflection is superior; for simple tasks, self-consistency or reflection is enough.</span></li>
+                        </ul>
+                      </div>
+                      <div class="slide">
+                        <ul style="padding-left: 40px; list-style-type: none; padding-right: 60px;text-align: center;">
+                          <li style="margin-bottom: 15px; margin-top: 15px;"><span style="font-weight: bold; font-style: italic; ">1. Surprisingly, "overconfident" agents lose that trait in groups!</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">2. Setting agent numbers to 3 is generally advantageous in performance and cost.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">3. The rounds of collaboration is relatively suitable to set as 3, both effective and efficient.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">4. Employing the uniform thinking patterns across all agents within a round enhance efficacy.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">5. Scaling up the number of agents is better than scaling up the number of collaboration rounds.</span></li>
+                        </ul>
+                        <br><br><br>
+                      </div>
+                      <div class="slide">
+                        <ul style="padding-left: 40px; padding-right: 60px;list-style-type: none; text-align: center;">
+                          <li style="margin-bottom: 15px; margin-top: 15px;"><span style="font-weight: bold; font-style: italic; ">1. Collaboration is generally effective in the group, especially for tackling difficult tasks.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">2. Collaboration widely leads to conformity, either beneficial or harmful in performance.</span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">3. As the number of rounds increases, benefits of conformity will decrease; and detriments of conformity will increase.
+                          </span></li>
+                          <li style="margin-bottom: 15px;"><span style="font-weight: bold; font-style: italic;">4. The totally easy-going society is more likely to reach a consensus, debate helps to consensus reaching while reflection impedes it.
+                          </span></li>
+                        </ul>
+                      </div>
+                      
+                  </div>
+
+                  <!-- 按钮 -->
+                  <div class="slider-btns">
+                      <button class="slider-btn active" onclick="currentSlide(1,'slider5')">Strategy Selection</button>
+                      <button class="slider-btn" onclick="currentSlide(2,'slider5')">Society Settings</button>
+                      <button class="slider-btn" onclick="currentSlide(3,'slider5')">Social Psychology View</button>
+                  </div>
+              </div>
+          </div>
+        </section>
+
+        <br>
+      </div>
+    </div>
+    <!-- /Take away-->
   </div>
 </section>
 
@@ -673,7 +853,7 @@
         doi          = {10.48550/ARXIV.2310.02124},
         eprinttype    = {arXiv},
         eprint       = {2310.02124},
-        timestamp    = {Thu, 19 Oct 2023 13:12:52 +0200},
+        timestamp    = {Tue, 27 Feb 2024 12:17:56 +0100},
         biburl       = {https://dblp.org/rec/journals/corr/abs-2310-02124.bib},
         bibsource    = {dblp computer science bibliography, https://dblp.org}
       }
@@ -694,6 +874,7 @@
 
 
 <script>
+
 
 
 // 创建两个独立的索引，分别用于两个轮播图
@@ -754,6 +935,12 @@ function updateSlider(slidesWrapper, dots, slideMove, slideIndex) {
     dots[slideIndex - 1].className += " active";
 }
 
+function toggleCollapse() {
+    var content = document.getElementById("collapseContent");
+    if (content) {
+        content.classList.toggle("collapsed");
+    }
+}
 
         // var slideIndex = 1;
         // showSlides(slideIndex);
