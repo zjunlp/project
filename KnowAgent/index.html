@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Automatic Agent Learning from Scratch via Self-Planning">
+  <meta name="keywords" content="AutoAct, Agent Learning, Self-Planning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KnowAgent: Knowledge-Augmented Planning for LLM-Based Agents</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./images/logo.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">
+            <img src="images/logo.png" alt="Logo" style="height: 100px; vertical-align: middle;">
+            KnowAgent: Knowledge-Augmented Planning <br> for LLM-Based Agents</h2>           
+            <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yuqi Zhu<sup>&#x2660;&#x2661;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shuofei Qiao<sup>&#x2660;&#x2661;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yixin Ou<sup>&#x2660;&#x2661;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shumin Deng<sup>&#x2662;</sup
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+             Ningyu Zhang<sup>&#x2660;&#x2661;*</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shiwei Lyu <sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yue Shen<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Lei Liang<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Jinjie Gu<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;&#x2661;*</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph
+            </span>
+            <span class="author-block">
+              <sup>&#x2662;</sup>National University of Singapore 
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>Ant Group
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/xxxxx" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/KnowAgent" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Twitter Link. -->
+              <!-- <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1745412748023128565" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <!-- <span class="icon">
+                    <p style="font-size:18px">🌐</p>
+                  </span> -->
+                  <!-- <span>Twitter</span> -->
+                <!-- </a> -->
+              <!-- </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="100%"  src="./images/method.gif">
+
+      <h2 class="subtitle has-text-centered">
+        Our work <b>KnowAgent</b> could leverage external <br> action knowledge base  to address and solve complex planning challenges.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Language Models (LLMs) have demonstrated great potential in complex reasoning tasks, yet they fall short when tackling more sophisticated challenges, especially when interacting with environments through generating executable actions. 
+            This inadequacy primarily stems from the lack of built-in action knowledge in language agents, which fails to effectively guide the planning trajectories during task solving and results in <i style="color: lightskyblue;">planning hallucination</i>.
+            To address this issue, we introduce <b>KnowAgent</b>, a novel approach designed to enhance the planning capabilities of LLMs by incorporating explicit action knowledge.
+            Specifically, <b>KnowAgent</b> employs an <i>action knowledge base</i> and a <i style="color: lightcoral;" >knowledgeable self-learning</i> strategy to constrain the action path during planning, enabling more reasonable trajectory synthesis, and thereby enhancing the planning performance of language agents.
+            Experimental results on HotpotQA and ALFWorld based on various backbone models demonstrate that <b>KnowAgent</b> can achieve comparable or superior performance to existing baselines.
+            Further analysis indicates the effectiveness of <b>KnowAgent</b> in terms of <i style="color: lightskyblue;">planning hallucinations</i> mitigation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">KnowAgent</h2>
+        <img id="model" width="90%" src="images/framework.png">
+        <p class="has-text-centered">
+          Figure 1: <b>The overview of our proposed framework KnowAgent</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          As shown in Figure 1, we offer a detailed introduction to <b>KnowAgent</b>.
+          Our development is grounded on several key steps: 
+          <b>Initially</b>, we create an extensive <i style="color:palevioletred;">knowledge base</i>, which amalgamates action planning knowledge pertinent to specific tasks. 
+          This database acts as an external reservoir of information, steering the model's action generation process.  
+          <b>Subsequently</b>, by converting <i  style="color: lightseagreen;">action knowledge into text</i> , we enable the model to deeply understand and utilize this knowledge in creating action trajectories. 
+          <b>Finally</b>, through a <i style="color: lightcoral;">self-learning</i> phase, we use trajectories developed from the model's iterative processes to continually improve its understanding and application of action knowledge. 
+          This process not only strengthens the agents' planning abilities but also enhances their potential for application in complex situations.
+          <!-- Initially, <i  >Knowledge to Text</i> converts task-specific action knowledge into textual descriptions. 
+          Next, <i  >Planning Path Generation</i> uses prompts and this knowledge to lead LLMs in planning path creation. 
+          Lastly, in <i  >Knowledgeable Self-Learning</i>,  the model iteratively optimizes using generated planning trajectories to improve performance.           -->
+        </div>
+        <img id="model" width="90%" src="images/prompt.png">
+        <p class="has-text-centered">
+          Figure 2: <b>The Path Generation process of KnowAgent.</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          Figure 2 illustrates the conversion process from <i  style="color: lightseagreen;">action knowledge to text</i>. 
+          Initially, we establish the action knowledge base by identifying actions pertinent to the task's specific needs, utilizing previous dataset analyses and the inherent knowledge of LLMs.
+          This information is then converted into text format to facilitate subsequent operations.  
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    
+    <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <img id="model" width="80%" src="images/main_result.png">
+        <p class="has-text-centered">
+          Table 1: <b>Overall performance of KnowAgent on HotpotQA and ALFWorld.</b>
+          The evaluation metrics are F1 Score (\%) and Success Rate (\%), respectively. 
+          <b>Strategy</b> means the agent learning paradigm behind each method. 
+          The best results of each backbone are marked in <b>bold</b>.
+        </p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="100%" src="images/ablation_actionKB.png">
+        <p class="has-text-centered">
+          Figure 3: <b> Ablation study on Action Knowledge within Llama-2 Models on HotpotQA.</b>
+           Here <i>w/ Action KB</i> indicates the naive <b>KnowAgent</b> and <i>w/o Action KB</i> symbolizes removing the action knowledge of the specific task.
+        </p>
+        <br>
+        <img id="model" width="100%" src="images/ablation_self-learning.png">
+        <p class="has-text-centered">
+          Figure 4: <b>Ablation study on Knowledgeable Self-Learning iteration.</b>
+          We examine the influence of self-learning iterations on a selection of models, including Llama-2-7b, Llama-2-13b, Vicuna-7b-v1.5, Mistral-7b-instruct-v0.1. 
+          Here <i>Iter0</i> represents baseline performance prior to any training.
+        </p>
+        <br>
+        <div class="columns is-variable is-8">
+          <div class="column">
+              <img id="model3" src="images/action_analysis.png" style="width: 100%;">
+              <p class="has-text-centered">
+                  Table 2: <b>Unreasonable action rates on HotpotQA with Llama-2-13b.</b>
+                  Here <i>invalid</i> refers to actions that do not meet the action rule, while <i>misordered</i> means discrepancies in the logical sequence of actions
+                </p>
+          </div>
+          <div class="column">
+              <img id="model4" src="images/manual_distill.png" style="width: 100%;">
+              <p class="has-text-centered">
+                  Table 3: <b>Comparative Experiment on Manual vs. Distilled Action Knowledge.</b>
+                  <i>Manual</i> stands for human-crafted knowledge and <i>Distilled</i> represents the distilled knowledge from GPT-4.
+              </p>
+          </div>
+      </div>
+
+        <!-- <img id="model" width="50%" src="images/action_analysis.png">
+        <p class="has-text-centered">
+          Table 2: <b>Unreasonable action rates on HotpotQA with Llama-2-13b.</b>
+          Here <i>invalid</i> refers to actions that do not meet the action rule, while <i>misordered</i> means discrepancies in the logical sequence of actions
+        </p>
+        <br>
+        <img id="model" width="50%" src="images/manual_distill.png">
+        <p class="has-text-centered">
+          Table 3: <b>Comparative Experiment on Manual vs. Distilled Action Knowledge.</b>
+          <i>Manual</i> stands for human-crafted knowledge and <i>Distilled</i> represents the distilled knowledge from GPT-4.
+        </p> -->
+      </div>
+    </div>
+    <!-- Paper Analysis. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{
+}
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
