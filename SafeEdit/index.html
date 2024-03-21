@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], }, chtml: { scale: 0.8 }};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js'></script>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Detoxifying Large Language Models via Knowledge Editing">
+  <meta name="keywords" content="Detoxifying, Attack, Knowledge Editing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detoxifying Large Language Models via Knowledge Editing</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <!-- <link rel="icon" href="./static/images/logo.png"> -->
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+
+  quotebody {
+        font-family: 'Times New Roman', serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin: 0;
+        background-color: #fff;
+        color: #333;
+        text-align: left; /* Centering text */
+    }
+
+    .quote-container {
+        max-width: 600px;
+        padding: 20px;
+    }
+
+    .quote {
+        font-size: 20px;
+        font-style: italic;
+        margin: 0;
+    }
+
+    .author {
+        font-size: 16px;
+        margin-top: 20px; /* Space between quote and author */
+        text-align: right;
+    }
+
+    /*上面是名言*/
+
+    .triangle-down {
+        width: 0;
+        height: 0;
+        display: inline-block;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 20px solid black; /* Adjust the color as needed */
+        margin-left: 5px; /* Optional, for spacing */
+        vertical-align: middle;
+    }
+    .collapsed {
+      display: none;
+      transition: height 0.3s ease-out;
+    }
+/* 轮播图样式 */
+/* 轮播图样式 */
+      .slider {
+            width: 100%;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: 0.6s ease-in-out;
+        }
+
+        .slider-btns {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex; /* 使用Flexbox布局 */
+    justify-content: center; /* 水平居中所有按钮 */
+    flex-wrap: nowrap; /* 防止按钮换行 */
+        }
+
+        .slider-btn {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            white-space: nowrap; /* 防止文本换行 */
+            height: 30px;
+        }
+
+        .slider-btn.active {
+            background-color: #333;
+            color: white;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 24px;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            user-select: none;
+            z-index: 2;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+    /* 轮播图图片自适应样式 */
+  .carousel img {
+    max-width: 100%;
+    height: auto;
+  }
+  .carousel img {
+    width: 100%;
+    height: auto;
+    display: block; /* 确保图片不会有额外的空间 */
+  }
+
+  .carousel .item-1, .carousel .item-2, .carousel .item-3 {
+    width: 100%; /* 每项的宽度与轮播容器相同 */
+    height: auto;
+  }
+  .carousel {
+    width: 100%; /* 或者其他具体宽度 */
+    overflow: hidden; /* 隐藏超出容器的部分 */
+    height: auto;
+  }
+  .carousel-text {
+    /* 根据需要添加样式 */
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .carousel-buttons {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.carousel-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.carousel-button:hover {
+  background-color: #367c39;
+}
+
+.double-underline {
+    text-decoration: underline;
+    position: relative;
+  }
+
+  .double-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.8px; /* 调整这个值来改变两条下划线之间的距离 */
+    width: 100%;
+    border-bottom: 1px solid; /* 下划线的样式 */
+    height: 1px;
+  }
+
+
+  /* 轮播图容器样式，可根据需要调整 */
+  .carousel-container {
+    width: 100%; /* 或其他固定宽度 */
+    margin: auto;
+    height: auto;
+  }
+
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  
+
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">
+            <!-- <img src="images/logo.jpg" alt="Logo" style="height: 50px; vertical-align: middle;"> -->
+            Detoxifying Large Language Models via Knowledge Editing</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Mengru Wang<sup>1</sup><sup>,2</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>1</sup><sup>,2*</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ziwen Xu<sup>1</sup><sup>,2</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Zekun Xi<sup>1</sup><sup>,2</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shumin Deng<sup>4</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yunzhi Yao<sup>1</sup><sup>,2</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Qishen Zhang<sup>3</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Linyi Yang<sup>5</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Jindong Wang<sup>6</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>1</sup><sup>,2*</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>1</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>2</sup>Zhejiang University-Ant Group Joint Laboratory of Knowledge Graph
+            </span>
+            <span class="author-block">
+              <sup>3</sup>Ant Group
+            </span>
+            <span class="author-block">
+              <sup>4</sup>National University of Singapore
+            </span>
+            <span class="author-block">
+              <sup>5</sup>Westlake University
+            </span>
+            <span class="author-block">
+              <sup>6</sup>Microsoft Research Asia
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Corresponding Author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://xxx" 
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Huggingface Paper-->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/zjunlp" 
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                    <img src="./static/images/hugging_face.png" alt="Drive" style="height: 19px; width: 21px; vertical-align: middle;"/>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/EasyEdit" target="_blank" 
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Huggingface Dataset. -->
+
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/zjunlp/SafeEdit" target="_blank" 
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <img src="./static/images/hugging_face.png" alt="Drive" style="height: 17px; width: 17px; vertical-align: middle;"/>
+                  </span>
+                <span>Data</span>
+                </a>
+              </span>
+              <!--Twitter-->
+              <!-- <span class="link-block">
+                <a href="https://twitter.com/" target="_blank" 
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <img src="./images/twitter.png" alt="Drive" style="height: 17px; width: 17px; vertical-align: middle;"/>
+                  </span>
+                <span>Twitter</span>
+                </a>
+              </span> -->
+           
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This paper investigates using knowledge editing techniques to detoxify Large Language Models (LLMs). 
+            We construct a benchmark, <b>SafeEdit</b>, which covers nine unsafe categories with various powerful attack prompts and equips comprehensive metrics for systematic evaluation. 
+            We conduct experiments to compare knowledge editing approaches with previous baselines, indicating that knowledge editing has potential to efficiently detoxify LLMs with limited impact on general performance. 
+            Then, we propose a simple yet effective baseline, dubbed Detoxifying with Intraoperative Neural Monitoring (<b>DINM</b>), to diminish the toxicity of LLMs within a few tuning steps via only one instance. 
+            We further provide internal mechanism analysis for various detoxify approaches, demonstrating that previous methods like SFT and DPO may merely suppress the activations of toxic parameters, 
+            while DINM mitigates the toxicity of the toxic parameters to a certain extent, making permanent adjustments. 
+            We hope that these insights could shed light on future work of developing detoxifying approaches and the underlying knowledge mechanisms of LLMs.
+          </p>
+        </div>
+        <!-- safety_edittask.gif-->
+      <img id="safety_task" width="100%" src="./images/safety_task.gif">
+      <h2>
+        Fig 1: Detoxifing LLMs to generate safe context via knowledge editing. 
+      </h2>
+    <!-- safety_edittask.gif-->
+
+
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <div class="container is-max-desktop">
+
+    
+    </div>
+
+    <!-- SafeEdit -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">SafeEdit <div class="triangle-down"></div></h2>
+        <div class="hero-body">
+          <img id="construct_data" width="140%" src="./images/construct_data.gif">
+          <h2>
+            Fig 2: Overview of our SafeEdit benchmark construction. 
+          </h2>
+          <br>
+        <div class="content has-text-justified">
+          <p>
+          Existing datasets for detoxification focus only on harmful issues across a few unsafe categories, overlooking the threat posed by attack prompts.
+          To facilitate research in this area, we take the first step to construct a comprehensive benchmark,  dubbed <b>SafeEdit</b>.
+          First, we gather a set of harmful questions and attack prompts. Then, we concatenate the harmful questions and attack prompts to form an adversarial input. 
+          Next, we input the adversarial input into text-davinci-003 to obtain unsafe responses, and input the harmful questions into the GPT-4 API to obtain safe responses. 
+          Finally, after quality control, we obtain SafeEdit for detoxification. 
+          SafeEdit covers nine unsafe categories with various powerful attack prompts and extends evaluation metrics to defense success, defense generalization, and general performance.
+          </p>
+        </div>
+        </div>
+        <br>   
+      </div>
+    </div>
+    <!-- /SafeEdit -->
+
+   <!-- DINM -->
+   <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">DINM <div class="triangle-down"></div></h2>
+      <div class="hero-body">
+        <img id="DINM" width="70%" src="./images/DINM.png">
+        <h2>
+          Fig 3: The overview of our DINM, consisting of toxic regions location and detoxifying editor. 
+        </h2>
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            The most critical step in using knowledge editing for LLMs is to locate the area of editing and then proceed with modifications.
+            Existing knowledge editing strategies usually use the subject within a sentence to identify editing areas. However, adversarial inputs often have complex expressions, making it difficult to pinpoint a clear subject. Moreover, harmful responses are conveyed through the semantics of the context rather than specific characters. 
+            <br>
+            Therefore, we introduce a simple yet effective baseline, DNIM, to locate the toxic regions through contextual semantics, which is inspired by the <a href=https://journals.lww.com/anesthesiaclinics/citation/1996/03440/intraoperative_neurophysiological_monitoring.5.aspx>intraoperative neurophysiological monitoring</a>.
+            It's noteworthy that DINM needs just one test instance to locate and erase toxic regions, without requiring extra training.
+            As shown in <a href="#DINM">Fig 3</a>, DINM first identifies the toxic layer by finding the maximal semantic differences in hidden states between safe and unsafe responses ($Y_\text{safe}$ and $Y_\text{unsafe}$ ) to adversarial inputs ($X$).
+            Then, DINM uses $X$ and $Y_{\text{safe}}$ to precisely modify the toxic parameters in this layer, constrained by a general knowledge QA pair to maintain unrelated capabilities.
+            Ultimately, the edited model can defend against various malicious inputs.
+          </p>
+        </div>
+      </div>
+    </div>
+   </div>
+   <!-- /DINM -->
+
+   <!-- Main Results -->
+   <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Main Results <div class="triangle-down"></div></h2>
+      <div class="hero-body">
+        <img id="#overall_performance" width="120%" src="./images/main_results/overall_performance.png">
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            As shown in <a href="#overall_performance">Table 1</a>, <b>knowledge editing</b> possesses the capacity to alter specific behaviours of LLMs, <b>demonstrating a promising potential for applications in detoxification</b>.
+          </p>
+        </div>
+        <br>
+        <img id="#cate_general" width="120%" src="./images/main_results/cate_general.png">
+        <br>
+        <div class="content has-text-justified">
+          <p>
+           <b>DINM Demonstrates Stronger Detoxifying Performance</b> <b>with Better Generalization</b>.
+           As shown in <a href="#overall_performance">Table 1</a>, DINM can effectively defend against a variety of malicious inputs, including harmful questions alone, OOD attack prompts, OOD harmful questions, and  combinations of OOD harmful questions and OOD attack prompts.
+           As shown in <a href="#cate_general">Table 2</a>, DINM exhibits generalization among different unsafe categories. 
+           We hypothesize that the generalization arises from various categories of malicious input tending to trigger toxicity in the same regions within LLM. 
+           For instance, on Mistral-7B-v0.1, all 1350 test instances induce toxicity concentrated at the final layer. 
+           While, LLaMA2-7B-Chat has 1147 instances of toxicity triggered at the 29th layer, 182 instances at the 30th layer, and 21 instances at the 32nd layer. 
+           As shown in <a href="#overall_performance">Table 1</a> and <a href="#cate_general">Table 2</a>, the generalization of Mistral-7B-v0.1 exceeds that of LLaMA2-7B-Chat, further corroborating this hypothesis.
+            Besides, <b>we observe that knowledge Editing May Compromise General Abilities, but The Impact Is Relatively Minor.</b> in <a href="#overall_performance">Table 1</a>.
+          </p>
+        </div>
+        <br>
+        <img id="#ablation" width="120%" src="./images/analysis/ablation.png">
+        <br>
+        <div class="content has-text-justified">
+          <p>
+           <b>Toxic Regions Location Play A Significant Role in Detoxification</b>.
+           As shown in <a href="#ablation">Table 3</a>, DINM can effectively defend against a variety of malicious inputs, including harmful questions alone, OOD attack prompts, OOD harmful questions, and  combinations of OOD harmful questions and OOD attack prompts.
+           First, to verify the gains brought by tuning parameters, we remove the parameter tuning process and solely utilize suffix system prompts for detoxification, which is abbreviated as wo/Tune. 
+           In comparison to DINM, as indicated in the <a href="#ablation">Table 3</a>, wo/Tune results in huge decreases in both detoxification and general performance.
+           Subsequently, we conduct ablation study to validate the effectiveness of each component.
+           The removal of toxic location results in the most significant performance decrease, with the average detoxification performance dropping from 96.55% to 67.88% for Mistral-7B-v0.1 and from 88.59% to 80.26% for LLaMA2-7B-Chat. 
+          </p>
+        </div>
+
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            What needs to be emphasized is that <b>DINM detoxifies LLMs efficiently</b>. 
+            Specifically, DINM does not require extra training process, which directly utilizes a single test instance to tune parameters of toxic regions with 10 steps, requiring 10s to locate and edit Mistral-7B-v0.1 using one A800 GPU.
+          </p>
+        </div>
+      </div>
+      <br>
+      
+    </div>
+   </div>
+   <!-- /Main Results -->
+
+    <!-- Analysis -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Analysis <div class="triangle-down"></div></h2>
+        <div class="hero-body">
+          <img id="#mechanism" width="120%" src="./images/analysis/mechanism.png">
+          <h2>
+            Fig 4: The mechanisms of SFT, DPO and DINM. The darker the color of the toxic regions and activations, the greater the induced toxicity.
+            SFT and DPO hardly change the toxicity of toxic regions, leverage the shift of activations (information flowing into toxic regions) to avert unsafe output.
+            Conversely, DINM directly diminishes toxicity without manipulating activation values. 
+          </h2>
+          <br>
+          <div class="content has-text-justified">
+            <p>
+            Following <a href=https://arxiv.org/abs/2401.01967>previous work</a>, we explore the underlying mechanisms of two prevalent methods, SFT and DPO, along with our DINM, in preventing toxic outputs. 
+            And, we conclude that <b>DINM Attempts to Erase Toxic Regions, while DPO and SFT Still Remain Toxic Regions</b>.
+            Specifically, the toxicity of toxic regions for $\text{Mistral}_\text{SFT}$ and $\text{Mistral}_\text{DPO}$ remain almost unchange. 
+            However, the activations of SFT and DPO for toxic regions exhibit a significant shift, which can steer the input information away from the toxic region.
+            An interesting observation is that our DINM exhibits zero shift in the information flow entering toxic regions, yet it reduces the toxicity of toxic regions by 2.72%.
+            Therefore, we speculate that SFT and DPO bypass the toxic region via activation shift, while DINM directly reduces the toxicity of the toxic region to avoid generating toxic content, 
+            as illustrated in <a href=#mechanisms>Fig 4</a>.
+            </p>
+          </div>
+        </div>
+        <br>
+        
+      </div>
+    </div>
+    <!-- /Analysis -->
+
+
+    <!-- Acknowledgement -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Acknowledgement <div class="triangle-down"></div></h2>
+        <div class="content has-text-justified">
+          <p>
+             
+            We are deeply grateful to <a href=https://scholar.google.co.uk/citations?user=6hA7WmUAAAAJ&hl=en>Yue Zhang</a> from Westlake University and <a href=https://www.microsoft.com/en-us/research/people/xingx/representative-publications/>Xing Xie</a> from Microsoft Research Asia for their insightful feedback and constructive suggestions, which greatly enhanced the quality of this paper. 
+            We would like to express our heartfelt gratitude for Minlie Huang and team members from Tsinghua University for the contributions of <a href=https://arxiv.org/pdf/2309.07045.pdf>Safety Benchmark</a> and <a href=https://doi.org/10.48550/arXiv.2304.10436>Assessmen</a>,
+             Tatsunori B. Hashimoto and his team for the contributions of <a href=https://github.com/tatsu-lab/alpaca_eval>instructions following data</a>, 
+             <a href=https://doi.org/10.48550/arXiv.2309.10253>Jiahao Yu</a>, 
+             <a href=https://doi.org/10.48550/arXiv.2305.13860>, 
+              <a href=https://doi.org/10.48550/arXiv.2311.08268>Shujian Huang</a>, 
+              <a href=https://doi.org/10.48550/arXiv.2310.06987>Danqi Chen</a>, 
+              and <a href=https://doi.org/10.48550/arXiv.2307.02483>Jacob Steinhardtfor</a> their contributions of security attack technique. 
+            We utilize portions of their attack prompts and unsafe category in this paper and express sincere gratitude.
+            Besides, we also extend our thanks to Andrew Lee. 
+            Inspired by <a href=https://doi.org/10.48550/arXiv.2401.01967>Andrew Lee's research</a>, we delve into a preliminary mechanistic analysis of SFT, DPO, and our DINM.
+          </p>
+        </div>
+        <br>
+        
+      </div>
+    </div>
+    <!-- /Acknowledgement -->
+
+
+  </div>
+
+
+
+</section>
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{Detoxifying_Knowledge_Editing,
+        author       = {Mengru Wang, 
+                        Ningyu Zhang, 
+                        Ziwen Xu, 
+                        Zekun Xi, 
+                        Shumin Deng, 
+                        Yunzhi Yao, 
+                        Qishen Zhang, 
+                        Linyi Yang, 
+                        Jindong Wang, 
+                        Huajun Chen},
+        title        = {Detoxifying Large Language Models via Knowledge Editing},
+        journal      = {CoRR},
+        volume       = {abs/xxx},
+        year         = {2024},
+        url          = {https://doi.org/xxx},
+        doi          = {xxx}
+      }      
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+
+
+
+// 创建两个独立的索引，分别用于两个轮播图
+// 创建一个对象来存储每个轮播图的状态
+var sliders = {
+    slider1: { index: 1 },
+    slider2: { index: 1 },
+    slider3: { index: 1 },
+    slider4: { index: 1 },
+    slider5: { index: 1 },
+    slider6: { index: 1 },
+    slider7: { index: 1 },
+    slider8: { index: 1 },
+};
+
+// 初始化轮播图
+showSlides(sliders.slider1.index, 'slider1');
+showSlides(sliders.slider2.index, 'slider2');
+showSlides(sliders.slider3.index, 'slider3');
+showSlides(sliders.slider4.index, 'slider4');
+showSlides(sliders.slider5.index, 'slider5');
+showSlides(sliders.slider6.index, 'slider6');
+showSlides(sliders.slider7.index, 'slider7');
+showSlides(sliders.slider8.index, 'slider8');
+
+function plusSlides(n, sliderClass) {
+    var slider = sliders[sliderClass];
+    var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+    var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+    var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+    var slideWidth = slides[0].clientWidth;
+
+    slider.index += n;
+    if (slider.index > slides.length) { slider.index = 1 }
+    if (slider.index < 1) { slider.index = slides.length }
+    var slideMove = -(slider.index - 1) * slideWidth;
+
+    updateSlider(slidesWrapper, dots, slideMove, slider.index);
+}
+
+function currentSlide(n, sliderClass) {
+    var slider = sliders[sliderClass];
+    var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+    var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+    var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+    var slideWidth = slides[0].clientWidth;
+    var slideMove = -(n - 1) * slideWidth;
+
+    slider.index = n;
+    updateSlider(slidesWrapper, dots, slideMove, slider.index);
+}
+
+function updateSlider(slidesWrapper, dots, slideMove, slideIndex) {
+    for (var i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+    dots[slideIndex - 1].className += " active";
+}
+
+function toggleCollapse() {
+    var content = document.getElementById("collapseContent");
+    if (content) {
+        content.classList.toggle("collapsed");
+    }
+}
+
+        // var slideIndex = 1;
+        // showSlides(slideIndex);
+
+        // function plusSlides(n) {
+        //     var slides = document.getElementsByClassName("slide");
+        //     slideIndex += n;
+        //     if (slideIndex > slides.length) {slideIndex = 1}
+        //     if (slideIndex < 1) {slideIndex = slides.length}
+        //     showSlides(slideIndex);
+        // }
+
+        // function currentSlide(n) {
+        //     showSlides(slideIndex = n);
+        // }
+
+        
+
+        // function showSlides(n) {
+        //     var slides = document.getElementsByClassName("slide");
+        //     var dots = document.getElementsByClassName("slider-btn");
+        //     var slidesWrapper = document.querySelector('.slides');
+
+        //     // 计算滑动的位置
+        //     var slideWidth = slides[0].clientWidth; // 获取单个幻灯片的宽度
+        //     var slideMove = -(n - 1) * slideWidth; // 计算应该滑动的距离
+
+        //     for (var i = 0; i < slides.length; i++) {
+        //         dots[i].className = dots[i].className.replace(" active", "");
+        //     }
+
+        //     // 使用 transform 属性来平滑地滑动幻灯片
+        //     slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+            
+        //     // 更新圆点按钮状态
+        //     dots[n-1].className += " active";
+        // }
+
+
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+
+
+
+</script>
+</body>
+</html>
