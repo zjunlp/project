@@ -566,7 +566,7 @@
     <div class="column is-six-fifths">
       <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Main Results <div class="triangle-down"></div></h2>
       <div class="hero-body">
-        <img id="#overall_performance" width="120%" src="./images/main_results/overall_performance_new_1.png">
+        <img id="#overall_performance" width="120%" src="./images/main_results/overall_performance_final.png">
         <br>
         <div class="content has-text-justified">
           <p>
@@ -622,6 +622,8 @@
       <div class="column is-six-fifths">
         <h2 class="title is-3" style="background-color: #f3f3f3; width: 100%; display: block; height:60px; line-height: 60px;">Analysis <div class="triangle-down"></div></h2>
         <div class="hero-body">
+          <img id="#traditional" width="120%" src="./images/analysis/traditional_performance.png">
+	  <br>
           <img id="#mechanism" width="120%" src="./images/analysis/mechanism.png">
           <h2>
             Fig 4: The mechanisms of SFT, DPO and DINM. The darker the color of the toxic regions and activations, the greater the induced toxicity.
@@ -631,7 +633,11 @@
           <br>
           <div class="content has-text-justified">
             <p>
-            Following <a href=https://arxiv.org/abs/2401.01967>previous work</a>, we explore the underlying mechanisms of two prevalent methods, SFT and DPO, along with our DINM, in preventing toxic outputs. 
+	    The data settings for training and testing differ between traditional detoxifying methods and knowledge editing methods. 
+	    Hence, we design an additional dataset SafeEdit-test-ALL to ensure a fair comparison between the traditional detoxifying paradigm and knowledge editing.
+	    We report the results in <a href=#traditional>Table 4</a> and observe that DINM, optimized with only one instance, can rival or even outperform DPO, which requires extensive data and computational resource.
+	    <br>    
+            Then, we further analyze the detoxification mechanisms of SFT, DPO, and DINM. Following <a href=https://arxiv.org/abs/2401.01967>previous work</a>, we explore the underlying mechanisms of two prevalent methods, SFT and DPO, along with our DINM, in preventing toxic outputs. 
             And, we conclude that <b>DINM Attempts to Erase Toxic Regions, while DPO and SFT Still Remain Toxic Regions</b>.
             Specifically, the toxicity of toxic regions for $\text{Mistral}_\text{SFT}$ and $\text{Mistral}_\text{DPO}$ remain almost unchange. 
             However, the activations of SFT and DPO for toxic regions exhibit a significant shift, which can steer the input information away from the toxic region.
