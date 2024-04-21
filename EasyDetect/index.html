@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Unified Hallucination Detection for Multimodal Large Language Models">
+  <meta name="keywords" content="Multimodal Hallucination, Multimodal Large Language Model, Hallucination Detection">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unified Hallucination Detection for Multimodal Large Language Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/logo.jpg">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+          <a class="navbar-item" href="http://knowlm.zjukg.cn/">
+          <span class="icon">
+              <i class="fas fa-home"></i>
+          </span>
+          </a> 
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More Research
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://www.zjukg.org/project/KnowEdit" target="_blank">
+                <b>KnowEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
+                <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
+                <b>EasyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                <b>EasyInstruct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+                <a class="navbar-item" href="https://openkg-org.github.io/ChatCell/" target="_blank">
+                <b>ChatCell</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://openkg-org.github.io/SafetyEdit/" target="_blank">
+                <b>SafetyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
+                AutoAct  
+                <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
+                  TRICE
+                </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
+                  InstructIE
+                </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">Unified Hallucination Detection for Multimodal Large Language Models</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiang Chen<sup>&#x2663;&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Chenxi Wang<sup>&#x2663;&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yida Xue<sup>&#x2663;&#x2661;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2663;&#x2661;&#8224;</sup>
+            </span>, 
+            <br />
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiaoyan Yang<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Qiang Li<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yue Shen<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Lei Liang<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Jinjie Gu<sup>&#x2662;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2663;&#x2661;&#8224;</sup>
+            </span>, 
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2663;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2662;</sup>Ant Group
+            </span>
+            <br />
+            <span class="author-block">
+              <sup>&#x2661;</sup>Zhejiang University-Ant Group Joint Laboratory of Knowledge Graph
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+            <span class="author-block"><sup>&#8224;</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="http://arxiv.org/abs/2402.03190" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- HF paper Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/papers/2402.03190"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/OpenKG-ORG/EasyDetect" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="http://easydetect.openkg.cn/" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/images/demo.png" alt="Drive"/>
+                      <!-- <svg t="1706684966289" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5097" width="200" height="200"><path d="M238.685091 0h546.629818c82.990545 0 113.105455 8.657455 143.453091 24.855273 30.347636 16.244364 54.132364 40.029091 70.376727 70.376727 16.197818 30.347636 24.855273 60.462545 24.855273 143.453091v546.629818c0 82.990545-8.657455 113.105455-24.855273 143.453091a169.192727 169.192727 0 0 1-70.376727 70.376727c-30.347636 16.197818-60.462545 24.855273-143.453091 24.855273H238.685091c-82.990545 0-113.105455-8.657455-143.453091-24.855273a169.192727 169.192727 0 0 1-70.376727-70.376727C8.657455 898.420364 0 868.305455 0 785.314909V238.685091c0-82.990545 8.657455-113.105455 24.855273-143.453091A169.192727 169.192727 0 0 1 95.232 24.855273C125.579636 8.657455 155.694545 0 238.685091 0z" fill="#FBFBFB" p-id="5098"></path><path d="M510.138182 733.370182c142.103273 0 257.349818-115.851636 257.349818-258.699637 0-142.894545-115.246545-258.699636-257.349818-258.699636s-257.303273 115.805091-257.303273 258.699636 115.2 258.699636 257.303273 258.699637z" fill="#FFD21E" p-id="5099"></path><path d="M767.488 474.670545c0-142.894545-115.246545-258.699636-257.349818-258.699636s-257.303273 115.805091-257.303273 258.699636 115.2 258.699636 257.303273 258.699637c142.103273 0 257.349818-115.851636 257.349818-258.699637z m-544.256 0A288.768 288.768 0 0 1 366.685091 224.814545a285.602909 285.602909 0 0 1 286.952727 0 288.768 288.768 0 0 1 143.453091 249.856c0 159.325091-128.465455 288.442182-286.952727 288.442182-158.440727 0-286.906182-129.117091-286.906182-288.442182z" fill="#FF9D0B" p-id="5100"></path><path d="M593.733818 404.293818c9.495273 3.258182 13.218909 22.807273 22.760727 17.687273a37.236364 37.236364 0 0 0-6.516363-68.421818 36.910545 36.910545 0 0 0-39.424 11.915636 37.376 37.376 0 0 0-4.142546 41.146182c4.514909 8.564364 18.897455-5.352727 27.415273-2.373818l-0.093091 0.046545z m-174.359273 0c-9.495273 3.258182-13.265455 22.807273-22.760727 17.687273a37.236364 37.236364 0 0 1 6.516364-68.421818 36.910545 36.910545 0 0 1 39.424 11.915636c9.541818 11.636364 11.170909 27.834182 4.142545 41.146182-4.514909 8.564364-18.944-5.352727-27.415272-2.373818l0.09309 0.046545z" fill="#3A3B45" p-id="5101"></path><path d="M508.276364 582.888727c72.797091 0 96.302545-65.163636 96.302545-98.676363 0-17.454545-11.636364-11.915636-30.301091-2.699637-17.221818 8.564364-40.448 20.386909-65.908363 20.386909-53.248 0-96.256-51.2-96.256-17.687272 0 33.512727 23.412364 98.676364 96.256 98.676363h-0.093091z" fill="#FF323D" p-id="5102"></path><path d="M452.561455 565.853091c7.912727-16.151273 22.109091-28.253091 39.237818-33.419636 2.932364-0.930909 6.004364 4.235636 9.169454 9.541818 2.978909 5.026909 6.050909 10.193455 9.169455 10.193454 3.351273 0 6.656-5.12 9.867636-10.053818 3.304727-5.213091 6.562909-10.24 9.774546-9.309091 15.918545 5.073455 29.184 16.197818 37.003636 31.045818 27.648-21.876364 37.794909-57.623273 37.794909-79.685818 0-17.408-11.636364-11.869091-30.301091-2.653091l-1.024 0.512c-17.128727 8.564364-39.936 19.874909-64.977454 19.874909-24.994909 0-47.755636-11.310545-64.930909-19.874909-19.223273-9.588364-31.325091-15.639273-31.325091 2.141091 0 22.714182 10.845091 60.043636 40.494545 81.687273z" fill="#3A3B45" p-id="5103"></path><path d="M684.171636 439.296a24.110545 24.110545 0 0 0 24.064-24.203636 24.110545 24.110545 0 0 0-24.064-24.203637 24.110545 24.110545 0 0 0-24.064 24.203637c0 13.358545 10.752 24.203636 24.064 24.203636z m-344.343272 0a24.110545 24.110545 0 0 0 24.064-24.203636 24.110545 24.110545 0 0 0-24.064-24.203637 24.110545 24.110545 0 0 0-24.064 24.203637c0 13.358545 10.798545 24.203636 24.064 24.203636z m-49.524364 81.92a38.353455 38.353455 0 0 0-30.161455 13.870545 44.590545 44.590545 0 0 0-9.82109 28.020364c-4.654545-1.396364-9.495273-2.187636-14.382546-2.234182a39.051636 39.051636 0 0 0-29.184 12.334546 43.333818 43.333818 0 0 0-5.911273 52.130909 39.470545 39.470545 0 0 0-13.265454 20.945454 43.752727 43.752727 0 0 0 5.957818 35.374546 39.051636 39.051636 0 0 0-2.792727 37.329454c7.586909 17.268364 26.484364 30.813091 63.115636 45.428364 22.760727 9.076364 43.613091 14.894545 43.752727 14.941091 26.391273 7.354182 53.573818 11.357091 80.989091 11.915636 43.333818 0 74.379636-13.405091 92.206546-39.749818 28.765091-42.356364 24.669091-81.128727-12.567273-118.504727-20.48-20.712727-34.210909-51.2-37.003636-57.856-5.818182-19.828364-21.038545-41.844364-46.312728-41.844364a42.170182 42.170182 0 0 0-34.071272 18.338909 97.512727 97.512727 0 0 0-21.178182-21.038545 54.597818 54.597818 0 0 0-29.370182-9.448727z m0 29.789091a26.530909 26.530909 0 0 1 13.498182 4.794182c15.825455 10.146909 46.266182 62.743273 57.437091 83.223272 3.723636 6.842182 10.146909 9.774545 15.825454 9.774546 11.496727 0 20.386909-11.403636 1.117091-25.925818-28.997818-21.783273-18.850909-57.483636-5.026909-59.624728 0.605091-0.139636 1.256727-0.139636 1.768727-0.139636 12.567273 0 18.152727 21.783273 18.152728 21.783273s16.290909 41.099636 44.264727 69.259636c27.927273 28.066909 29.416727 50.594909 9.029818 80.616727-13.917091 20.48-40.494545 26.670545-67.816727 26.670546-28.206545 0-57.250909-6.702545-73.448727-10.891636-0.791273-0.232727-99.607273-28.299636-87.04-52.13091 2.048-4.002909 5.538909-5.632 9.867636-5.632 17.640727 0 49.617455 26.344727 63.488 26.344728 3.025455 0 5.166545-1.256727 6.144-4.468364 5.818182-21.224727-89.320727-30.161455-81.314909-60.834909 1.489455-5.399273 5.259636-7.586909 10.705454-7.586909 23.226182 0 75.496727 41.192727 86.434909 41.192727 0.837818 0 1.489455-0.232727 1.768728-0.744727 5.492364-8.936727 2.466909-15.173818-36.305455-38.725818-38.539636-23.505455-65.722182-37.701818-50.269091-54.551273 1.722182-1.954909 4.235636-2.839273 7.354182-2.839273 23.458909 0 78.941091 50.734545 78.941091 50.734546s14.941091 15.685818 24.064 15.685818a5.352727 5.352727 0 0 0 5.026909-2.839273c6.376727-10.891636-59.671273-61.207273-63.394909-81.966545-2.513455-14.149818 1.815273-21.224727 9.728-21.224728z" fill="#FF9D0B" p-id="5104"></path><path d="M446.370909 734.766545c20.386909-30.068364 18.897455-52.596364-9.029818-80.709818-27.973818-28.066909-44.264727-69.213091-44.264727-69.213091s-6.050909-23.831273-19.921455-21.597091c-13.824 2.234182-23.970909 37.841455 5.026909 59.624728 28.951273 21.829818-5.771636 36.631273-16.942545 16.151272-11.124364-20.48-41.611636-73.076364-57.483637-83.223272-15.732364-10.053818-26.856727-4.468364-23.179636 16.384 3.723636 20.759273 69.818182 71.074909 63.394909 81.92-6.423273 10.891636-29.090909-12.753455-29.090909-12.753455s-70.842182-64.837818-86.341818-47.941818c-15.36 16.896 11.776 31.045818 50.362182 54.551273 38.725818 23.552 41.751273 29.789091 36.305454 38.725818-5.585455 8.936727-90.949818-63.488-98.955636-32.768-8.005818 30.580364 87.133091 39.470545 81.314909 60.695273-5.911273 21.178182-67.118545-40.029091-79.546182-16.290909-12.567273 23.924364 86.295273 51.991273 87.086546 52.224 31.837091 8.378182 112.919273 25.972364 141.265454-15.77891z" fill="#FFD21E" p-id="5105"></path><path d="M733.696 521.169455c12.008727 0 22.760727 4.933818 30.161455 13.963636 6.376727 7.912727 9.821091 17.780364 9.82109 27.927273 4.654545-1.396364 9.541818-2.141091 14.429091-2.187637 11.496727 0 21.876364 4.375273 29.184 12.334546 13.498182 14.056727 15.872 35.374545 5.911273 52.130909 6.516364 5.399273 11.170909 12.753455 13.218909 20.945454a43.752727 43.752727 0 0 1-5.957818 35.374546c7.261091 11.124364 8.285091 25.227636 2.792727 37.329454-7.586909 17.268364-26.484364 30.813091-63.069091 45.428364-22.807273 9.076364-43.659636 14.894545-43.799272 14.941091a326.609455 326.609455 0 0 1-80.989091 11.915636c-43.333818 0-74.379636-13.405091-92.206546-39.749818-28.765091-42.356364-24.669091-81.128727 12.567273-118.504727 20.573091-20.712727 34.304-51.2 37.096727-57.856 5.771636-19.828364 20.945455-41.844364 46.219637-41.844364a42.170182 42.170182 0 0 1 34.071272 18.338909c7.400727-9.402182 14.661818-16.756364 21.224728-21.038545 8.657455-5.864727 18.850909-9.169455 29.323636-9.448727z m0 29.78909a26.763636 26.763636 0 0 0-13.498182 4.840728c-15.732364 10.146909-46.266182 62.743273-57.437091 83.223272a17.966545 17.966545 0 0 1-15.825454 9.774546c-11.403636 0-20.386909-11.403636-1.070546-25.925818 28.951273-21.783273 18.804364-57.483636 4.980364-59.624728a11.357091 11.357091 0 0 0-1.768727-0.139636c-12.567273 0-18.152727 21.783273-18.152728 21.783273s-16.290909 41.099636-44.218181 69.259636c-27.973818 28.066909-29.463273 50.594909-9.029819 80.616727 13.870545 20.48 40.494545 26.670545 67.770182 26.670546 28.253091 0 57.250909-6.702545 73.541818-10.891636 0.698182-0.232727 99.607273-28.299636 87.04-52.13091-2.141091-4.002909-5.538909-5.632-9.914181-5.632-17.594182 0-49.664 26.344727-63.441455 26.344728-3.118545 0-5.259636-1.256727-6.144-4.468364-5.911273-21.224727 89.227636-30.161455 81.221818-60.834909-1.396364-5.399273-5.166545-7.586909-10.705454-7.586909-23.226182 0-75.496727 41.192727-86.434909 41.192727-0.744727 0-1.396364-0.232727-1.722182-0.744727-5.492364-8.936727-2.513455-15.173818 36.165818-38.725818 38.725818-23.505455 65.861818-37.701818 50.315636-54.551273-1.675636-1.954909-4.189091-2.839273-7.261091-2.839273-23.505455 0-78.987636 50.734545-78.987636 50.734546s-14.941091 15.685818-24.017455 15.685818a5.492364 5.492364 0 0 1-5.026909-2.839273c-6.423273-10.891636 59.624727-61.207273 63.301819-81.966545 2.56-14.149818-1.768727-21.224727-9.681455-21.224728z" fill="#FF9D0B" p-id="5106"></path><path d="M577.675636 734.766545c-20.340364-30.068364-18.944-52.596364 9.029819-80.709818 27.927273-28.066909 44.218182-69.213091 44.218181-69.213091s6.050909-23.831273 20.014546-21.597091c13.730909 2.234182 23.877818 37.841455-5.073455 59.624728-28.997818 21.829818 5.771636 36.631273 16.896 16.151272 11.170909-20.48 41.704727-73.076364 57.483637-83.223272 15.732364-10.053818 26.949818-4.468364 23.179636 16.384-3.723636 20.759273-69.818182 71.074909-63.301818 81.92 6.330182 10.891636 28.997818-12.753455 28.997818-12.753455s70.935273-64.837818 86.341818-47.941818c15.36 16.896-11.682909 31.045818-50.362182 54.551273-38.725818 23.552-41.704727 29.789091-36.305454 38.725818 5.585455 8.936727 90.949818-63.488 98.955636-32.768 8.005818 30.580364-87.04 39.470545-81.221818 60.695273 5.911273 21.178182 67.025455-40.029091 79.499636-16.290909 12.567273 23.924364-86.248727 51.991273-87.04 52.224-31.930182 8.378182-113.012364 25.972364-141.312-15.77891z" fill="#FFD21E" p-id="5107"></path></svg> -->
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/openkg/MHaluBench" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                   
+                  <span class="icon">
+                    <!-- <svg class="svg-inline--fa fa-images fa-w-18" aria-hidden="true" focusable="false" data-prefix="far" data-icon="images" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M480 416v16c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V176c0-26.51 21.49-48 48-48h16v48H54a6 6 0 0 0-6 6v244a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6v-10h48zm42-336H150a6 6 0 0 0-6 6v244a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6V86a6 6 0 0 0-6-6zm6-48c26.51 0 48 21.49 48 48v256c0 26.51-21.49 48-48 48H144c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h384zM264 144c0 22.091-17.909 40-40 40s-40-17.909-40-40 17.909-40 40-40 40 17.909 40 40zm-72 96l39.515-39.515c4.686-4.686 12.284-4.686 16.971 0L288 240l103.515-103.515c4.686-4.686 12.284-4.686 16.971 0L480 208v80H192v-48z"></path></svg>   -->
+                    <img src="./static/images/hugging_face.png" alt="Drive"/>
+                  </span>
+                  <span>Datasets</span>
+                </a>
+              </span>
+               <!-- Twitter Link. -->
+               <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1754724835476005054"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/images/twitter.png" alt="Drive"/>
+                    <!-- <i class="fa-brands fa-x-twitter"></i> -->
+                      <!-- <p style="font-size:18px">🌐</p> -->
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="100%" src="./images/first.gif">
+
+      <h2 class="subtitle has-text-centered">
+        Armed with just one tool library, the <b>Meta-Agent</b> can automatically differentiate based on the target task information and produce a sub-agent group that can collaborate to complete the task.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+ <!-- Abstract. -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Despite significant strides in multimodal tasks, Multimodal Large Language Models (MLLMs) are plagued by the critical issue of hallucination. 
+            The reliable detection of such hallucinations in MLLMs has, therefore, become a vital aspect of model evaluation and the safeguarding of practical application deployment.
+            Prior research in this domain has been constrained by a narrow focus on singular tasks, an inadequate range of hallucination categories addressed, and a lack of detailed granularity.
+            In response to these challenges, our work expands the investigative horizons of hallucination detection. 
+            We present a novel meta-evaluation benchmark, <b>MHaluBench</b>, meticulously crafted to facilitate the evaluation of advancements in hallucination detection methods. 
+            Additionally, we unveil a novel unified multimodal hallucination detection framework, <b>UniHD</b>, which leverages a suite of auxiliary tools to validate the occurrence of hallucinations robustly.
+            We demonstrate the effectiveness of <b>UniHD</b> through meticulous evaluation and comprehensive analysis. 
+            We also provide strategic insightson the application of specific tools for addressing various categories of hallucinations.
+          </p>
+        </div>
+      </div>
+    </div>
+</section> -->
+<!-- Abstract. -->
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">🔔News</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>🚀[2024-01-31]: We release the easy-to-use demo for multimodal hallucination detection on the <a href="http://easydetect.openkg.cn/">Demo-EasyDetect</a>!🌟</b>
+          </p>
+          <p>
+            <b>🔥[2023-12-15]: Our fact-conflicting hallucination detection benchmark is now available on the <a href="https://huggingface.co/datasets/zjunlp/FactCHD"><b>FactCHD</b></a>. Abstract introduction can refer to the <a href="https://www.zjukg.org/project/FactCHD/"><b>Home Page</b></a> 😆</b>
+          </p>
+        </div> 
+        <h2 class="title is-3">🌻Acknowledgement</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Part implementation of this project were assisted and inspired by the related hallucination toolkits including <a href="https://github.com/GAIR-NLP/factool">Factool</a>, <a href="https://github.com/BradyFU/Woodpecker">Woodpecker</a>, and others. 
+            This repository also benefits from the public project from <a href="https://github.com/X-PLUG/mPLUG-Owl">mPLUG-Owl</a>, <a href="https://github.com/Vision-CAIR/MiniGPT-4">MiniGPT-4</a>,  <a href="https://github.com/haotian-liu/LLaVA">LLaVA</a>, <a href="https://github.com/IDEA-Research/GroundingDINO">GroundingDINO</a>, and <a href="https://github.com/Mountchicken/Union14M">MAERec</a>. 
+            We follow the same license for open-sourcing and thank them for their contributions to the community.</b>
+            
+          </p>
+        </div>     
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Despite significant strides in multimodal tasks, Multimodal Large Language Models (MLLMs) are plagued by the critical issue of hallucination. 
+            The reliable detection of such hallucinations in MLLMs has, therefore, become a vital aspect of model evaluation and the safeguarding of practical application deployment.
+            Prior research in this domain has been constrained by a narrow focus on singular tasks, an inadequate range of hallucination categories addressed, and a lack of detailed granularity.
+            In response to these challenges, our work expands the investigative horizons of hallucination detection. 
+            We present a novel meta-evaluation benchmark, <b>MHaluBench</b>, meticulously crafted to facilitate the evaluation of advancements in hallucination detection methods. 
+            Additionally, we unveil a novel unified multimodal hallucination detection framework, <b>UniHD</b>, which leverages a suite of auxiliary tools to validate the occurrence of hallucinations robustly.
+            We demonstrate the effectiveness of <b>UniHD</b> through meticulous evaluation and comprehensive analysis. 
+            We also provide strategic insightson the application of specific tools for addressing various categories of hallucinations.
+            </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+    
+    <section class="hero is-light is-small">
+      <div class="hero-body has-text-centered">
+      <h1 class="title is-1">
+        <span class="mmmu"  style="vertical-align: middle">Unified Multimodal Hallucination Detection</span>
+      </h1>
+      </div>
+    </section>
+
+    <!--/ MHaluBench. -->
+    <section class="section">
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths">
+        <div class="content has-text-centered">
+          <img id="model" width="55%" src="images/view.png" class="center">
+          <p class="has-text-centered">
+            Figure 1: <b>Unified view of multimodal hallucination detection.</b>
+        </div>
+        <div class="content has-text-centered">
+          <img id="model" width="55%" src="images/intro.png" class="center">
+          <p class="has-text-centered">
+            Figure 2: <b>Unified multimodal hallucination detection</b> aims to identify and detect modality-conflicting hallucinations at various levels such as object, attribute, and scene-text, as well as fact-conflicting hallucinations in both image-to-text and text-to-image generation. 
+          </p>
+        </div>
+      </div>
+    </div>
+    </section>
+    <br>
+
+
+    <section class="hero is-light is-small">
+      <div class="hero-body has-text-centered">
+      <h1 class="title is-1">
+        <span class="mmmu"  style="vertical-align: middle">MHaluBench Dataset</span>
+      </h1>
+      </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+          <!-- <div class="column is-full-width has-text-centered"> -->
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Comparisons with Existing Benchmarks</h2>
+            <div class="content has-text-justified">
+              <p>
+                To further distinguish the difference between <i>dataset</i> and other existing ones, we elaborate the benchmark details in Figure. 
+                From the <i>breadth</i> perspective, the prior benchmarks are heavily focused on daily knowledge and common sense. 
+                The covered image format is also limited. Our benchmark aims to cover college-level knowledge with 30 image formats including diagrams, 
+                tables, charts, chemical structures, photos, paintings, geometric shapes, music sheets, medical images, etc. 
+                In the <i>depth</i> aspect, the previous benchmarks normally require commonsense knowledge or simple physical or temporal reasoning. 
+                In contrast, our benchmark requires deliberate reasoning with college-level subject knowledge.
+            </p>
+            <div class="content has-text-centered">
+              <img id="model" width="100%" src="images/datasetinfo.jpg" class="center">
+              <p class="has-text-centered">
+                Table 1: </Table><b>A comparison of benchmarks w.r.t existing fact-checking or hallucination evaluation.</b> “Check.” indicates verifying factual consistency, “Eval.” denotes evaluating hallucinations generated by different LLMs, and its response is based on different LLMs under test, while “Det.” embodies the evaluation of a detector’s capability in identifying hallucinations.
+              </p>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="columns is-centered m-6">
+          <div class="column is-full has-text-centered content">
+            <h2 class="title is-3">Statistics</h2>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="box m-5">
+                <div class="content has-text-centered">
+                  <img src="images/饼图.png" width="35%"/>
+                  <p>
+                    Figure 3: <b>Claim-Level data statistics of MHaluBench.</b> “IC” signifies Image Captioning and “T2I” indicates Text-to-Image synthesis, respectively
+                  </p>
+                </div>
+              </div>
+              <div class="box m-5">
+                <div class="content has-text-centered">
+                  <img src="images/条形图.png" width="50%"/>
+                  <p> 
+                    Figure 4: <b>Distribution of hallucination categories within hallucination-labeled claims of MHaluBench..</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+
+
+  <!-- Easy Detect. -->
+  <section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span class="mmmu"  style="vertical-align: middle">UniHD Framework</span>
+    </h1>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="columns is-centered has-text-centered">
+      <div class=column is-four-fifths">
+        <!-- <h2 class="title is-3">Statistics</h2> -->
+          <div class="content has-text-justified">
+            <div class="content has-text-centered">
+              <img src="images/framework.png" width="80%"/>
+              <p>
+                Figure 5: <b>The specific illustration of UniHD for unified multimodal hallucination detection</b>.
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <!--  Easy Detect.  -->
+    
+
+  <!-- Paper Main Results -->
+
+  <section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span class="mmmu"  style="vertical-align: middle">Experiment Results</span>
+    </h1>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <div class="content has-text-justified">
+        <div class="content has-text-centered">
+          <img id="model" width="85%" src="images/main_exp.png" class="center">
+          <p class="has-text-centered">
+            Table 2: <b> Experimental results of UniHD powered by Gemini and GPT-4v on Image-to-Text Generation and
+              Text-to-Image Generation.</b> The default F1 score is Micro-F1, whereas Mac.F1 represents the Macro-F1 score.
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-centered">
+            <img id="model" width="50%" src="images/analysis.png">
+            <p class="has-text-centered">
+              Figure 6: <b>The statistical analysis was conducted on samples with hallucinatory labels.</b>
+              In this analysis, the x-axis labels “O”, “A”, “S” and “F” refer to object, attribute, scene-text, and fact, respectively
+            </p>
+            
+            <br>
+        <!-- <img id="model" width="60%" src="images/analysis-2.png">
+        <p class="has-text-centered">
+          Figure 6: <b>Comparison of claim-level hallucination ratios across MLLMs.</b> We randomly select a set of 20 prompts from MHDEB for each of the IC, VQA, and T2I. 
+          Responses for these prompts are generated by each of the evaluated MLLMs
+        </p>
+        <br> -->
+            <img id="model" width="80%" src="images/case_analysis.png">
+            <p class="has-text-centered">
+              Figure 7: <b>Case Study.</b>  The upper section depicts two exemplary cases where both UniHD and Self-Check
+              (2-shot) arrive at correct judgments, with a comparative demonstration of UniHD providing explanations of
+              superior reasonability. UniHD (a) reveals a failure case where the tool presents erroneous evidence, leading to
+              an incorrect verification outcome. Conversely, UniHD (b) highlights a scenario where, despite the tool offering
+              valid and correct evidence, GPT-4V persists in its original stance, resulting in a flawed verification
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">MLLM Hallucination Evaluation</h2>
+        <div class="content has-text-justified">
+        <div class="content has-text-centered">
+          <img id="model" width="50%" src="images/analysis-2.png" class="center">
+          <p class="has-text-centered">
+            Figure 8: <b>Comparison of claim-level hallucination ratios across MLLMs.</b> We randomly select a set of 20 prompts from MHDEB for each of the IC, VQA, and T2I. 
+            Responses for these prompts are generated by each of the evaluated MLLMs
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+  </section> 
+  
+  <!-- Paper Main Results -->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{chen23factchd,
+        author       = {Xiang Chen and Duanzheng Song and Honghao Gui and Chengxi Wang and Ningyu Zhang and 
+                        Jiang Yong and Fei Huang and Chengfei Lv and Dan Zhang and Huajun Chen},
+        title        = {FactCHD: Benchmarking Fact-Conflicting Hallucination Detection},
+        journal      = {CoRR},
+        volume       = {abs/2310.12086},
+        year         = {2023},
+        url          = {https://doi.org/10.48550/arXiv.2310.12086},
+        doi          = {10.48550/ARXIV.2310.12086},
+        eprinttype    = {arXiv},
+        eprint       = {2310.12086},
+        biburl       = {https://dblp.org/rec/journals/corr/abs-2310-12086.bib},
+        bibsource    = {dblp computer science bibliography, https://dblp.org}
+      }
+
+      @article{chen24unihd,
+        author       = {Xiang Chen and Chenxi Wang and Yida Xue and Ningyu Zhang and Xiaoyan Yang and 
+                        Qiang Li and Yue Shen and Lei Liang and Jinjie Gu and Huajun Chen},
+        title        = {Unified Hallucination Detection for Multimodal Large Language Models},
+        journal      = {CoRR},
+        volume       = {abs/2402.03190},
+        year         = {2024},
+        url          = {https://doi.org/10.48550/arXiv.2402.03190},
+        doi          = {10.48550/ARXIV.2402.03190},
+        eprinttype    = {arXiv},
+        eprint       = {2402.03190},
+        biburl       = {https://dblp.org/rec/journals/corr/abs-2402-03190.bib},
+        bibsource    = {dblp computer science bibliography, https://dblp.org}
+      }
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
