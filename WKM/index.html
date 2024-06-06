@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="WKM">
+  <meta name="keywords" content="Large Language Model, Language Agent, World Knowledge Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unified Hallucination Detection for Multimodal Large Language Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/artificial-intelligence.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+          <a class="navbar-item" href="https://github.com/zjunlp">
+          <span class="icon">
+              <i class="fas fa-home"></i>
+          </span>
+          </a> 
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More Research
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://www.zjukg.org/project/KnowEdit" target="_blank">
+                <b>KnowEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
+                <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
+                <b>EasyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                <b>EasyInstruct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/ChatCell/" target="_blank">
+                <b>ChatCell</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/SafetyEdit/" target="_blank">
+                <b>SafetyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
+                <b>AutoAct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
+                TRICE
+              </a>
+              <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
+                InstructIE
+              </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">Agent Planning with World Knowledge Model</h2>
+          <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shuofei Qiao<sup>&#x2660;&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Runnan Fang<sup>&#x2660;&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;&#x2661;&#8224;</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yuqi Zhu<sup>&#x2660;&#x2661;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiang Chen<sup>&#x2660;&#x2661;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shumin Deng<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yong Jiang<sup>&#x2662;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Pengjun Xie<sup>&#x2662;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Fei Huang<sup>&#x2662;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Huajun Chen<sup>&#x2660;&#x2661;&#8224;</sup>
+            </span>,
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>National University of Singapore
+            </span>
+            <span class="author-block">
+              <sup>&#x2662;</sup>Alibaba Group
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+            <span class="author-block"><sup>&#8224;</sup>Corresponding Author</span>
+           
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2405.14205" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- HF paper Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/papers/2405.14205"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/WKM" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+               <!-- Twitter Link. -->
+              <span class="link-block">
+              <a href="https://twitter.com/omarsar0/status/1793851075411296761" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="./static/images/twitter.png" alt="Drive"/>
+                  <!-- <i class="fa-brands fa-x-twitter"></i> -->
+                    <!-- <p style="font-size:18px">🌐</p> -->
+                </span>
+                <span>Twitter</span>
+              </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" width="100%" src="./images/first.png">
+
+      <h2 class="subtitle has-text-centered">
+        Traditional agent planning vs. Agent planning with world knowledge model.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent endeavors towards directly using large language models (LLMs) as agent models to execute interactive planning tasks have shown commendable results.
+            Despite their achievements, however, they still struggle with brainless trial-and-error in global planning and generating hallucinatory actions in local planning due to their poor understanding of the "real" physical world.
+            Imitating humans' <i>mental</i> world knowledge model which provides global prior knowledge before the task and maintains local dynamic knowledge during the task, in this paper, we introduce <i>parametric</i> <b>W</b>orld <b>K</b>nowledge <b>M</b>odel (<b>WKM</b>) to facilitate agent planning.
+            Concretely, we steer the agent model to self-synthesize knowledge from both expert and sampled trajectories.
+            Then we develop WKM, providing prior <b><i>task knowledge</i></b> to guide the global planning and dynamic <b><i>state knowledge</i></b> to assist the local planning.
+            Experimental results on three complex real-world simulated datasets with three state-of-the-art open-source LLMs, Mistral-7B, Gemma-7B, and Llama-3-8B, demonstrate that our method can achieve superior performance compared to various strong baselines.
+            Besides, we analyze to illustrate that our WKM can effectively alleviate the blind trial-and-error and hallucinatory action issues, providing strong support for the agent's understanding of the world.
+            Other interesting findings include: 1) our instance-level task knowledge can generalize better to unseen tasks, 2) weak WKM can guide strong agent model planning, and 3) unified WKM training has promising potential for further development
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+    
+    <section class="hero is-light is-small">
+      <div class="hero-body has-text-centered">
+      <h1 class="title is-1">
+        <span class="mmmu"  style="vertical-align: middle">Method</span>
+      </h1>
+      </div>
+    </section>
+
+    <!--/ MHaluBench. -->
+    <section class="section">
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths">
+        <div class="content has-text-centered">
+          <img id="model" width="70%" src="images/method.png" class="center">
+          <p class="has-text-centered">
+            Figure 1: <b>Overview of our WKM.</b>
+            We train a world knowledge model on the knowledge synthesized by the agent model itself from both expert and explored trajectories, providing prior task knowledge to guide global planning and dynamic state knowledge to assist local planning.
+          </p>
+        </div>
+      </div>
+    </div>
+    </section>
+    <br>
+
+
+    <section class="hero is-light is-small">
+      <div class="hero-body has-text-centered">
+      <h1 class="title is-1">
+        <span class="mmmu"  style="vertical-align: middle">Experiments</span>
+      </h1>
+      </div>
+    </section>
+
+
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+          <!-- <div class="column is-full-width has-text-centered"> -->
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Main Results</h2>
+            <div class="content has-text-centered">
+              <img id="model" width="70%" src="images/main_result.png" class="center">
+              <p class="has-text-centered">
+                Table 1: <b>Main Results.</b> The best results are marked in <b>bold</b> and the second-best results are marked with
+                <u>underline</u>. All the prompt-based baselines (<i class="fas fa-toggle-off"></i>) are evaluated under one-shot prompting and all the fine-tuning-
+                based baselines (<i class="fas fa-toggle-on"></i>) are trained through LoRA. Red represents the changes of WKM relative to the optimal
+                results in the baselines. WKM and agent model are different LoRAs sharing the same backbone.
+              </p>
+            </div>
+            <h2 class="title is-3">Ablations</h2>
+            <div class="content has-text-centered">
+              <img id="model" width="100%" src="images/ablation.png" class="center">
+              <p class="has-text-centered">
+                Figure 2: <b>Ablation Study</b> on Mistral-7B. <b>w/o all</b> means the vanilla experienced agent model training with pure
+                expert trajectories. <b>w/ state</b> is testing agent model with only state knowledge base constraints. <b>w/ task</b> stands for
+                guiding agent model with only task knowledge. <b>w/ task&state</b> is our WKM with both task knowledge guidance
+                and state knowledge constraints.
+              </p>
+            </div>
+          </div>
+        </div>
+    
+
+
+
+  <!-- Easy Detect. -->
+  <section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span class="mmmu"  style="vertical-align: middle">Analysis</span>
+    </h1>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Statistics</h2> -->
+          <div class="content has-text-justified">
+            <div class="content has-text-centered">
+              <img src="images/trial_hallu.png" width="80%"/>
+              <p>
+                Table 2&3: <b>Average Steps (left)</b> and <b>Hallucinatory Action Rates (right)</b> on ALFWorld. The maximum number of steps in
+                ALFWorld and WebShop is 40 and 10. In ScienceWorld, the
+                number of steps ranges from 10 to 120 depending on the task
+                type, with an average of around 40. We calculate the proportion of
+                trajectories containing invalid actions regardless of their correctness.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <img src="images/generalization.png" width="30%"/>
+              <p>
+                Figure 3: <b>Our instance-level knowledge can generalize better to unseen
+                  tasks.</b>
+                We compare the performance of dataset-level knowledge with our
+                instance-level task knowledge (WKM w/o state) on ALFWorld and
+                ScienceWorld. It can be observed that our model-generated instance-
+                level knowledge not only surpasses human-designed knowledge
+                on seen tasks but also exhibits even more remarkable performance
+                on unseen tasks, with the improvement in performance on unseen
+                tasks significantly greater than that on seen tasks. This phenomenon
+                straightly reflects the strong generalization ability of our knowledge
+                model compared to rigidly designed knowledge by humans.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <img src="images/weak_strong.png" width="40%"/>
+              <p>
+                Table 4: <b>Weak knowledge model guides strong agent model
+                  planning.</b>
+                The results of both ChatGPT
+                and GPT-4 show distinct advances after being guided by the Mistral-7B world knowledge model,
+                indicating the weak world knowledge model also contains knowledge that the strong model may lack.
+                In the era of LLMs, this inspires us with a new agent learning paradigm: <b>weak-guide-strong</b>. Due
+                to its lightweight nature, the weak knowledge model can flexibly adjust its parameters based on the
+                needs of the agent model, which can address the difficulty of large agent models in adapting to new
+                environments through fine-tuning.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <img src="images/unify.png" width="40%"/>
+              <p>
+                Figure 4: <b>Unified World Knowledge Model Training.</b>
+                We can observe that multi-task WKM not only does
+                not lead to performance degradation but also exhibits visible improvements compared to single-task WKM, especially on WebShop
+                and ScienceWorld. This observation inspires us with the potential of training a unified world knowledge model that can be applied to help various held-in agent models and also generalize to guide held-out agent models. A more daring
+                idea is whether a unified agent model combined with a unified world knowledge model is the key to
+                Artificial General Intelligence (AGI).
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <img src="images/explicit.png" width="40%"/>
+              <p>
+                Figure 5: <b>Explicit state knowledge will hurt the planning performance.</b>
+                The performance of explicit state knowledge is far
+                inferior to our approach of retrieving from a state knowledge base
+                and utilizing probabilistic constraints. It even performs worse than
+                when we remove state knowledge and only include task knowledge. This clearly indicates that blindly
+                extending prompts with a large amount of explicit natural language feedback is lose-more-than-gain
+                for agent planning, and implicit knowledge constraints may be sometimes more prudent.
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{qiao2024agent,
+        title={Agent Planning with World Knowledge Model},
+        author={Qiao, Shuofei and Fang, Runnan and Zhang, Ningyu and Zhu, Yuqi and Chen, Xiang and Deng, Shumin and Jiang, Yong and Xie, Pengjun and Huang, Fei and Chen, Huajun},
+        journal={arXiv preprint arXiv:2405.14205},
+        year={2024}
+      }
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
