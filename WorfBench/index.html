@@ -146,8 +146,61 @@
 		}
 	</style>
   </head>
-  <body>
 
+    <body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+            <a class="navbar-item" href="https://github.com/zjunlp">
+            <span class="icon">
+                <i class="fa fa-home"></i>
+            </span>
+            </a> 
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More Research
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="https://www.zjukg.org/project/KnowEdit" target="_blank">
+                  <b>KnowEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
+                  <b>KnowLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
+                  <b>EasyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                  <b>EasyInstruct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                  <a class="navbar-item" href="https://zjunlp.github.io/ChatCell/" target="_blank">
+                  <b>ChatCell</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/SafetyEdit/" target="_blank">
+                  <b>SafetyEdit</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
+                  <b>AutoAct</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
+                  TRICE
+                </a>
+                <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
+                  InstructIE
+                </a>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
 
 <section class="hero">
   <div class="hero-body">
@@ -203,7 +256,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2401.05268" target="_blank" 
+                <a href="https://arxiv.org/abs/2410.07869" target="_blank" 
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -213,7 +266,7 @@
               </span>
               <!-- HF Paper. -->
               <span class="link-block">
-                <a href="https://huggingface.co/papers/2401.05268" target="_blank" 
+                <a href="https://huggingface.co/papers/2410.07869" target="_blank" 
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <p style="font-size:18px">🤗</p>
@@ -223,7 +276,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/zjunlp/AutoAct" target="_blank" 
+                <a href="https://github.com/zjunlp/WorFBench" target="_blank" 
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fa fa-github"></i>
@@ -232,7 +285,7 @@
                   </a>
               </span>
               <!-- Twitter Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="https://twitter.com/zxlzr/status/1745412748023128565" target="_blank" 
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -240,7 +293,7 @@
                   </span>
                   <span>Twitter</span>
                 </a>
-              </span>
+              </span> -->
             </div>
 
           </div>
@@ -269,11 +322,12 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Large Language Models (LLMs), with their exceptional ability to handle a wide range of tasks, have driven significant advancements in tackling reasoning and planning tasks, wherein decomposing complex problems into executable workflows is a crucial step in this process. 
+            Large Language Models (LLMs), with their exceptional ability to handle a wide range of tasks, have driven significant advancements in tackling reasoning and planning tasks, 
+            wherein decomposing complex problems into executable workflows is a crucial step in this process. 
             Existing workflow evaluation frameworks either focus solely on holistic performance or suffer from limitations such as restricted scenario coverage, simplistic workflow structures, and lax evaluation standards. 
             To this end, we introduce <b>WORFBENCH</b>, a unified workflow generation benchmark with multi-faceted scenarios and intricate graph workflow structures. 
             Additionally, we present <b>WORFEVAL</b>, a systemic evaluation protocol utilizing subsequence and subgraph matching algorithms to accurately quantify the LLM agent's workflow generation capabilities. 
-            Through comprehensive evaluations across different types of LLMs, we discover distinct gaps between the sequence planning capabilities and graph planning capabilities of LLM agents, with even GPT-4 exhibiting a gap of around 15\%. 
+            Through comprehensive evaluations across different types of LLMs, we discover distinct gaps between the sequence planning capabilities and graph planning capabilities of LLM agents, with even GPT-4 exhibiting a gap of around 15%. 
             We also train two open-source models and evaluate their generalization abilities on held-out tasks. 
             Furthermore, we observe that the generated workflows can enhance downstream tasks, enabling them to achieve superior performance with less time during inference.
           </p>
@@ -286,10 +340,10 @@
     <!-- Paper Model. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h2 class="title is-3">WorfBench</h2>
+        <h2 class="title is-3">WorFBench</h2>
         <img id="model" width="100%" src="images/method.png">
         <p class="has-text-centered">
-          Figure 2: <b>The overview framework of our WORFBENCH</b>. 
+          Figure 2: <b>The overview framework of our WORFBENCH.</b> 
           Sector 1 is the benchmark construction where we first synthesize the node chain and then the workflow graph. 
           Sector 2 is our data filtering process. 
           Sector 3 describes the algorithms in WORFEVAL to evaluate the predicted workflow of LLM agents. 
@@ -309,7 +363,7 @@
         <h2 class="title is-3">Main Results</h2>
         <img id="model" width="80%" src="images/main_result.jpg">
         <p class="has-text-centered">
-            Table 1: <b>Main Results</b>. We evaluate all the models with identical carefully designed instructions and two-shot
+            Table 1: <b>Main Results.</b> We evaluate all the models with identical carefully designed instructions and two-shot
             examples. We categorize the models based on whether the models are open-source and their scales. The best
             results for each category are marked in <b>bold</b>, and the second-best results are marked with <u>underline</u>.
         </p>
@@ -325,7 +379,7 @@
         <h2 class="title is-3">Analysis</h2>
         <img id="model" width="50%" src="images/difficulty.jpg">
         <p class="has-text-centered">
-          Figure 3: <b>Performance Distribution of GPT-4</b>. The distribution of f1_chain for the number of nodes and the distribution of f1_graph for the number of edges.
+          Figure 3: <b>Performance Distribution of GPT-4.</b> The distribution of f1_chain for the number of nodes and the distribution of f1_graph for the number of edges.
         </p>
         <br>
         <img id="model" width="80%" src="images/ood.jpg">
@@ -335,7 +389,12 @@
         <br>
         <img id="model" width="30%" src="images/error.jpg">
         <p class="has-text-centered">
-          Figure 4: <b>Error Statistics</b>. 
+          Figure 4: <b>Error Statistics.</b> 1)
+          Granularity. The decomposition of subtasks does not meet the minimum
+          executable granularity. 2) Explicitness. The summary of subtasks is
+          overly vague. 3) Graph. The subtask is correct, but the graph structure
+          is incorrect. 4) Format. The output does not adhere to the specified text
+          format.
         </p>
       </div>
     </div>
@@ -352,20 +411,94 @@
             Table 3: <b>End-to-end Performance</b> augmented by workflow as prior knowledge.  
           </p>
           <br>
+          <div class="content has-text-justified">
+            <p> 
+                <b>Workflow as Structured Prior Knowledge.</b>
+                Given that a workflow encompasses a detailed
+                execution process for a task, an evident use case
+                is to employ it as prior knowledge to directly
+                guide agent planning. This is particularly advantageous in embodied scenarios where LLM
+                agents often lack prior knowledge of the real environment and rely on brainless trial-and-error. 
+                Therefore, we directly input the generated workflow along with the task
+                and design instructions for the LLM agent to plan based on the guidance of the workflow. We
+                choose GPT-4, Llama-3.1-8B, and Qwen-2-72B as the LLM agents and report the results in Table 3,
+                illustrating that models with varying capabilities can benefit when enriched with structured workflow
+                knowledge. For ALFWorld with greater diversity in environmental changes and more complex tasks,
+                workflow knowledge yields greater advantages. Furthermore, we observe that these workflows are
+                generated by a 7B model, providing guidance even to the significantly more powerful 72B model.
+                This leads us to contemplate the weak-guide-strong paradigm, wherein a small model possessing
+                specific environmental knowledge supervises the planning of a larger, more general model.
+            </p>
+          </div>
+          <br>
+
           <img id="model" width="70%" src="images/e2e_fun.jpg">
           <p class="has-text-centered">
             Figure 5: <b>Relative Function Call Accuracy</b> of workflow-augmented Qwen-2-7B (Qwen-2-7B+W) on StableToolBench compared with various baselines.
           </p>
           <br>
+          <div class="content has-text-justified">
+            <p>
+                <b>Workflow as CoT Augmentation.</b> Chain-of-Thought (CoT) has been widely acknowledged for 
+                enhancing the reasoning abilities of LLMs and plays a crucial role in OpenAI's latest reasoning model, o1. 
+                However, a tricky issue lies in its long-context nature, which may mislead LLM agents in making erroneous decisions, 
+                especially when there are multiple planning steps involved. 
+                Based on our workflow construction process where each node corresponds to a function call,
+                we can leverage this characteristic to induce agents to engage in more focused planning. Specifically, we prompt
+                Qwen-2-7B to generate a CoT at each step based on the corresponding node and then use the node as a query to
+                retrieve the most similar API from the API list as the function for that step. 
+                Ultimately, we allow the model to decide how to invoke the function based on the CoT and the selected function. 
+                In this process, the workflow plays a role similar to augmenting CoT, assisting the agent in thinking at each step, 
+                serving as the query for retrieval to provide the agent with more relevant APIs, 
+                thereby alleviating the agent's burden and enabling it to focus more on how to invoke tools effectively. 
+                By comparing the accuracy of function calls with ToolLlama and two one-shot baselines (Qwen-2-72B and GPT-4) on StableToolBench, 
+                we find that the above procedure is effective (shown in Figure 5). Unlike a kind of external knowledge
+                for reference, the workflow here actively participates in the planning process, leading to improved accuracy in function invocation.
+              </p>
+          </div>
+          <br>
+
           <img id="model" width="60%" src="images/parallel.jpg">
           <p class="has-text-centered">
             Figure 6: <b>Average Task Execution Time</b> of linear ToolLlama and parallel ToolLlama.
           </p>
           <br>
+          <div class="content has-text-justified">
+            <p>
+                <b>Parallel Planning Steps.</b>
+                In a graph-structured workflow, nodes without dependencies can be executed in parallel. 
+                This can significantly reduce the time required to complete tasks compared to linear step-by-step execution. 
+                Continuing our analysis on StableToolbench, for a specific task, we calculate the time taken by ToolLlama to complete each node when executing step by step 
+                (including generating thought, generating function calls, executing functions, and returning results).
+                We then mark the nodes in the workflow graph based on their completion times. So our objective can be transferred
+                to identify the longest path between the START and END nodes, also known as the Critical Path of the graph. 
+                Finally, we compare the average time taken to complete all tasks with the linear ToolLlama, as shown in Figure 6. 
+                It can be observed that with graph-structured parallelization, there is a significant reduction in the average time to complete tasks, 
+                with reductions ranging from approximately one-fifth to one-third across different test sets. 
+                The parallelization feature of graph structures allows for substantial savings in inference time in real-world applications. 
+                Moreover, the execution of a node does not necessarily depend on all previous nodes, which to some extent alleviates the issue of
+                long contexts in multi-step complex tasks, thereby enhancing the quality of task completion.
+              </p>
+          </div>
+          <br>
+
           <img id="model" width="60%" src="images/steps.jpg">
           <p class="has-text-centered">
             Table 4: <b>Average Planning Steps</b>. 
           </p>
+          <br>
+          <div class="content has-text-justified">
+            <p>
+                <b>Shorten Planning Steps.</b> 
+                In addition to the horizontal reduction of inference time brought by parallel subtask execution, 
+                we also observe that workflows can vertically decrease the planning steps of the LLM agent. 
+                This finding emerges during our experiments on workflow as structured knowledge. 
+                When the LLM agent lacks prior knowledge of the environment, it often accumulates knowledge through random trialand-error in the environment, 
+                which may introduce irrelevant noise and lead to a drop in long-text disaster. 
+                Introducing knowledge makes the agent's actions more purposeful, reducing the steps of blind trial-and-error. 
+                In Table 4, we quantitatively analyze the average planning steps required for the model to complete tasks with or without workflow knowledge, which corroborates our discoveries.
+            </p>
+          </div>
         </div>
       </div>
       <!-- The Role of Workflow for Agent Planning -->
@@ -376,13 +509,14 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
-@article{qiao2024autoact,
-  author       = {Shuofei Qiao and Ningyu Zhang and Runnan Fang and Yujie Luo and Wangchunshu Zhou and Yuchen Eleanor Jiang and Chengfei Lv and Huajun Chen},
-  title        = {AutoAct: Automatic Agent Learning from Scratch via Self-Planning},
-  journal      = {CoRR},
-  year         = {2024},
-  eprinttype   = {arXiv},
-  eprint       = {2401.05268},
+@misc{qiao2024benchmarkingagenticworkflowgeneration,
+    title={Benchmarking Agentic Workflow Generation}, 
+    author={Shuofei Qiao and Runnan Fang and Zhisong Qiu and Xiaobin Wang and Ningyu Zhang and Yong Jiang and Pengjun Xie and Fei Huang and Huajun Chen},
+    year={2024},
+    eprint={2410.07869},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2410.07869}, 
 }
 </code></pre>
   </div>
