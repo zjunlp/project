@@ -17,6 +17,10 @@ body {
   font-variant: small-caps;
 }
 
+.mmmu {
+    font-variant: small-caps;
+    font-weight: bold;
+}
 
 .teaser .hero-body {
   padding-top: 0;
