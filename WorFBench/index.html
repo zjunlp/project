@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Benchmarking Agentic Workflow Generation">
+    <meta name="keywords" content="AutoAct, Agent Learning, Self-Planning">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Benchmarking Agentic Workflow Generation</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="icon" href="./static/images/logo.png">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/a5c2272f4a.js" crossorigin="anonymous"></script> -->
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <style>
+        /* Define the grid layout */
+        .mygrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            width: 80%;
+            margin: auto;
+        }
+
+        .grid_item {
+            background: #FFFFFF;
+            opacity: 1;
+        }
+
+        /* Define the size of the GIFs */
+        .mygif {
+            height: auto;
+            cursor: pointer;
+        }
+
+        /* Define the modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80%;
+        }
+
+        /* Define the full-screen overlay styles */
+        .overlay {
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+        }
+
+        .overlay img {
+            width: auto;
+            height: 90%;
+            margin: 0 auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* Define the video styles */
+        .gifvideo {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Define the progress bar styles */
+        .progress {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Define the close button style */
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 名言 */
+        quotebody {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            margin: 0;
+            background-color: #fff;
+            color: #333;
+            text-align: left;
+            /* Centering text */
+        }
+
+        .quote-container {
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .quote {
+            font-size: 20px;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .author {
+            font-size: 16px;
+            margin-top: 20px;
+            /* Space between quote and author */
+            text-align: right;
+        }
+
+        /* 下三角符号 */
+        .triangle-down {
+            width: 0;
+            height: 0;
+            display: inline-block;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid black;
+            /* Adjust the color as needed */
+            margin-left: 5px;
+            /* Optional, for spacing */
+            vertical-align: middle;
+        }
+
+        /* 折叠 */
+        .collapsed {
+            display: none;
+            transition: height 0.3s ease-out;
+        }
+
+        /* 轮播图样式 */
+        .slider {
+            width: 100%;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: 0.6s ease-in-out;
+        }
+
+        .slider-btns {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            /* 使用Flexbox布局 */
+            justify-content: center;
+            /* 水平居中所有按钮 */
+            flex-wrap: nowrap;
+            /* 防止按钮换行 */
+        }
+
+        .slider-btn {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            /* 防止文本换行 */
+            height: 30px;
+        }
+
+        .slider-btn.active {
+            background-color: #333;
+            color: white;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 24px;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            user-select: none;
+            z-index: 2;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+
+        .carousel img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* 确保图片不会有额外的空间 */
+        }
+
+        .carousel .item-1,
+        .carousel .item-2,
+        .carousel .item-3 {
+            width: 100%;
+            /* 每项的宽度与轮播容器相同 */
+            height: auto;
+        }
+
+        .carousel {
+            width: 100%;
+            /* 或者其他具体宽度 */
+            overflow: hidden;
+            /* 隐藏超出容器的部分 */
+            height: auto;
+        }
+
+        .carousel-text {
+            /* 根据需要添加样式 */
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-buttons {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .carousel-button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-button:hover {
+            background-color: #367c39;
+        }
+
+        .double-underline {
+            text-decoration: underline;
+            position: relative;
+        }
+
+        .double-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.8px;
+            /* 调整这个值来改变两条下划线之间的距离 */
+            width: 100%;
+            border-bottom: 1px solid;
+            /* 下划线的样式 */
+            height: 1px;
+        }
+
+
+        /* 轮播图容器样式，可根据需要调整 */
+        .carousel-container {
+            width: 100%;
+            /* 或其他固定宽度 */
+            margin: auto;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+                <a class="navbar-item" href="https://github.com/zjunlp">
+                    <span class="icon">
+                        <i class="fa fa-home"></i>
+                    </span>
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        More Research
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="https://www.zjukg.org/project/KnowEdit" target="_blank">
+                            <b>KnowEdit</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="http://knowlm.zjukg.cn/" target="_blank">
+                            <b>KnowLM</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/zjunlp/EasyEdit" target="_blank">
+                            <b>EasyEdit</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                            <b>EasyInstruct</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/ChatCell/" target="_blank">
+                            <b>ChatCell</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/SafetyEdit/" target="_blank">
+                            <b>SafetyEdit</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/AutoAct/" target="_blank">
+                            <b>AutoAct</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                            <a class="navbar-item" href="https://zjunlp.github.io/project/TRICE/" target="_blank">
+                                TRICE
+                            </a>
+                            <a class="navbar-item" href="https://zjunlp.github.io/project/InstructIE" target="_blank">
+                                InstructIE
+                            </a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">Benchmarking
+                            Agentic Workflow Generation</h2>
+                        <div class="is-size-5">
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Shuofei Qiao<sup>&#x2660;*</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Runnan Fang<sup>&#x2660;*</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Zhisong Qiu<sup>&#x2660;*</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Xiaobin Wang<sup>&#x2662;</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Ningyu Zhang<sup>&#x2660;&#8224;</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Yong Jiang<sup>&#x2662;&#8224;</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Pengjun Xie<sup>&#x2662;</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Fei Huang<sup>&#x2662;</sup>
+                            </span>,
+                            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+                                Huajun Chen<sup>&#x2660;&#8224;</sup>
+                            </span>,
+                        </div>
+
+                        <br>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <sup>&#x2660;</sup>Zhejiang University
+                            </span>
+                            <span class="author-block">
+                                <sup>&#x2662;</sup>Alibaba Group
+                            </span>
+                        </div>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>*</sup>Equal contribution </span>
+                            <span class="author-block"><sup>&#8224;</sup>Corresponding Author</span>
+                        </div>
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2410.07869" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>ArXiv</span>
+                                    </a>
+                                </span>
+                                <!-- HF Paper. -->
+                                <span class="link-block">
+                                    <a href="https://huggingface.co/papers/2410.07869" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <p style="font-size:18px">🤗</p>
+                                        </span>
+                                        <span>HF Paper</span>
+                                    </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href="https://github.com/zjunlp/WorFBench" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <i class="fa fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <!-- Dataset Link. -->
+                                <span class="link-block">
+                                    <a href="https://huggingface.co/collections/zjunlp/worfbench-66fc28b8ac1c8e2672192ea1" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            📊
+                                        </span>
+                                        <span>Dataset</span>
+                                    </a>
+                                </span>
+                                <!-- Demo link. -->
+                                <span class="link-block">
+                                    <a href="https://notebooklm.google.com/notebook/a4c13fd7-29da-462c-a47e-69a26c0d326e/audio"
+                                    class="external-link button is-normal is-rounded">
+                                    <span class="icon">
+                                        <p style="font-size:18px">&#127911;</p>
+                                    </span>
+                                    <span>NotebookLM Audio</span>
+                                    </a>
+                                </span>
+                                <!-- Twitter Link. -->
+                                <!-- <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1745412748023128565" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+                            </div>
+
+                            <quotebody>
+                                <div class="quote-container">
+                                    <blockquote class="quote">"If you can't describe what you are doing as a process,
+                                        you don't know what you're doing."</blockquote>
+                                    <div class="author">—— W. Edwards Deming</div>
+                                </div>
+                            </quotebody>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <img id="teaser" width="850px" src="./images/first.jpg">
+                <h2 class="subtitle has-text-centered">
+                    Figure 1: Workflow and its application.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Abstract. -->
+    <section class="section">
+        <div class="container is-max-desktop">
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            Large Language Models (LLMs), with their exceptional ability to handle a wide range of
+                            tasks, have driven significant advancements in tackling reasoning and planning tasks,
+                            wherein decomposing complex problems into executable workflows is a crucial step in this
+                            process.
+                            Existing workflow evaluation frameworks either focus solely on holistic performance or
+                            suffer from limitations such as restricted scenario coverage, simplistic workflow
+                            structures, and lax evaluation standards.
+                            To this end, <b>we introduce <b style="color: #ff0000;"><i><u>WORFBENCH</u></i></b>, a unified workflow generation benchmark
+                            with multi-faceted scenarios and intricate graph workflow structures.</b>
+                            Additionally, <b>we present <b style="color: #ff0000;"><i><u>WORFEVAL</u></i></b>, a systemic evaluation protocol utilizing
+                            subsequence and subgraph matching algorithms to accurately quantify the LLM agent's workflow
+                            generation capabilities.</b>
+                            Through comprehensive evaluations across different types of LLMs, we discover distinct gaps
+                            between the sequence planning capabilities and graph planning capabilities of LLM agents,
+                            with even GPT-4 exhibiting a gap of around 15%.
+                            We also train two open-source models and evaluate their generalization abilities on held-out
+                            tasks.
+                            Furthermore, we observe that the generated workflows can enhance downstream tasks, enabling
+                            them to achieve superior performance with less time during inference.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <!--/ Abstract. -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">WorFBench</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- Paper Model. -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">Overview</h2>
+                    <img id="model" width="100%" src="images/method.png">
+                    <p class="has-text-centered">
+                        Figure 2: <b>The overview framework of our WORFBENCH.</b>
+                        Sector 1 is the benchmark construction where we first synthesize the node chain and then the
+                        workflow graph.
+                        Sector 2 is our data filtering process.
+                        Sector 3 describes the algorithms in WORFEVAL to evaluate the predicted workflow of LLM agents.
+                        Sector 4 is a detailed data point of our WORFBENCH.
+                        Note that each node in this figure is uniquely identified by its color.
+                        Numbers on the nodes represent their indexes in the gold chain. Nodes matched with gold chain or
+                        graph are circled by <i class="fa fa-circle-o" style="color: #ff0000;"></i> in Sector 3.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">Experiment Results</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- Paper Experiment Results -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <!-- Paper Main Results -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">Main Results</h2>
+                    <img id="model" width="100%" src="images/main_result.jpg">
+                    <p class="has-text-centered">
+                        Table 1: <b>Main Results.</b> We evaluate all the models with identical carefully designed
+                        instructions and two-shot
+                        examples. We categorize the models based on whether the models are open-source and their scales.
+                        The best
+                        results for each category are marked in <b>bold</b>, and the second-best results are marked with
+                        <u>underline</u>.
+                    </p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <!-- Paper Main Results -->
+
+            <!-- Paper Analysis -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">Analysis</h2>
+                    <section class="section">
+                        <div class="container is-max-desktop content">
+                            <div class="slider slider1">
+                                <!-- 左右按钮 -->
+                                <button class="prev" onclick="plusSlides(-1,'slider1')">&#10094;</button>
+                                <button class="next" onclick="plusSlides(1,'slider1')">&#10095;</button>
+                                <!-- 图片 -->
+                                <div class="slides">
+                                    <div class="slide">
+                                        <img src="./images/difficulty.jpg" width="55%" alt="First Slide">
+                                        <p class="has-text-centered">
+                                            Figure 3: <b>Performance Distribution of GPT-4.</b> The distribution of f1_chain for the number
+                                            of nodes and the distribution of f1_graph for the number of edges.
+                                        </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p> 
+                                                <b>We analyze the performance of GPT-4 across different numbers of nodes and edges in workflow. </b>
+                                                With the increase of nodes and edges, both the f1_chain and f1_graph performance of GPT-4 tend to decline, 
+                                                with occasional brief spikes likely caused by uneven sample distribution. 
+                                                Therefore, for complex planning tasks with more planning steps, the performance of GPT-4 is unsatisfying no matter for linear planning or graph planning, 
+                                                let alone other models. This is clearly inadequate for many complex real-world scenarios, 
+                                                which is why many agent architectures are currently only at the theoretical level.
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="./images/ood.jpg" width="80%" alt="Second Slide">
+                                        <p class="has-text-centered">
+                                            Table 2: <b>Generalization Results</b> of fine-tuned (FT) models on held-out tasks compared to baselines.
+                                        </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                <b>We evaluate the trained models' capabilities on both held-in and held-out tasks. </b>
+                                                While these models demonstrate strong performance on Seal-Tools, their advantages are not as pronounced as on held-in tasks, 
+                                                with even untrained 7B models achieving approximately 74%. On more complex tasks such as InterCodeSQL, 
+                                                the trained models only slightly outperform smaller models (7B and 13B). This indicates that, while they excel in held-in scenarios, 
+                                                their generalization to held-out tasks, particularly embodied tasks, 
+                                                remains constrained. It suggests that structured workflow planning cannot be mastered solely through fitting a large amount of data.
+                                            </p>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        </div>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="./images/error.jpg" width="40%" alt="Third Slide">
+                                        <p class="has-text-centered">
+                                            Figure 4: <b>Error Statistics.</b>
+                                          </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                Through meticulous manual checks and categorization, we identify four kinds of typical errors: 
+                                                1) <b>Granularity</b>. The decomposition of subtasks does not meet the minimum executable granularity. 
+                                                2) <b>Explicitness</b>. The summary of subtasks is overly vague. 
+                                                3) <b>Graph</b>. The subtask is correct, but the graph structure is incorrect. 
+                                                4) <b>Format</b>. The output does not adhere to the specified text format.
+                                            </p>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 按钮 -->
+                                <div class="slider-btns">
+                                    <button class="slider-btn active"
+                                        onclick="currentSlide(1,'slider1')">Performance Distribution of GPT-4
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(2,'slider1')">Generalization Results
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(3,'slider1')">Error Statistics
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- Paper Analysis. -->
+        </div>
+    </section>
+    <br>
+    <br>
+    <!-- Paper Experiment Results -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">The Role of Workflow for Agent Planning</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- The Role of Workflow for Agent Planning -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3"> Enhance End-To-End Performance</h2>
+                    <section class="section">
+                        <div class="container is-max-desktop content">
+                            <div class="slider slider2">
+                                <!-- 左右按钮 -->
+                                <button class="prev" onclick="plusSlides(-1,'slider2')">&#10094;</button>
+                                <button class="next" onclick="plusSlides(1,'slider2')">&#10095;</button>
+                                <!-- 图片 -->
+                                <div class="slides">
+                                    <div class="slide">
+                                        <img src="./images/e2e_embodied.jpg" width="80%" alt="First Slide">
+                                        <p class="has-text-centered">
+                                            Table 3: <b>End-to-end Performance</b> augmented by workflow as prior knowledge.  
+                                        </p>
+                                        <br>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p> 
+                                                <b>Workflow as Structured Prior Knowledge.</b>
+                                                Using workflows as prior knowledge can guide LLM agents in planning, especially in environments where they lack prior knowledge and typically rely on trial-and-error. 
+                                                By inputting the workflow along with the task, GPT-4, Llama-3.1-8B, and Qwen-2-72B show improved performance, as seen in Table 3, 
+                                                with greater benefits in more complex scenarios like ALFWorld. The findings also suggest a "weak-guide-strong" paradigm, 
+                                                where a smaller model with specific environmental knowledge can effectively supervise the planning of a larger, more general model.
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="./images/e2e_fun.jpg" width="60%" alt="Second Slide">
+                                        <p class="has-text-centered">
+                                            Figure 5: <b>Relative Function Call Accuracy</b> of workflow-augmented Qwen-2-7B (Qwen-2-7B+W) on StableToolBench compared with various baselines.
+                                          </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                <b>Workflow as CoT Augmentation.</b> 
+                                                Chain-of-Thought (CoT) enhances LLM reasoning but its long-context nature can lead to errors, especially in multi-step planning. 
+                                                Our workflow, where each node corresponds to a function call, helps agents focus by generating CoT at each step and retrieving relevant APIs. 
+                                                This process improves function invocation accuracy, as demonstrated by comparisons with ToolLlama and baselines on StableToolBench.
+                                            </p>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 按钮 -->
+                                <div class="slider-btns">
+                                    <button class="slider-btn active"
+                                        onclick="currentSlide(1,'slider2')">Workflow as Structured Prior Knowledge
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(2,'slider2')">Workflow as CoT Augmentation
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <h2 class="title is-3"> Reduce End-To-End Inference-Time</h2>
+                    <section class="section">
+                        <div class="container is-max-desktop content">
+                            <div class="slider slider3">
+                                <!-- 左右按钮 -->
+                                <button class="prev" onclick="plusSlides(-1,'slider3')">&#10094;</button>
+                                <button class="next" onclick="plusSlides(1,'slider3')">&#10095;</button>
+                                <!-- 图片 -->
+                                <div class="slides">
+                                    <div class="slide">
+                                        <img src="./images/parallel.jpg" width="60%" alt="First Slide">
+                                        <p class="has-text-centered">
+                                            Figure 6: <b>Average Task Execution Time</b> of linear ToolLlama and parallel ToolLlama.
+                                        </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                <b>Parallel Planning Steps.</b>
+                                                In graph-structured workflows, nodes without dependencies can be executed in parallel, reducing task completion time compared to linear execution. 
+                                                Analysis on StableToolbench shows that identifying the longest path (Critical Path) in the workflow graph helps optimize execution time, 
+                                                leading to a significant reduction in average task completion time—by one-fifth to one-third across various tests. 
+                                                This parallelization not only speeds up inference but also alleviates issues with long contexts in multi-step tasks, improving task quality.
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="./images/steps.jpg" width="80%" alt="Second Slide">
+                                        <p class="has-text-centered">
+                                            Table 4: <b>Average Planning Steps</b>.
+                                        </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            <p>
+                                                <b>Shorten Planning Steps.</b>
+                                                Workflows not only reduce inference time through parallel execution but also decrease the planning steps required for LLM agents. When lacking prior environmental knowledge, 
+                                                agents typically rely on random trial-and-error, which can introduce irrelevant information and hinder performance. By incorporating workflow knowledge, 
+                                                the agent's actions become more purposeful, significantly reducing unnecessary planning steps, as shown in the quantitative analysis in Table 4.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 按钮 -->
+                                <div class="slider-btns">
+                                    <button class="slider-btn active"
+                                        onclick="currentSlide(1,'slider3')">Parallel Planning Steps
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(2,'slider3')">Shorten Planning Steps
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- The Role of Workflow for Agent Planning -->
+        </div>
+    </section>
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>
+@misc{qiao2024benchmarkingagenticworkflowgeneration,
+    title={Benchmarking Agentic Workflow Generation}, 
+    author={Shuofei Qiao and Runnan Fang and Zhisong Qiu and Xiaobin Wang and Ningyu Zhang and Yong Jiang and Pengjun Xie and Fei Huang and Huajun Chen},
+    year={2024},
+    eprint={2410.07869},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2410.07869}, 
+}
+</code></pre>
+        </div>
+    </section>
+
+    <section class="section" id="Acknowledgement">
+        <div class="container is-max-desktop content">
+            <p>
+                This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+                licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+        </div>
+    </section>
+
+
+    <script>
+        // 轮播图
+        // 创建两个独立的索引，分别用于两个轮播图
+        // 创建一个对象来存储每个轮播图的状态
+        var sliders = {
+            slider1: { index: 1 },
+            slider2: { index: 1 },
+            slider3: { index: 1 },
+            slider4: { index: 1 },
+            slider5: { index: 1 },
+            slider6: { index: 1 },
+            slider7: { index: 1 },
+            slider8: { index: 1 },
+        };
+
+        // 初始化轮播图
+        showSlides(sliders.slider1.index, 'slider1');
+        showSlides(sliders.slider2.index, 'slider2');
+        showSlides(sliders.slider3.index, 'slider3');
+        showSlides(sliders.slider4.index, 'slider4');
+        showSlides(sliders.slider5.index, 'slider5');
+        showSlides(sliders.slider6.index, 'slider6');
+        showSlides(sliders.slider7.index, 'slider7');
+        showSlides(sliders.slider8.index, 'slider8');
+
+        function plusSlides(n, sliderClass) {
+            var slider = sliders[sliderClass];
+            var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+            var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+            var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+            var slideWidth = slides[0].clientWidth;
+
+            slider.index += n;
+            if (slider.index > slides.length) { slider.index = 1 }
+            if (slider.index < 1) { slider.index = slides.length }
+            var slideMove = -(slider.index - 1) * slideWidth;
+
+            updateSlider(slidesWrapper, dots, slideMove, slider.index);
+        }
+
+        function currentSlide(n, sliderClass) {
+            var slider = sliders[sliderClass];
+            var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+            var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+            var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+            var slideWidth = slides[0].clientWidth;
+            var slideMove = -(n - 1) * slideWidth;
+
+            slider.index = n;
+            updateSlider(slidesWrapper, dots, slideMove, slider.index);
+        }
+
+        function updateSlider(slidesWrapper, dots, slideMove, slideIndex) {
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+            dots[slideIndex - 1].className += " active";
+        }
+
+        function toggleCollapse() {
+            var content = document.getElementById("collapseContent");
+            if (content) {
+                content.classList.toggle("collapsed");
+            }
+        }
+
+        // others
+        $(".grid_item").hover(function () {
+            $(this).css("background", "#f2f1f1");
+        },
+            function () {
+                $(this).css("background", "#FFFFFF");
+            });
+
+        // Get the modal element
+        // var modal = document.getElementById("myModal");
+        var overlay = document.getElementById("overlay");
+        var span = document.getElementsByClassName("close")[0];
+
+
+        // Get the image element and the close button element
+        //  // display the GIF as it is
+        // var img = document.getElementById("modalImg");
+        // var img = document.getElementById("overlayImg");
+        // Add event listeners to each GIF element
+        var gifs = document.getElementsByClassName("mygif");
+        for (var i = 0; i < gifs.length; i++) {
+            gifs[i].addEventListener("click", function () {
+                //  // display the GIF as it is
+                // // Set the modal image source and display the modal
+                // img.src = this.src;
+
+                // display the GIF as a new image, will play from the begining
+                var img = document.createElement("img");
+                img.src = this.src.replace(".png", ".gif");
+
+                // Add the img element to the overlay content and display the overlay
+                document.getElementById("overlayContent").appendChild(img);
+
+
+                // modal.style.display = "block";
+                overlay.style.display = "block";
+
+                // Hide the body overflow
+                document.body.style.overflow = "hidden";
+            });
+        }
+
+        // Add event listener to close button
+        span.addEventListener("click", function () {
+            // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+            document.getElementById("overlayContent").innerHTML = "";
+
+            // Hide the modal
+            // modal.style.display = "none";
+            overlay.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+    </script>
+</body>
+
+</html>
