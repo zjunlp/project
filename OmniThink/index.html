@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>OmniThink</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔵</text></svg>">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    .findings-box {
+      border: 2px solid #d0d9e0;
+      border-radius: 8px;
+      padding: 10px 15px;
+      display: inline-block;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 16px;
+      line-height: 1.5;
+      background-color: #f9f9f9;
+    }
+
+    .findings-box .title {
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 18px;
+    }
+
+    .findings-box .content {
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <img src="static/images/overview.png" width="30%">
+            <h1 class="title is-2 publication-title">OmniThink: Expanding Knowledge Boundaries in Machine Writing
+              through Thinking</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Zekun Xi,</span>
+              <span class="author-block">Wenbiao Yin,</span>
+              <span class="author-block">Jizhan Fang,</span>
+              <span class="author-block">Jialong Wu,</span>
+              <span class="author-block">Runnan Fang,</span>
+              <br>
+              <span class="author-block">Ningyu Zhang,</span>
+              <span class="author-block">Yong Jiang,</span>
+              <span class="author-block">Pengjun Xie,</span>
+              <span class="author-block">Fei Huang</span>
+              <span class="author-block">Huajun Chen</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              {xizekun2023@zju.edu.cn}
+              <br>
+              <span class="author-block"><b>Zhejiang University </b></span>
+              <br>
+              <span class="author-block"><b>Tongyi Lab, Alibaba Group.</b></span>
+            </div>
+
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/zjunlp/OmniThink" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                  <span class="link-block">
+                    <a href="https://www.modelscope.cn/studios/iic/OmniThink" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                          <i class="far fa-gem"></i>
+                      </span>
+                      <span>Demo</span>
+                    </a>
+                  </span>
+                     
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./static/images/demo.gif" alt="Demo of OmniThink" style="width: 100%; height: auto;">
+        <h2 class="subtitle has-text-centered">
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">A demo of OmniThink. You can explore it <a href="https://www.modelscope.cn/studios/iic/OmniThink" target="_blank">here</a>.</span>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Machine writing with large language models often relies on retrieval-augmented generation. 
+              However, these approaches remain confined within the boundaries of the model's predefined scope, limiting the generation of content with rich information. 
+              Specifically, vanilla-retrieved information tends to lack depth, utility, and suffers from redundancy, which negatively impacts the quality of generated articles, leading to shallow, repetitive, and unoriginal outputs. 
+              To address these issues, we propose <b>OmniThink</b>, a machine writing framework that emulates the human-like process of iterative expansion and reflection. 
+              The core idea behind <b>OmniThink</b> is to simulate the cognitive behavior of learners as they progressively deepen their knowledge of the topics. 
+              Experimental results demonstrate that <b>OmniThink</b> improves the knowledge density of generated articles without compromising metrics such as coherence and depth. 
+              Human evaluations and expert feedback further highlight the potential of <b>OmniThink</b> to address real-world challenges in the generation of long-form articles.
+            </p>
+          </div>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Overview -->
+  <section class="section" id="Overview">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🌟Overview</h2>
+          <div class="content has-text-justified">
+            <p>
+              📚 We propose the <b>Knowledge Density</b> metric, defined as the ratio of meaningful, unique content to the overall text length. High ensures efficient knowledge transfer, minimizing reader fatigue caused by redundancy.
+            </p>
+            <p>
+              🤖 We propose <b>OmniThink</b>, a new machine writing framework that emulates the human-like cognitive process of iterative expansion and reflection. 
+              The core idea behind <b>OmniThink</b> is to simulate the cognitive behavior of learners as they gradually deepen their understanding of complex topics to expand knowledge boundaries.
+            </p>
+            <p>
+              📊 Experimental results demonstrate that <b>OmniThink</b> enhances the knowledge density of generated articles without compromising key metrics such as coherence and depth.
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+<div class="content has-text-justified">
+  <!-- Framework -->
+  <section class="section" id="Framework">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">📚Knowledge Density metric</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>Motivation.</b>
+              Previous studies on generated articles focus on relevance and correctness but overlook depth, often resulting in redundancy. 
+              To address this, we propose the Knowledge Density metric, defined as the ratio of meaningful, unique content to the overall text length. 
+              High ensures efficient knowledge transfer, minimizing reader fatigue caused by redundancy. However, existing methods struggle with optimization due to repetitive retrieved information in open-domain generation. 
+              By integrating reasoning and planning to extract diverse, non-overlapping knowledge, we aim to improve in long-form generation.
+            </p>
+          </div>
+          <img src="static/images/KD.png" width="30%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Interpret.</b> where \(N\) is the total number of atomic knowledge units identified within the document. 
+              The function \(\mathcal{U}(k_i)\) indicates whether the \(i\)-th unit information \(k_i\) is unique. 
+              \(L\) represents the total length of the text. 
+              In this formula, the numerator represents the sum of unique units of atomic knowledge extracted from a long article. 
+              The denominator corresponds to the length of the article. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Overview -->
+  <!-- Framework -->
+  <section class="section" id="Framework">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🤖OmniThink</h2>
+          <img src="static/images/thumbnail.png" width="45%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Information Acquisition.</b> 
+              To acquire diverse and comprehensive information, OmniThink emulates the human learning process, progressively deepening its understanding of the topic through iterative <b>Expansion</b> and <b>Reflection</b>.
+              This iterative process culminates in the construction of an information tree \(\mathcal{T}\), which organizes the retrieved information in a structured and hierarchical manner, and a conceptual pool \(\mathcal{P}\), which represents the LLMs' current understanding of the topic at time step \(m\). 
+              Together, these components form the foundation of article generation.
+            </p>
+            <p>
+              <b>Outline Structuring.</b> 
+              In the previous section, OmniThink maintains a concept pool closely related to the topic, which essentially represents the boundaries and depth of the LLM's understanding of the topic.
+              When generating the content outline, we first create a draft outline \(O_D\), and then ask the LLM to refine and link the content from the concept pool \(\mathcal{P}\), ultimately forming the final outline \(O = \text{Polish}(O_D, \mathcal{P})\).
+            </p>
+            <p>
+              <b>Article Composition.</b> 
+              At this stage, the LLM works in parallel to write the content for each section. 
+              When writing the content of a section, we use the titles of each section and their hierarchical subsections to retrieve the most relevant \(K\) documents from the information tree by calculating the semantic similarity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Framework -->
+
+  <!-- Framework -->
+  <section class="section" id="Framework">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🤖Expansion & Reflection</h2>
+          <img src="static/images/main.png" width="100%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Expansion.</b>
+              At time step \(m\), OmniThink evaluates all leaf nodes \(L_m = \{ N_0, N_1, \ldots, N_n \}\) of the information tree \(\mathcal{T}_m\), storing them in the conceptual buffer \(\mathcal{P}_b\). 
+              Nodes requiring expansion are processed using the conceptual pool \(\mathcal{P}_m\) to identify suitable directions. 
+              For each node \(N_i\), \(k_{N_i}\) sub-nodes \(\text{SUB}(N_i) = \{ S_0, S_1, \ldots, S_{k_{N_i}} \}\) are generated, representing specific subtopics. 
+              Relevant information is retrieved and incorporated into the updated tree \(\mathcal{T}_{m+1}\) as:
+            </p>
+            <p style="text-align: center;">
+              \[
+              \mathcal{T}_{m+1} = \text{Combine}(\mathcal{T}_m, \text{SUB}(N_0), \ldots, \text{SUB}(N_n)).
+              \]
+            </p>
+            <p>
+              This ensures comprehensive and in-depth content enrichment of the information tree.
+            </p>
+            <p>
+              <b>Reflection.</b>
+              OmniThink processes leaf nodes \(L_{m+1} = \{ N_0, \ldots, N_n \}\) by analyzing, filtering, and synthesizing the retrieved information into core insights \(I_{m+1} = \{ \text{INS}_0, \ldots, \text{INS}_n \}\). 
+              These insights update the conceptual pool \(\mathcal{P}_m\) as:
+            </p>
+            <p style="text-align: center;">
+              \[
+              \mathcal{P}_{m+1} = \text{Merge}(I_{m+1}, \mathcal{P}_m).
+              \]
+            </p>
+            <p>
+              The updated conceptual pool \(\mathcal{P}_{m+1}\) supports further iterative expansion of the information tree.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Framework -->
+
+  <!-- Experiments -->
+  <section class="section" id="Experiments">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">📊Experiments</h2>
+          <div class="content has-text-justified">
+          </div>
+          <img src="static/images/table.png" width="70%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Main Results</b> Table presents the evaluation results on the WildSeek dataset employing GPT-4o and Qwen-Plus as backbones.
+              Within the framework of four key grading criteria (Relevance, Breadth, Depth, and Novelty) OmniThink delivers exceptional performance across the board, with GPT-4o as its backbone, particularly distinguishing itself in the Novelty metric.
+              This achievement can be credited to OmniThink's robust reflective capabilities, which enable it to extract and thoroughly explore novel insights from existing knowledge.
+              When employing Qwen-Plus as the backbone, OmniThink's performance see a decline; however, it remains highly competitive.
+              
+              OmniThink's strength lies in its multifaceted and profound contemplation of retrieved information, which facilitates access to more profound layers of the external knowledge. 
+              This multi-perspective approach not only enriches the diversity of citation sources but also elevates the citation diversity level beyond that of other methodologies.
+              
+              In terms of knowledge density, OmniThink employs a continuous and dynamic retrieval strategy to gather a wide array of information, which, in turn, allows it to draw upon a more extensive range of resources during the content generation phase. 
+              This strategic advantage positions OmniThink at an advantage in the knowledge density metric compared to existing benchmark methods.
+              
+            </p>
+          </div>
+          <img src="static/images/e_r.png" width="80%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Expansion & Reflection Analysis</b> 
+              We provide a further analysis of how the expansion and reflection processes shape the various aspects of the final articles and contribute to its overall quality.
+              Given the interdependent nature of expansion and reflection in OmniThink, it is impractical to assess their individual impacts in isolation. 
+              To address this challenge, we adopt an indirect yet systematic approach to evaluate their collective influence on the final articles' quality.
+              During the information acquisition phase, we substitute the model used for expansion with a lower-performing model and measured the extent of performance decline in the generated article's metrics, which served as an indicator of the impact of the expansion process on these metrics.
+              Similarly, the same approach is applied to assess the impact of the reflection process.
+              Specifically, we replace the models used for the expansion and reflection processes from Qwen-Plus to Qwen2.5-7b-instruct and observe the decline in various evaluation results. 
+              This transition allows us to observe and document the subsequent changes in a range of evaluation metrics, providing insights into the expansion and reflection process's influence on the articles' overall assessment.
+
+            </p>
+          </div>
+
+
+          <img src="static/images/human.png" width="80%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Human Evaluation Results</b> 
+              To better understand the strengths and weaknesses of OmniThink, we engage 15 well-educated volunteers to conduct a human evaluation. 
+              In Figure, we present the results of human scoring. 
+              The findings indicate that OmniThink's average performance surpasses that of the current strongest baseline across various dimensions, with a notable 11\% improvement in the Breadth metric compared to Co-STORM. 
+              However, in terms of the Novelty metric, although automated evaluation shows an 11% enhancement, human assessment reveals only a marginal advantage. 
+              This discrepancy suggests that the current automated evaluation may not yet be fully aligned with human judgment, highlighting a direction for future improvement in the evaluation of long texts.
+              
+              It should also be noted that despite OmniThink's overall superior performance in various dimensions, approximately 30% of the articles are considered equally excellent to the baseline by human evaluators. 
+              This could be attributed to the increasing difficulty for humans to discern subtle differences as the foundational writing capabilities of large models improve.
+              Consequently, there is an urgent need to develop more rigorous and fine-grained evaluation methods to assess model performance more accurately.
+            </p>
+          </div>
+
+
+        </div>
+      </div>
+  </section>
+  <!-- End Experiments -->
+
+  <!--  -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the of this website, we just ask that you link back to this page in the footer.
+              <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
