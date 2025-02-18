@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Dynamic Knowledge Circuits">
+    <meta name="keywords" content="Knowledge Circuits, Continual Pre-Training, Mechanism Interpretability">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="icon" href="./static/images/logo.png">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/a5c2272f4a.js" crossorigin="anonymous"></script> -->
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <style>
+        /* Define the grid layout */
+        .mygrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            width: 80%;
+            margin: auto;
+        }
+
+        .grid_item {
+            background: #FFFFFF;
+            opacity: 1;
+        }
+
+        /* Define the size of the GIFs */
+        .mygif {
+            height: auto;
+            cursor: pointer;
+        }
+
+        /* Define the modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80%;
+        }
+
+        /* Define the full-screen overlay styles */
+        .overlay {
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+        }
+
+        .overlay img {
+            width: auto;
+            height: 90%;
+            margin: 0 auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* Define the video styles */
+        .gifvideo {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Define the progress bar styles */
+        .progress {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Define the close button style */
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 名言 */
+        quotebody {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            margin: 0;
+            background-color: #fff;
+            color: #333;
+            text-align: left;
+            /* Centering text */
+        }
+
+        .quote-container {
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .quote {
+            font-size: 20px;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .author {
+            font-size: 16px;
+            margin-top: 20px;
+            /* Space between quote and author */
+            text-align: right;
+        }
+
+        /* 下三角符号 */
+        .triangle-down {
+            width: 0;
+            height: 0;
+            display: inline-block;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid black;
+            /* Adjust the color as needed */
+            margin-left: 5px;
+            /* Optional, for spacing */
+            vertical-align: middle;
+        }
+
+        /* 折叠 */
+        .collapsed {
+            display: none;
+            transition: height 0.3s ease-out;
+        }
+
+        /* 轮播图样式 */
+        .slider {
+            width: 100%;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: 0.6s ease-in-out;
+        }
+
+        .slider-btns {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            /* 使用Flexbox布局 */
+            justify-content: center;
+            /* 水平居中所有按钮 */
+            flex-wrap: nowrap;
+            /* 防止按钮换行 */
+        }
+
+        .slider-btn {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            /* 防止文本换行 */
+            height: 30px;
+        }
+
+        .slider-btn.active {
+            background-color: #333;
+            color: white;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 24px;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            user-select: none;
+            z-index: 2;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+
+        .carousel img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* 确保图片不会有额外的空间 */
+        }
+
+        .carousel .item-1,
+        .carousel .item-2,
+        .carousel .item-3 {
+            width: 100%;
+            /* 每项的宽度与轮播容器相同 */
+            height: auto;
+        }
+
+        .carousel {
+            width: 100%;
+            /* 或者其他具体宽度 */
+            overflow: hidden;
+            /* 隐藏超出容器的部分 */
+            height: auto;
+        }
+
+        .carousel-text {
+            /* 根据需要添加样式 */
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-buttons {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .carousel-button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-button:hover {
+            background-color: #367c39;
+        }
+
+        .double-underline {
+            text-decoration: underline;
+            position: relative;
+        }
+
+        .double-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.8px;
+            /* 调整这个值来改变两条下划线之间的距离 */
+            width: 100%;
+            border-bottom: 1px solid;
+            /* 下划线的样式 */
+            height: 1px;
+        }
+
+
+        /* 轮播图容器样式，可根据需要调整 */
+        .carousel-container {
+            width: 100%;
+            /* 或其他固定宽度 */
+            margin: auto;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+                <a class="navbar-item" href="https://github.com/zjunlp">
+                    <span class="icon">
+                        <i class="fa fa-home"></i>
+                    </span>
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        More Research
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/KnowAgent/" target="_blank">
+                            <b>KnowAgent</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/EasyInstruct/" target="_blank">
+                            <b>EasyInstruct</b>
+                            <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/WorFBench" target="_blank">
+                            WorFBench
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/WKM" target="_blank">
+                            WKM
+                        </a>
+                        <a class="navbar-item" href="https://zjunlp.github.io/project/OmniThink" target="_blank">
+                            OmniThink
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">How Do LLMs Acquire New Knowledge?</h2>
+                        <h2 class="title is-2 publication-title" style="width: 120%; margin-left: -10%">A Knowledge Circuits Perspective on Continual Pre-Training</h2>
+                        <div class="is-size-5" style="width: 70%; margin-left: 15%">
+                            <span class="author-block"><a>Yixin Ou</a><sup>♠</sup>,</span>
+                            <span class="author-block"><a>Yunzhi Yao</a><sup>♠</sup>,</span>
+                            <span class="author-block"><a>Ningyu Zhang</a><sup>♠*</sup>,</span>
+                            <span class="author-block"><a>Hui Jin</a><sup>♡</sup>,</span>
+                            <span class="author-block"><a>Jiacheng Sun</a><sup>♡</sup>,</span>
+                            <span class="author-block"><a>Shumin Deng</a><sup>♣</sup>,</span>
+                            <span class="author-block"><a>Zhenguo Li</a><sup>♡</sup>,</span>
+                            <span class="author-block"><a>Huajun Chen</a><sup>♠♢*</sup></span>
+                        </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>♠</sup>Zhejiang University</span>
+                    <span class="author-block"><sup>♡</sup>Huawei Noah's Ark Lab</span>
+                    <span class="author-block"><sup>♣</sup>National University of Singapore, NUS-NCS Joint Lab, Singapore</span>
+                    <span class="author-block"><sup>♢</sup>Alibaba-Zhejiang University Joint Research Institute of Frontier Technologies, China</span>
+                    </sup>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Corresponding Author</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2502.11196" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>ArXiv</span>
+                                    </a>
+                                </span>
+                                <!-- HF Paper. -->
+                                <span class="link-block">
+                                    <a href="https://huggingface.co/papers/2502.11196" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <p style="font-size:18px">🤗</p>
+                                        </span>
+                                        <span>HF Paper</span>
+                                    </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href="https://github.com/zjunlp/DynamicKnowledgeCircuits" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            <i class="fa fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <!-- Dataset Link. -->
+                                <!-- <span class="link-block">
+                                    <a href="https://huggingface.co/collections/zjunlp/worfbench-66fc28b8ac1c8e2672192ea1" target="_blank"
+                                        class="external-link button is-normal is-rounded">
+                                        <span class="icon">
+                                            📊
+                                        </span>
+                                        <span>Dataset</span>
+                                    </a>
+                                </span> -->
+                                <!-- Demo link. -->
+                                <!-- <span class="link-block">
+                                    <a href="https://notebooklm.google.com/notebook/a4c13fd7-29da-462c-a47e-69a26c0d326e/audio"
+                                    class="external-link button is-normal is-rounded">
+                                    <span class="icon">
+                                        <p style="font-size:18px">&#127911;</p>
+                                    </span>
+                                    <span>NotebookLM Audio</span>
+                                    </a>
+                                </span> -->
+                                <!-- Twitter Link. -->
+                                <!-- <span class="link-block">
+                <a href="https://twitter.com/zxlzr/status/1745412748023128565" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abstract. -->
+    <section class="section hero is-light">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                  <p>
+                    Despite exceptional capabilities in knowledge-intensive tasks, Large Language Models (LLMs) face a critical gap in understanding how they internalize new knowledge, particularly how to structurally embed acquired knowledge in their neural computations. We address this issue through the lens of <b>Knowledge Circuits Evolution</b>, identifying computational subgraphs that facilitate knowledge storage and processing. Our systematic analysis of circuit evolution throughout continual pre-training reveals several key findings: (1) the acquisition of new knowledge is influenced by its relevance to pre-existing knowledge; (2) the evolution of knowledge circuits exhibits a distinct phase shift from formation to optimization; (3) the evolution of knowledge circuits follows a deep-to-shallow pattern. These insights not only advance our theoretical understanding of the mechanisms of new knowledge acquisition in LLMs, but also provide potential implications for improving continual pre-training strategies to enhance model performance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+    <!--/ Abstract. -->
+
+    <!-- Paper Model. -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">Overview</h2>
+                    <img id="model" width="70%" src="images/illustration.png">
+                    <p class="has-text-justified">
+                        Figure 1: Illustration of our findings: <strong>Phase shift</strong> from formation to optimization in the evolution of knowledge circuits, each phase characterized by distinct features at the performance, topology, and component levels.
+                    </p>
+                    <br>
+                    <br>
+                    <p class="has-text-justified">
+                        In this paper, we investigate the mechanism of new knowledge acquisition in LLMs from the perspective of knowledge circuits. By analyzing the evolution of knowledge circuits throughout continual pre-training, we uncover several interesting findings, as illustrated in Figure 1. Key findings of the paper are summarized as:
+                    </p>
+                    <ul style="list-style-type: none" class="has-text-justified">
+                      <li><strong>⚪ (Performance-level)</strong> The acquisition of new knowledge is significantly influenced by its relevance to pre-existing knowledge, with relevant new knowledge being integrated more efficiently than completely new knowledge.</li>
+                      <li><strong>⚪ (Topology-level)</strong> In the process of knowledge acquisition, the evolution of knowledge circuits exhibits a distinct phase shift from formation to optimization, each marked by unique structural and behavioral characteristics.</li>
+                      <li><strong>⚪ (Components-level)</strong> The evolution of knowledge circuits follows a deep-to-shallow pattern, where mid-to-deeper layers first develop the extraction function, and later, lower layers enrich their knowledge representations.</li>
+                    </ul>
+                    
+
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">Performance-level Analysis</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- Performance -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <img id="model" width="100%" src="images/hit_at_10.png">
+                    <p class="has-text-justified">
+                        Figure 2: <strong>Hit@10</strong> of the performance of knowledge circuits in GPT-2 Small, GPT-2 Medium and Phi-1.5 throughout training.
+                        Left: Performance for circuits discovered by different types of knowledge, where <span style="color: rgb(148, 103, 189);">K_rel</span> and <span style="color: rgb(227, 119, 194);">K_compl</span> represent <span style="color: rgb(148, 103, 189);">relevant new knowledge</span> and <span style="color: rgb(227, 119, 194);">completely new knowledge</span>, respectively.
+                        Right: Performance for circuits discovered by different frequencies of knowledge, where <span style="color: rgb(44, 160, 44);">Low-freq</span>, <span style="color: rgb(255, 127, 14);">Medium-freq</span>, and <span style="color: rgb(31, 119, 180);">High-freq</span> represent knowledge with frequencies in the ranges 
+                            <span style="color: rgb(44, 160, 44);">[1, 2)</span>, 
+                            <span style="color: rgb(255, 127, 14);">[2, 5]</span> and 
+                            <span style="color: rgb(31, 119, 180);">(5, 27]</span>, respectively. 
+                            Note that we smooth the curves using a window size of 3 epochs for all settings.
+                    </p>
+                    <br>
+                    <br>
+
+                    <p class="has-text-justified">The results depicted in Figure 1 reveal a consistent growth pattern in the Hit@10 metric until it approaches its upper bound, which demonstrates the sustained knowledge acquisition capability of knowledge circuits throughout continual pre-training. 
+                        Notably, the <span style="font-weight: bold;">K_rel</span> performance curve consistently lies above the curve for <span style="font-weight: bold;">K_compl</span>, suggesting that LLMs exhibit preferential learning efficiency when assimilating knowledge extensions within existing conceptual frameworks, as opposed to acquiring completely new knowledge.</p>
+                        
+                        <br>
+                        <div class="box">
+                          <strong>Takeaway: Knowledge Relevance Principle</strong>
+                          The acquisition of new knowledge is influenced by its relevance to pre-existing knowledge. LLMs exhibit learning efficiency advantages when acquiring relevant new knowledge versus completely new knowledge.
+                        </div>
+                        <br>
+                        
+                        <p class="has-text-justified">This insight could motivate <strong>the utilization of data curriculums in continual pre-training</strong>, by organizing the data in a way that mimics the structure and distribution of the original corpus, thereby enabling the model to integrate new information more efficiently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <!-- Performance -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">Topology-level Analysis</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- Topology -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <section class="section">
+                        <div class="container is-max-desktop content">
+                            <div class="slider slider1">
+                                <!-- 左右按钮 -->
+                                <button class="prev" onclick="plusSlides(-1,'slider1')">&#10094;</button>
+                                <button class="next" onclick="plusSlides(1,'slider1')">&#10095;</button>
+                                <!-- 图片 -->
+                                <div class="slides">
+                                    <div class="slide">
+                                        <h2 class="title is-3">Structural Consistency and Topological Centralization</h2>
+                                        <img src="./images/similarity_entropy.png" width="80%" alt="First Slide">
+                                        <p class="has-text-centered">
+                                            <p class="has-text-justified">Figure 3: Top: <strong></strong> <strong>Edges Jaccard Similarity</strong> of intermediate knowledge circuits with the circuits at the final checkpoint. 
+                                                Bottom:<strong></strong> <strong>Knowledge Circuit Entropy</strong> of knowledge circuits throughout training. 
+                                                K_rel and K_compl represent relevant new knowledge and completely new knowledge, respectively. 
+                                                Low-freq, Medium-freq, and High-freq represent knowledge with frequencies in the ranges [1, 2), [2,5] and (5, 27], respectively.</p>
+                                        <br>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            We first quantify the structural consistency of knowledge circuits by measuring the Jaccard Similarity between edge sets (Figure 3 Top) within knowledge circuits at intermediate checkpoints relative to the final circuit. The metric exhibit a consistent monotonic upward trend throughout training, indicating that the knowledge circuits become increasingly similar to the final circuit. This convergence pattern suggests an evolutionary process where knowledge circuits progressively stabilize their core architecture as knowledge acquisition progresses.
+                                        </div>
+                                        <div class="content has-text-justified">
+                                            Our results in Figure 3 Bottom show a stable downward trend in the knowledge circuit entropy metric for edges in the subgraph across all models, suggesting that the identified knowledge circuits become increasingly centralized, with the importance of critical edges growing as knowledge acquisition progresses.
+                                            We also observe that the downward trend of the knowledge circuit entropy slows down significantly after a certain turning point during the training of all models.
+                                            We attribute this interesting phenomenon to <strong>a phase shift in the evolution of knowledge circuits</strong> across continual pre-training.
+                                        </div>
+                                        <div class="has-text-justified">
+                                            In the initial <em>formation phase</em> of knowledge circuits, less efficient knowledge circuits gradually take shape within the models, resulting in a rapid decrease in circuit entropy.
+                                            At the phase shift points, the knowledge circuits reach a status of stability where the most critical nodes and edges have been involved.
+                                            In the subsequent <em>optimization phase</em>, the topology composed of critical nodes and edges becomes more stable, while the computations within these components are being optimized to represent and retrieve the knowledge more efficiently, leading to a slowdown in the rate of decrease in circuit entropy.
+                                        </div>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="slide">
+                                        <h2 class="title is-3">Aligning Topology with Specific Knowledge Circuits</h2>
+                                        
+                                        <img src="./images/specific_circuit_performance.png" width="60%" alt="Second Slide">
+                                        <p class="has-text-justified">
+                                            Figure 4: Hit@10 of the performance of aligned knowledge circuits in GPT-2 Small throughout training. Init, Before, After, Last represents the circuits whose topologies align with those at the initial checkpoint, the checkpoint before the phase shift, the checkpoint after the phase shift, and the final checkpoint, respectively. Original represents the original knowledge circuits at each checkpoint. Note that we smooth the curves using a window size of 3 epochs.
+                                          </p>
+                                        <br>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            To clarify the influence of the topology of knowledge circuits on performance, we conduct a detailed examination of the knowledge circuits at several key training checkpoints.
+                                                Specifically, we focus on the knowledge circuits at the initial checkpoint, the checkpoint immediately before the phase shift point, the checkpoint immediately after the phase shift point, and the last checkpoint.
+                                                We align the topology of the knowledge circuits at each checkpoint throughout training with those of focus and then evaluate the performance for aligned circuits.
+                                        </div>
+                                        <div class="content has-text-justified">
+                                            The results in Figure 4 reveal that the performance of all aligned circuits remain unchanged during the formation phase.
+                                            However, each circuit begins to improve its performance during the optimization phase, with those aligned with the post-phase-shift topologies (After and Last) ultimately performing, on average, 54\% better than those aligned with the pre-phase-shift topologies (Init and Before).
+                                            This observation suggests the evolution of the topology of knowledge circuits at the phase shift point plays a crucial role in improving circuit performance.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+                                <!-- 按钮 -->
+                                <div class="slider-btns">
+                                    <button class="slider-btn active"
+                                        onclick="currentSlide(1,'slider1')">Structural Consistency and Topological Centralization
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(2,'slider1')">Aligning Topology with Specific Knowledge Circuits
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="box">
+                                <strong>Takeaway: Biphasic Circuit Evolution</strong>
+                                <p>The evolution of knowledge circuits exhibits a distinct phase shift from formation to optimization, each marked by unique structural and behavioral characteristics.</p>
+                              </div>
+                            <br>
+                            <p class="has-text-justified">This finding suggests that <strong></strong> knowledge circuit state could serve as a valuable tracking status for the continual pre-training process</strong>, enabling more informed adjustments to the training method or data in response to different phases.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Topology -->
+
+    <section class="hero is-light is-small">
+        <div class="hero-body has-text-centered">
+            <h1 class="title is-1 mmmu">
+                <span class="mmmu">Components-level Analysis</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- Components -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <section class="section">
+                        <div class="container is-max-desktop content">
+                            <div class="slider slider2">
+                                <!-- 左右按钮 -->
+                                <button class="prev" onclick="plusSlides(-1,'slider2')">&#10094;</button>
+                                <button class="next" onclick="plusSlides(1,'slider2')">&#10095;</button>
+                                <!-- 图片 -->
+                                <div class="slides">
+                                    <div class="slide">
+                                        <h2 class="title is-3">Specialized Nodes</h2>
+                                        <img src="./images/specialized_components.png" width="70%" alt="First Slide">
+                                        <p class="has-text-justified">
+                                            Figure 5: Proportion of <strong>specialized attention heads</strong> in all nodes of the knowledge circuits throughout training for GPT-2 Small and GPT-2 Medium. Note that we smooth the curves using a window size of 3 epochs.
+                                          </p>
+                                        <br>
+                                        <p class="has-text-justified">
+                                            We check the emergence and track the proportion of these specialized attention heads in all possible nodes of the knowledge circuits throughout training, and present our results in Figure 5.
+                                            We observe that during the circuit formation phase, mover heads gradually emerge from nearly zero, while the proportion of relation heads decreases until the phase shift.
+                                            In the circuit optimization phase, the proportion of all kinds of attention heads stabilizes.
+                                            The proportion of mixture heads remains stable throughout training.
+                                        </p>
+                                    </div>
+                                    <div class="slide">
+                                        <img src="./images/gpt2_heads_distribution.png" width="50%" alt="First Slide">
+                                        <p class="has-text-justified">
+                                            Figure 6: Top: Layer distribution of <strong>head</strong> in the knowledge circuits in GPT-2 Small throughout training. Bottom: Layer distribution of <strong>relation head</strong> in the knowledge circuits in GPT-2 Small throughout training.
+                                          </p>
+                                        <br>
+                                        <p class="has-text-justified">
+                                            We further examine the layer-wise distribution of mover heads and relation heads within knowledge circuits throuout training.
+                                            Our results in Figure 6 reveal that the increase in mover heads and the decrease in relation heads primarily occur in the mid-to-deeper layers during the circuit formation phase.
+                                          </p>
+                                    </div>
+                                    <div class="slide">
+                                        <h2 class="title is-3">Activated Edges</h2>
+                                        
+                                        <img src="./images/gpt2_activation_ratio.png" width="60%" alt="Second Slide">
+                                        <p class="has-text-justified">
+                                            Figure 7: <strong>Layer distribution of the edges activation ratio</strong> within the knowledge circuits in GPT-2 Small.
+                                          </p>
+                                        <br>
+                                        <div class="content has-text-justified">
+                                            Next, we investigate how the nodes within knowledges circuits propagate information to subsequent components through the edges.
+                                            Specifically, we analyze the variation in edge activation patterns across different layers of the network throughout training.
+                                            We quantify the edge activation ratio for each layer by calculating the proportion of edges originating from that layer within the knowledge circuit, relative to all possible edges originating from that layer in the whole model.
+                                        </div>
+                                        <div class="content has-text-justified">
+                                            Our results in Figure 7 reveal that, during the circuit formation phase, the edges activation ratios in the lower layers gradually decrease, while those in the mid-to-deeper layers exhibit a corresponding increase.
+                                            However, as training progresses, a transition occurs around the phase shift point, where the edge activation ratios begin to stabilize.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <!-- 按钮 -->
+                                <div class="slider-btns">
+                                    <button class="slider-btn active"
+                                        onclick="currentSlide(1,'slider2')">Specialized Nodes
+                                    </button>
+                                    <button class="slider-btn"
+                                        onclick="currentSlide(2,'slider2')">Distribution of Specialized Nodes
+                                    </button>
+                                    <button class="slider-btn" 
+                                        onclick="currentSlide(3,'slider2')">Activated Edges
+                                    </button>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h2 class="title is-3">Evolutionary Pattern of Components</h2>
+                            <div class="has-text-justified">
+                                During the early training phase of circuit formation, the focus is primarily on developing the extraction function within the nodes of the mid-to-deeper layers of the knowledge circuits.
+                                This is reflected in the increased emergence of mover heads and activated edges, along with a decrease in the presence of relation heads in these layers.
+                                This process continues until the extraction function is fully established at the phase shift point, as demonstrated by the similar performance advantage of circuits aligned with the post-phase-shift topologies over those aligned with the pre-phase-shift topologies.
+                                In the subsequent training phase of circuit optimization, the focus shifts to enriching knowledge representations in the lower layers, evidenced by a stabilized topology and component structure, but with a rapid improvement in the performance of knowledge circuits.
+                            </div>
+
+                            <br>
+                            <div class="box">
+                                <strong>Takeaway: Deep-to-Shallow Pattern</strong>
+                                <p>The evolution of knowledge circuits follows a deep-to-shallow pattern, where mid-to-deeper layers first develop the extraction function, and later, lower layers enrich their knowledge representations.</p>
+                              </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre>
+@misc{ou2025llmsacquirenewknowledge,
+    title={How Do LLMs Acquire New Knowledge? A Knowledge Circuits Perspective on Continual Pre-Training}, 
+    author={Yixin Ou and Yunzhi Yao and Ningyu Zhang and Hui Jin and Jiacheng Sun and Shumin Deng and Zhenguo Li and Huajun Chen},
+    year={2025},
+    eprint={2502.11196},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    url={https://arxiv.org/abs/2502.11196}, 
+}
+</pre>
+        </div>
+    </section>
+
+    <section class="section" id="Acknowledgement">
+        <div class="container is-max-desktop content">
+            <p>
+                This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+                licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+        </div>
+    </section>
+
+
+    <script>
+        // 轮播图
+        // 创建两个独立的索引，分别用于两个轮播图
+        // 创建一个对象来存储每个轮播图的状态
+        var sliders = {
+            slider1: { index: 1 },
+            slider2: { index: 1 },
+            slider3: { index: 1 },
+            slider4: { index: 1 },
+            slider5: { index: 1 },
+            slider6: { index: 1 },
+            slider7: { index: 1 },
+            slider8: { index: 1 },
+        };
+
+        // 初始化轮播图
+        showSlides(sliders.slider1.index, 'slider1');
+        showSlides(sliders.slider2.index, 'slider2');
+        showSlides(sliders.slider3.index, 'slider3');
+        showSlides(sliders.slider4.index, 'slider4');
+        showSlides(sliders.slider5.index, 'slider5');
+        showSlides(sliders.slider6.index, 'slider6');
+        showSlides(sliders.slider7.index, 'slider7');
+        showSlides(sliders.slider8.index, 'slider8');
+
+        function plusSlides(n, sliderClass) {
+            var slider = sliders[sliderClass];
+            var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+            var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+            var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+            var slideWidth = slides[0].clientWidth;
+
+            slider.index += n;
+            if (slider.index > slides.length) { slider.index = 1 }
+            if (slider.index < 1) { slider.index = slides.length }
+            var slideMove = -(slider.index - 1) * slideWidth;
+
+            updateSlider(slidesWrapper, dots, slideMove, slider.index);
+        }
+
+        function currentSlide(n, sliderClass) {
+            var slider = sliders[sliderClass];
+            var slides = document.querySelectorAll(`.${sliderClass} .slide`);
+            var dots = document.querySelectorAll(`.${sliderClass} .slider-btn`);
+            var slidesWrapper = document.querySelector(`.${sliderClass} .slides`);
+            var slideWidth = slides[0].clientWidth;
+            var slideMove = -(n - 1) * slideWidth;
+
+            slider.index = n;
+            updateSlider(slidesWrapper, dots, slideMove, slider.index);
+        }
+
+        function updateSlider(slidesWrapper, dots, slideMove, slideIndex) {
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slidesWrapper.style.transform = 'translateX(' + slideMove + 'px)';
+            dots[slideIndex - 1].className += " active";
+        }
+
+        function toggleCollapse() {
+            var content = document.getElementById("collapseContent");
+            if (content) {
+                content.classList.toggle("collapsed");
+            }
+        }
+
+        // others
+        $(".grid_item").hover(function () {
+            $(this).css("background", "#f2f1f1");
+        },
+            function () {
+                $(this).css("background", "#FFFFFF");
+            });
+
+        // Get the modal element
+        // var modal = document.getElementById("myModal");
+        var overlay = document.getElementById("overlay");
+        var span = document.getElementsByClassName("close")[0];
+
+
+        // Get the image element and the close button element
+        //  // display the GIF as it is
+        // var img = document.getElementById("modalImg");
+        // var img = document.getElementById("overlayImg");
+        // Add event listeners to each GIF element
+        var gifs = document.getElementsByClassName("mygif");
+        for (var i = 0; i < gifs.length; i++) {
+            gifs[i].addEventListener("click", function () {
+                //  // display the GIF as it is
+                // // Set the modal image source and display the modal
+                // img.src = this.src;
+
+                // display the GIF as a new image, will play from the begining
+                var img = document.createElement("img");
+                img.src = this.src.replace(".png", ".gif");
+
+                // Add the img element to the overlay content and display the overlay
+                document.getElementById("overlayContent").appendChild(img);
+
+
+                // modal.style.display = "block";
+                overlay.style.display = "block";
+
+                // Hide the body overflow
+                document.body.style.overflow = "hidden";
+            });
+        }
+
+        // Add event listener to close button
+        span.addEventListener("click", function () {
+            // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+            document.getElementById("overlayContent").innerHTML = "";
+
+            // Hide the modal
+            // modal.style.display = "none";
+            overlay.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+    </script>
+</body>
+
+</html>
