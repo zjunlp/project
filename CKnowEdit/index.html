@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>CKnowEdit</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔵</text></svg>">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    .findings-box {
+      border: 2px solid #d0d9e0;
+      border-radius: 8px;
+      padding: 10px 15px;
+      display: inline-block;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 16px;
+      line-height: 1.5;
+      background-color: #f9f9f9;
+    }
+
+    .findings-box .title {
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 18px;
+    }
+
+    .findings-box .content {
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">CKnowEdit: A New Chinese Knowledge Editing Dataset for
+              Linguistics, Facts, and Logic Error Correction in LLMs</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Jizhan Fang,</span>
+              <span class="author-block">Tianhe Lu,</span>
+              <span class="author-block">Yunzhi Yao,</span>
+              <br>
+              <span class="author-block">Ziyan Jiang,</span>
+              <span class="author-block">Xin Xu,</span>
+              <span class="author-block">Ningyu Zhang,</span>
+              <span class="author-block">Huajun Chen</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              fangjizhan@zju.edu.cn
+              <br>
+              <span class="author-block"><b>Zhejiang University 
+                , ZJUNLP.</b></span>
+            </div>
+
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2409.05806" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/zjunlp/EasyEdit/blob/main/examples/CKnowEdit.md" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                  <span class="link-block">
+                    <a href="https://huggingface.co/datasets/zjunlp/CKnowEdit" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                          <i class="far fa-gem"></i>
+                      </span>
+                      <span>Dataset</span>
+                    </a>
+                  </span>
+                     
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./static/images/sample.png" alt="Detailed sample of CKnowEdit" style="width: 100%; height: auto;">
+        <h2 class="subtitle has-text-centered">
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">Examples of data from each subcategory in CKnowEdit</a>.</span>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Chinese, as a linguistic system rich in depth and complexity, is characterized by distinctive elements such as ancient poetry, proverbs, idioms, and other cultural constructs. 
+              However, current Large Language Models (LLMs) face limitations in these specialized domains, highlighting the need for the development of comprehensive datasets that can assess, 
+              continuously update, and progressively improve these culturally-grounded linguistic competencies through targeted training optimizations. 
+              To address this gap, we introduce <strong>CKnowEdit</strong>, the first-ever Chinese knowledge editing dataset designed to correct linguistic, factual, and logical errors in LLMs. 
+              We collect seven types of knowledge from a wide range of sources, including classical texts, idioms, and content from Baidu Tieba Ruozhiba, taking into account the unique polyphony, antithesis, and logical structures inherent in the Chinese language. 
+              By analyzing this dataset, we highlight the challenges current LLMs face in mastering Chinese. 
+              Furthermore, our evaluation of state-of-the-art knowledge editing techniques reveals opportunities to advance the correction of Chinese knowledge<sup><a href="https://github.com/zjunlp/EasyEdit" target="_blank">*</a></sup>
+            </p>
+          </div>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Overview -->
+  <section class="section" id="Overview">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🌟Overview</h2>
+          <div class="content has-text-justified">
+            <p>
+              📚 <strong>CKnowEdit</strong>, which is uniquely characterized by its Chinese linguistic features and cultural depth, comprehensively explores Chinese-language distinctiveness and the challenges it poses to LLMs from three perspectives: Chinese Linguistics, Chinese Factual Knowledge and Chinese language-specific logic trap.
+            </p>
+            <p>
+              🤖 <strong>CKnowEdit</strong> consists of a total of 1854 entries, divided into 3 major categories and 10 subcategories.
+            </p>
+            <p>
+              📊 The empirical results of recent 
+              knowledge editing baselines on <strong>CKnowEdit</strong>,
+              reveal their limitations when applied to
+              Chinese literature, especially in our new evaluation paradigm.
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+ <!-- Framework -->
+ <section class="section" id="Framework">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">🤖Criteria for Knowledge Sourcing</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Chinese Linguistics.</b>
+            Chinese linguistics studies the phonetics, vocabulary, semantics and grammar of the Chinese language, the linguistic knowledge in CKnowEdit is 
+            categorized into five subtypes. Each subtype of Chinese Linguistics knowledge presents unique challenges for LLMs. 
+            <em>This major category includes the following 5 subcategories: Pinyin, Ancient Poetry, Classical Chinese, Idiom and Proverb.</em>
+          </p>
+          <p>
+            <b>Factual Knowledge.</b>
+            Factual knowledge in CKnowEdit covers key events and historical figures, regional landscapes, and unique local cultures across China. 
+            However, mainstream LLMs demonstrate notable gaps in their understanding of factual knowledge.
+            <em>This major category includes the following 2 subcategories: History and Geography.</em>
+          </p>
+          <p>
+            <b>Chinese language-specific logic trap.</b>
+            <em>This major category includes the following 3 subcategories: Phonetic Misunderstand, Reasoning Error and Wordplay.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Framework -->
+
+<div class="content has-text-justified">
+  <!-- Framework -->
+  <section class="section" id="Framework">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">📚Construction</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>Data Source.</b>
+              We collected all types of data from 7 categories of sources, including: ancient poetry, Pinyin notation, idiom, proverb, classical Chinese, factual knowledge, ruozhiba. 
+            </p>
+          </div>
+          <img src="static/images/overview.png" width="100%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Data Preprocess.</b> We initially collected 11,981 raw data entries and filtered them using LLM (Qwen-7B-Chat).
+            </p>
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              <b>Data Annotation.</b> (1) The <strong>Target</strong> field is created either from the data source itself or generated by GPT and verified manually.
+              (2) The <strong>Generalization</strong> field is created by rephrasing the prompt field. 
+              (3) The <strong>Portability</strong> field is implemented using two strategies: context switching and single-hop logic. 
+              (4) The <strong>Locality</strong> field in CKnowEdit differs from traditional knowledge editing datasets, as it selects knowledge that is different from the target but somewhat related.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Overview -->
+  <!-- Framework -->
+  <section class="section" id="Framework">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🤖Statistics</h2>
+          <img src="static/images/statistcs.png" width="70%">
+          <div class="content has-text-justified">
+            <p>
+              egarding the three main knowledge classifications in <strong>CKnowEdit</strong>, the largest proportion is attributed to linguistic data accounts for 48.40% and the Logic reasoning data
+              accounts for 45.63% because we found that knowledge that is highly characteristic of the Chinese language poses significant challenges for current LLMs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Framework -->
+
+  <!-- Experiments -->
+  <section class="section" id="Experiments">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">📊Experiments</h2>
+          <div class="content has-text-justified">
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              <b>Settings.</b> We
+              select 4 LLMs: Qwen-7B-Chat, Qwen2-7B-Instruct, DeepSeek-LLM-7B-Chat and Baichuan2-7B-Chat. We investigate 5 model editing methods, including
+              FT-M, AdaLoRA, ROME, GRACE and AlphaEdit. 
+            </p>
+          </div>
+          <img src="static/images/eval_process.png" width="60%">
+          <img src="static/images/eval_case.png" width="60%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Evaluation.</b> 
+              Unlike traditional evaluation methods(token/logit-level metrics
+              with teacher-forcing automatio), we utilize the LLM-as-a-judge paradigm to evaluate the open-ended text generated by models. 
+              Above are detailed evaluation procedure
+              and case.
+            </p>
+          </div>
+
+          <img src="static/images/main_results.png" width="90%">
+          <div class="content has-text-justified">
+            <p>
+              <b>Main Results.</b> <strong>AdaLoRA</strong> achieves the
+              highest Edit Success in over 70% of cases across
+              4 models, outperforming AlphaEdit and FT-M,
+              which excel in 4 and 3 instances respectively
+              but remain suboptimal overall. For Generalization and Portability metrics, <strong>AdaLoRA</strong> dominates
+              with nearly 70% and 86% top scores, respectively,
+              while <strong>AlphaEdit</strong> consistently performs suboptimally. 
+            </p>
+          </div>
+          <div class="findings-box">
+            <span class="title">Findings (i):</span>
+            <span class="content"
+              >These results demonstrate that <strong>AdaLoRA</strong>
+              achieves the best editing performance, contrasting
+              with prior findings.</span
+            >
+          </div>
+        </div>
+      </div>
+  </section>
+  <!-- End Experiments -->
+
+  <section class="section" id="Experiments">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-fifths">
+          <h2 class="title is-3">🤔️Intrersting Findings</h2>
+          <div class="content has-text-justified">
+          </div>
+          <img src="static/images/radar_output_1.png" width="70%">
+          <img src="static/images/radar_output_lora_qwen1.png" width="70%">
+          <div class="content has-text-justified">
+            <p>
+              <b>The Irreplaceability of Chinese.</b> 
+              We selected 100 data samples from each of the three
+              knowledge categories in CKnowEdit. These samples were first translated into English, then edited using AdaLoRA and ROME on four baseline models. The results were then translated back into Chinese and evaluated.
+            </p>
+          </div>
+            <div class="content has-text-justified">
+              <div class="findings-box">
+                <span class="title">Findings (ii):</span>
+                <span class="content"
+                  >In linguistic knowledge
+                  editing tasks, the results of English editing differ significantly from those of Chinese editing.
+                  In logical tasks, English editing performs even
+slightly better than Chinese editing.</span
+                >
+              </div>
+            </div>
+            <img src="static/images/case.png" width="100%">
+            <div class="content has-text-justified">
+              <p>
+                <b>Language Functional Area Offset.</b>
+                After editing target knowledge in English, query are asked
+directly in Chinese to test cross-language generalization
+              </p>
+            </div>
+              <div class="findings-box">
+                <span class="title">Findings (iii):</span>
+                <span class="content"
+                  >Current LLMs struggle to generalize English-edited knowledge to Chinese, whether
+                  for factual geography or linguistically complex
+                  tasks.</span
+                >
+              </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">🚩Citation</h2>
+      <pre><code>@misc{fang2025cknoweditnewchineseknowledge,
+        title={CKnowEdit: A New Chinese Knowledge Editing Dataset for Linguistics, Facts, and Logic Error Correction in LLMs}, 
+        author={Jizhan Fang and Tianhe Lu and Yunzhi Yao and Ziyan Jiang and Xin Xu and Ningyu Zhang and Huajun Chen},
+        year={2025},
+        eprint={2409.05806},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL},
+        url={https://arxiv.org/abs/2409.05806}, 
+  }
+  </code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the of this website, we just ask that you link back to this page in the footer.
+              <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
