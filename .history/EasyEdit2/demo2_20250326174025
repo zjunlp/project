@@ -1,6 +1,3 @@
-<!-- 
-    : http://knowlm.zjukg.cn
-Access-Control-Allow-Origin: * -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +5,8 @@ Access-Control-Allow-Origin: * -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="OceanGPT">
-    <title>OceanGPT</title>
+    <meta name="description" content="KnowLM">
+    <title>KnowLM</title>
     <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/style.min.css">
     <link rel="stylesheet" href="https://hoppinzq.com/static/css/plugins/editormd.min.css"/>
@@ -276,8 +273,12 @@ Access-Control-Allow-Origin: * -->
     }
 </style>
 <body>
+<div class="alert alert-danger" role="alert" style="text-align: center;">
+    由于计算资源紧张，演示系统暂时停止服务。感谢您的理解。
+</div>
+    
 <div class="zq_preloader zq_preloader_center">
-    <span>O</span><span>c</span><span>e</span><span>a</span><span>n</span><span>G</span><span>P</span><span>T</span>
+    <span>K</span><span>n</span><span>o</span><span>w</span><span>L</span><span>M</span>
 </div>
 <div id="layout" class="theme-cyan">
     <!--最左侧菜单-->
@@ -285,9 +286,9 @@ Access-Control-Allow-Origin: * -->
         <div class="nav flex-md-column nav-pills flex-grow-1" role="tablist" aria-orientation="vertical">
             <a class="mb-xl-3 mb-md-2 nav-link nav-link-mobile active" data-toggle="pill" href="#nav-tab-chat" role="tab"><i
                     class="zmdi zmdi-comment-alt"></i></a>
-            <a class="mb-xl-3 mb-md-2 nav-link d-sm-block image-nav" data-toggle="modal" href="#modal-image">
+            <!-- <a class="mb-xl-3 mb-md-2 nav-link d-sm-block image-nav" data-toggle="modal" href="#modal-image">
                 <i class="zmdi zmdi-image-o"></i>
-            </a>
+            </a> -->
             <a class="mt-xl-3 mt-md-2 nav-link light-dark-toggle" href="javascript:void(0);">
                 <i class="zmdi zmdi-brightness-2"></i>
                 <input class="light-dark-btn" type="checkbox"></a>
@@ -300,7 +301,7 @@ Access-Control-Allow-Origin: * -->
             </div>
             <div class="tab-pane fade show active" id="nav-tab-chat" role="tabpanel">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="mb-0 text-primary">OceanGPT</h3>
+                    <h3 class="mb-0 text-primary">KnowLM</h3>
                     <div>
                         <button class="btn btn-dark create-new-chat" type="button">新建对话</button>
                     </div>
@@ -322,6 +323,10 @@ Access-Control-Allow-Origin: * -->
         <div class="chat-body">
             <div class="chat-header border-bottom py-xl-4 py-md-3 py-2">
                 <div class="container-xxl">
+                    <!-- <div class="alert alert-danger" role="alert">
+                        由于计算资源紧张，演示系统暂时停止服务。感谢您的理解。
+                    </div> -->
+                
                     <div class="row align-items-center">
                         <div class="col-6 col-xl-4">
                             <div class="media">
@@ -333,9 +338,10 @@ Access-Control-Allow-Origin: * -->
                                 </div>
                                 <div class="media-body overflow-hidden">
                                     <div class="d-flex align-items-center mb-1">
-                                        <h6 class="text-truncate mb-0 me-auto">OceanGPT</h6>
+                                        <h6 class="text-truncate mb-0 me-auto">KnowLM</h6>
                                     </div>
-                                    <div class="text-truncate">Based on KnowLM</div>
+                                    
+                                    <div class="text-truncate">Supported by MindSpore</div>
                                 </div>
                             </div>
                         </div>
@@ -346,6 +352,10 @@ Access-Control-Allow-Origin: * -->
 
             <div class="chat-content" id="chat-content">
                 <div class="container-xxl">
+                    <!-- <div class="alert alert-danger" role="alert">
+                        由于计算资源紧张，演示系统暂时停止服务。感谢您的理解。
+                    </div> -->
+        
                     <ul class="list-unstyled py-4 chat-message" id="chat-message">
 
                     </ul>
@@ -1302,7 +1312,7 @@ Access-Control-Allow-Origin: * -->
         $("#sendText").val("");
         buildMessage(0, "user-chat-question-" + webMetaData.index, __zqChat.getRealDate(new Date()), "User", "http://hoppinzq.com/zui/static/picture/0.jpg", question, webMetaData.index,false);
         //answer("user-chat-answer-" + webMetaData.index, question, "sse");
-        ourAnswer("user-chat-answer-" + webMetaData.index, question);	
+        ourAnswer("user-chat-answer-" + webMetaData.index, question);
     };
 
     /**
@@ -1443,7 +1453,7 @@ Access-Control-Allow-Origin: * -->
                                             <!--<a class="dropdown-item" href="#" onclick="notUserMd('message-${id}')" title="将会还原ChatBot原来的文本">不使用样式</a>
                                             <a class="dropdown-item" href="#" onclick="userMd('message-${id}')" title="渲染ChatBot代码，表格等数据">渲染样式</a>-->
                                             <a class="dropdown-item new-answer" href="#" onclick="reAnswer(this,'message-${id}','${id}','${messageId}')" title="将会还原ChatBot原来的文本">不满意，重新回答</a>
-                                            <a class="dropdown-item" href="#" onclick="needhelp1()" title="将会还原ChatBot原来的文本">回答的很棒</a>
+                                            <!--<a class="dropdown-item" href="#" onclick="needhelp1()" title="将会还原ChatBot原来的文本">地点实体抽取</a>-->
                                         </div>
                                     </div>
                                 </div>
@@ -1632,7 +1642,7 @@ Access-Control-Allow-Origin: * -->
       //var sss1=document.getElementsByName('bbbb')
       //const intputtext = "请从这段话中:"+sss1[sss1.length-1].innerHTML+"抽取出地点实体，将抽出来的实体用逗号隔开表示出来"
       //answer("user-chat-answer-" + webMetaData.index, intputtext, "sse");
-      /*$(".chat-message").append2(`
+      $(".chat-message").append2(`
       <div class="message-body">
 
           <div class="message-row d-flex align-items-center">
@@ -1649,8 +1659,46 @@ Access-Control-Allow-Origin: * -->
 $(".demochat").off("click").on("click", function () {
 
 })
-})*/
-     
+})
+      /*if (sss1[sss1.length-1].innerHTML) {
+                const intputtext = "请从这段话中:"+sss1[sss1.length-1].innerHTML+"抽取出行政区划的实体，将抽出来的实体用逗号隔开表示出来"
+                let histories1 = [];
+                histories1.push({ "role": "assistant", "content": intputtext })
+                if (histories1.length > 30) {
+                  histories1 = histories1.slice(-30)
+                }
+                const question1 = JSON.parse(JSON.stringify(histories1))
+                axios.post("https://api.openai.com/v1/chat/completions", {
+                  messages: question1, max_tokens: 2096, model: "gpt-3.5-turbo", temperature: 1,
+                  top_p: 1, frequency_penalty: 0, presence_penalty: 0
+                }, {
+                  headers: { "Content-type": "application/json", "Authorization": "Bearer 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"}
+                }).then(res =>{
+                  let resulttopic1 = res.data.choices[0].message.content
+                  console.log(resulttopic1)
+
+
+                  $(".chat-message").append2(`
+                        <div class="message-body">
+
+                            <div class="message-row d-flex align-items-center">
+
+                                <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="">
+                                  resulttopic1
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                    `, function () {
+            $(".demochat").off("click").on("click", function () {
+                $("#sendText").val($(this).data("message"));
+                question();
+            })
+        })
+                })
+              }*/
             }
 
 
@@ -1664,61 +1712,44 @@ $(".demochat").off("click").on("click", function () {
         }
         let tempIndex=webMetaData.index-1;
         let lastMessageId=$("#message-user-chat-question-"+tempIndex).data("id");
-        
-        let deletedText = $("#message-user-chat-answer-" + tempIndex).text();
-        console.log('aaaa')
-        console.log(deletedText)
         $.get(`${ip}/hoppinzq?method=deleteChatMessageBatchByMessageIds&params={"messageIds":"['${lastMessageId}','${messageId}']"}`, function (data) {
             let _data=JSON.parse(data);
-            //console.log(data)
             if(_data.code==200){
                 webMetaData.index--;
                 $("#"+domId).remove();
                 let chat=getCurrentChat();
                 let messages=chat.chatMessageList;
-                let question = $("#message-user-chat-question-"+webMetaData.index).text();
-                console.log(question)
-                console.log('aaa'+messages)
-
                 //倒着删
                 for(let i=messages.length-1;i>=0;i--){
                     let message=messages[i]
                     if(message.messageId==messageId||message.messageId==lastMessageId){
-                        console.log(message)
-                        console.log('bbb')
                         messages.splice(i,1);
                     }
-
                 }
+                let question = $("#message-user-chat-question-"+webMetaData.index).text();
                 //answer("user-chat-answer-" + webMetaData.index, question, "sse");
-                ourAnswer("user-chat-answer-" + webMetaData.index, question);	
+                ourAnswer("user-chat-answer-" + webMetaData.index, question);
+
             }else{
                 swal("啊呀呀!", "删除现有回答有错误，不能重新回答！", "error");
             }
         });
-    }
-    function containsChinese(text) {
-        //return false;
-        for (let i = 0; i < text.length; i++) {
-            const char = text.charAt(i);
-            if ('\u4e00' <= char && char <= '\u9fff') {
-                return true;
-            }
+    }    
+    var conversationHistory = [
+        {
+            "role": "system",
+            "content": "你是由浙江大学开发的语言助手，你的名字是KnowLM，你的项目主页是https://www.github.com/zjunlp/knowlm。"
         }
-        return false;
-    }
-   
+    ];
+
     function ourAnswer(chatid, question) {
         //if (containsChinese(question)){
             console.log("开始开始开始");
+            conversationHistory.push({"role": "user", "content": question});
 
             $.ajax({
                 type: "post",
-                //url: 'http://116.62.19.215:8090/generate',
-                //url: 'http://10.22.42.175:8090/generate',
-                //url: 'http://121.41.117.246:8001/v1/chat/completions',
-                //url: 'http://121.41.117.246:8100/gateway',
-                url: 'http://121.41.117.246:8010/v1/chat/completions',
+                url:  "http://121.41.117.246:8000/v1/chat/completions",
                 crossDomain: true,
                 withCredentials: true, // 添加这一行
                 headers: {
@@ -1726,43 +1757,45 @@ $(".demochat").off("click").on("click", function () {
                     'Content-Type': 'application/json',
                 },        
                 data: JSON.stringify({
-                    "model": "string",
-                    // "instruction": question,
-                    // "input": "",
-                    // "parameters": {
-                    //     "max_tokens": 1024
-                    // }
-
-                    "messages": [
-                        {
-                        "role": "user",
-                        "content": question
-                        // "max_tokens": 1
-                        }
-                    ],
-                    "temperature": 0,
-                    "top_p": 0,
-                    "n": 1,
-                    "max_tokens": 1024,
+                    "model": "Qwen1.5-7B-Chat",
+                    // "messages": [
+                    //     {
+                    //     "role": "system",
+                    //     "content": "你是由浙江大学开发的语言助手，你的名字是KnowLM，你的项目主页时https://www.github.com/zjunlp/knowlm。"
+                    //     },
+                    //     {"role": "user", "content": question}
+                    // ],
+                    "messages": conversationHistory, // 使用更新后的对话历史
                     "stream": false
                 }),
+                cache: false, // 防止浏览器缓存结果
+                // timeout: 5000, // 设置请求超时时间（例如5000毫秒）
+
                 //contentType: "application/json",
                 beforeSend: function () {
                     console.log("准备发送请求...");
                     webMetaData.chatState = 1;
-                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "OceanGPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                    console.log("准备发送请求...");
+
+                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "KnowLM", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                    console.log("准备发送请求...");
+
                     $("#sendChat").hide();
+                    console.log("准备发送请求...");
+
                     $("#stopChat").show();
                     
                 },
                 success: function (response) {
                     console.log("成功接收响应：", response);
-                    //console.log(response['choices'][0]['message']['content'])
-                    let result = response['choices'][0]['message']['content'];
-                    // let result=response.generated_text
+                    console.log(response['choices'][0]['message']['content'])
+                    // let result = response['choices'][0]['message']['content'];
+                    let result=response['choices'][0]['message']['content']
                     if(result.endsWith('</s>')) {
                         result = result.slice(0, -4)
                     }
+                    conversationHistory.push({"role": "assistant", "content": result});
+
                     $("#message-user-chat-answer-" + webMetaData.index).text(result);
                     $("#sendChat").show();
                     $("#stopChat").hide();
@@ -1777,50 +1810,51 @@ $(".demochat").off("click").on("click", function () {
                     alert("出错了：" + error);
                 
                 }
-            });
-       //}
-        /*else{
-            $.ajax({
-                type: "post",
-                //url: 'http://116.62.19.215:8090/generate',
-                //url: 'http://10.22.42.175:8090/generate',
-                url: 'http://121.41.117.246:8090/generate',
-                data: JSON.stringify({
-                    "instruction": question, 
-                    "input": "", 
-                    "parameters": {
-                        "top_p": 0.7, 
-                        "max_tokens": 256
-                    }
-                }),
-                contentType: "application/json",
-                beforeSend: function () {
-                    webMetaData.chatState = 1;
-                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "OceanGPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
-                    $("#sendChat").hide();
-                    $("#stopChat").show();
-                    
-                },
-                success: function (response) {
-                    console.log(response)
-                    let result = response.generated_text;
-                    if(result.endsWith('</s>')) {
-                        result = result.slice(0, -4)
-                    }
-                    $("#message-user-chat-answer-" + webMetaData.index).text(result);
-                    $("#sendChat").show();
-                    $("#stopChat").hide();
-                    webMetaData.chatState = 0;
-                    webMetaData.index++
 
-                },
-                error: function (xhr, status, error) {
-                    alert("出错了！");
-                }
-            });
-        }*/
-    }
+            });    }
        
+
+    // function ourAnswer(chatid, question) {
+    //     $.ajax({
+    //             type: "post",
+    //             //url: 'http://116.62.19.215:8090/generate',
+    //             //url: 'http://10.22.42.175:8090/generate',
+    //             url: 'http://121.41.117.246:8090/generate',
+    //             data: JSON.stringify({
+    //                 "instruction": question, 
+    //                 "input": "", 
+    //                 "parameters": {
+    //                     "top_p": 0.7, 
+    //                     "max_tokens": 256
+    //                 }
+    //             }),
+    //             contentType: "application/json",
+    //             beforeSend: function () {
+    //                 webMetaData.chatState = 1;
+    //                 buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "KnowLM", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+    //                 $("#sendChat").hide();
+    //                 $("#stopChat").show();
+                    
+    //             },
+    //             success: function (response) {
+    //                 console.log(response)
+    //                 let result = response.generated_text;
+    //                 if(result.endsWith('</s>')) {
+    //                     result = result.slice(0, -4)
+    //                 }
+    //                 $("#message-user-chat-answer-" + webMetaData.index).text(result);
+    //                 $("#sendChat").show();
+    //                 $("#stopChat").hide();
+    //                 webMetaData.chatState = 0;
+    //                 webMetaData.index++
+
+    //             },
+    //             error: function (xhr, status, error) {
+    //                 alert("出错了！");
+    //             }
+    //         });
+    // }
+
     /**
      * 回复,支持ws跟sse，推荐使用sse
      * */
@@ -1830,7 +1864,7 @@ $(".demochat").off("click").on("click", function () {
             let questionEncode=encodeURI(question);
             let eventSource = new EventSource(ip+'/stream-sse3?message=' + questionEncode + "&chatId=" + webMetaData.chatCurrentId+ "&context_number=" + chat.chat_context+ "&system=" + chat.chat_system+"&apikey="+webMetaData.apikey);
             webMetaData.chatState = 1;
-            buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "海洋GPT", "botimg", `
+            buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "KnowLM", "botimg", `
                                         <div class="wave">
                                             <span class="dot"></span>
                                             <span class="dot"></span>
@@ -1895,7 +1929,7 @@ $(".demochat").off("click").on("click", function () {
                 contentType: "application/json",
                 beforeSend: function () {
                     webMetaData.chatState = 1;
-                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "海洋GPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "KnowLM", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
                 },
                 success: function (response) {
 
@@ -1976,10 +2010,10 @@ $(".demochat").off("click").on("click", function () {
                                         <span><i class="zmdi zmdi-comment-text text-light"></i></span>
                                     </div>
                                     <div class="mx-10 p-2">
-                                        <a href="#" class="text-dark hover-primary font-weight-bold">OceanGPT</a>
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">KnowLM</a>
                                     </div>
                                 </div>
-                                <!--<span class="date-time text-muted">这是提示对话 不想要？<a data-toggle="pill" href="#nav-tab-user">设置关闭</a></span>-->
+                                <!-- <span class="date-time text-muted">这是提示对话 不想要？<a data-toggle="pill" href="#nav-tab-user">设置关闭</a></span> -->
                                 <!-- <div class="message-row d-flex align-items-center">
                                     <div class="message-content p-3 text-chat">嗨，我是海洋GPT Bot🤖</div>
                                     <div class="dropdown">
@@ -1992,20 +2026,31 @@ $(".demochat").off("click").on("click", function () {
                                         </div>
                                     </div>
                                 </div> -->
-                              
                                 <div class="message-row d-flex align-items-center">
                                     <!--<button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1" onclick="openAndImage('生成1张海底电缆的图片')">
                                         生成1张海底电缆的图片
                                     </button>-->
-                                    <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message=" Please describe the laying method of submarine cables in the East China Sea.">
-                                        Please describe the laying method of submarine cables in the East China Sea.
+                                    <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="你是谁">
+                                        你是谁
                                     </button>
-                                    <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="Describe the application of 3D perception technology of airspace, sky, and ocean in marine exploration.">
-                                        Describe the application of 3D perception technology of airspace, sky, and ocean in marine exploration.
+                                    <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="用python写个冒泡排序">
+                                        用python写个冒泡排序
                                     </button>
-                                    <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="How to conduct research on interfacial chemistry and toxicological effects of key radioactive nuclides?">
-                                        How to conduct research on interfacial chemistry and toxicological effects of key radioactive nuclides?
-                                     </button>
+                                    <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="给出算式的计算结果13+12-11">
+                                        给出算式的计算结果13+12-11
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请写一封信安慰考试没考好的女儿">
+                                        请写一封信安慰考试没考好的女儿
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="mindspore属于哪家公司">
+                                        mindspore属于哪家公司
+                                    </button>
+                                    <!-- 
+                                    <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="假如你是一名导游，请介绍一下舟山的旅游景点">
+                                      假如你是一名导游，请介绍一下舟山的旅游景点
+                                    </button> -->
+
                                 </div>
                             </div>
                         </li>
@@ -2020,24 +2065,7 @@ $(".demochat").off("click").on("click", function () {
             })
         }
     }
-    // <div class="message-row d-flex align-items-center">
-    //                                 <!--<button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1" onclick="openAndImage('生成1张海底电缆的图片')">
-    //                                     生成1张海底电缆的图片
-    //                                 </button>-->
-    //                                 <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="请给出海底电缆故障定位及修复的技术方案">
-    //                                   请给出海底电缆故障定位及修复的技术方案
-    //                                 </button>
-    //                                 <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室">
-    //                                     请介绍一下东海实验室
-    //                                 </button>
-    //                                 <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="请详细介绍一下浙江大学">
-    //                                   请详细介绍一下浙江大学
-    //                                 </button>
-    //                                 <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="假如你是一名导游，请介绍一下舟山的旅游景点">
-    //                                   假如你是一名导游，请介绍一下舟山的旅游景点
-    //                                 </button>
 
-    //                             </div>
     function setHelp1() {
       var sss=document.getElementsByName('aaaa')
       var ss2=sss[sss.length-1].innerHTML

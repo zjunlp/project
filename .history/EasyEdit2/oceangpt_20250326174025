@@ -1650,7 +1650,45 @@ $(".demochat").off("click").on("click", function () {
 
 })
 })*/
-     
+      /*if (sss1[sss1.length-1].innerHTML) {
+                const intputtext = "请从这段话中:"+sss1[sss1.length-1].innerHTML+"抽取出行政区划的实体，将抽出来的实体用逗号隔开表示出来"
+                let histories1 = [];
+                histories1.push({ "role": "assistant", "content": intputtext })
+                if (histories1.length > 30) {
+                  histories1 = histories1.slice(-30)
+                }
+                const question1 = JSON.parse(JSON.stringify(histories1))
+                axios.post("https://api.openai.com/v1/chat/completions", {
+                  messages: question1, max_tokens: 2096, model: "gpt-3.5-turbo", temperature: 1,
+                  top_p: 1, frequency_penalty: 0, presence_penalty: 0
+                }, {
+                  headers: { "Content-type": "application/json", "Authorization": "Bearer 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"}
+                }).then(res =>{
+                  let resulttopic1 = res.data.choices[0].message.content
+                  console.log(resulttopic1)
+
+
+                  $(".chat-message").append2(`
+                        <div class="message-body">
+
+                            <div class="message-row d-flex align-items-center">
+
+                                <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="">
+                                  resulttopic1
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                    `, function () {
+            $(".demochat").off("click").on("click", function () {
+                $("#sendText").val($(this).data("message"));
+                question();
+            })
+        })
+                })
+              }*/
             }
 
 
