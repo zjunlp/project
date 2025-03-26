@@ -1,0 +1,2301 @@
+<!-- 
+    : http://knowlm.zjukg.cn
+Access-Control-Allow-Origin: * -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="OceanGPT">
+    <title>OceanGPT</title>
+    <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/style.min.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/static/css/plugins/editormd.min.css"/>
+    <link rel="stylesheet" href="https://hoppinzq.com/zq/preloader/zq_preloader.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/zui/static/css/sweetalert.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/spider/css/simple-bar.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/jBox.all.min.css">
+    <link rel="stylesheet" href="https://hoppinzq.com/chat/static/css/pop.css">
+</head>
+<style>
+
+    a{
+        color: var(--primary-color);
+    }
+    a:hover{
+        color: var(--dark-color);
+    }
+
+    .modal-right.show .modal-dialog {
+        transform: translate(0, 0) !important;
+    }
+
+    .modal.show .modal-dialog {
+        transform: none;
+    }
+
+    .modal.fade .modal-dialog {
+        transition: transform 0.3s ease-out;
+        transform: translate(0, -50px);
+    }
+
+    .modal-right .modal-dialog {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 360px;
+        max-width: 100%;
+        margin: 0;
+        transform: translate(100%, 0) !important;
+        transition: .5s;
+    }
+
+    .modal-right .modal-content {
+        height: 100%;
+        display: -webkit-box;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0;
+    }
+
+    .text-chat {
+        white-space: pre-wrap;
+        /*white-space: normal;*/
+    }
+
+    .code-box {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 5px;
+        background: #fff;
+        border-radius: 6px;
+        color: #444;
+        line-height: 1.5;
+        max-height: 350px;
+        position: relative;
+        height: auto;
+        background-color: #fff;
+        border: solid 1px #f5f5f5;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.075);
+    }
+
+    .code-box code {
+        color: #555;
+    }
+
+    .code-box textarea {
+        padding: 0;
+        resize: none;
+        width: 100%;
+    }
+
+    .copy-btn {
+        position: absolute;
+        top: 22px;
+        right: 12px;
+        border: 1px solid #eee;
+        background: rgba(154, 154, 255, 0.1);
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 7px 16px;
+        transition: all 0.4s ease;
+        font-family: 'Inter',  sans-serif;
+    }
+
+    .copy-btn:focus-within,
+    .copy-btn:hover {
+        background: #61b864;
+        border-color: transparent;
+        color: #fff;
+    }
+
+    .center-modal {
+        transform: scale(0);
+        transition: .4s
+    }
+
+    .center-modal.show {
+        transform: scale(1)
+    }
+
+    .center-modal .modal-dialog {
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%) !important
+    }
+
+    .modal-fill {
+        background: rgba(255, 255, 255, 0.97);
+        transform: scale(0, 0);
+        transition: .4s
+    }
+    .modal.modal-fill {
+        background: var(--card-color);
+    }
+    .modal-fill.show {
+        display: flex!important;
+        justify-content: center;
+        flex-flow: column nowrap;
+        transform: scale(1,1);
+        transition: .4s;
+    }
+
+    /*增补样式，代码样式，夜间模式样式*/
+    .modal-body{
+        background: var(--card-color);
+    }
+    .modal-header{
+        background: var(--card-color);
+        /*border-bottom: var(--border-color);*/
+    }
+    .qaq{
+        background: var(--card-color);
+    }
+    .hljs {
+        display: block;
+        overflow-x: auto;
+        padding: .5em;
+        background: #1e1e1e !important;
+        color: #dcdcdc;
+    }
+    .editormd-html-preview pre.prettyprint, .editormd-preview-container pre.prettyprint {
+        border: 1px solid var(--border-color);
+    }
+    .editormd-html-preview pre, .editormd-preview-container pre {
+        border: 1px solid #ddd;
+        background: var(--card-color);
+    }
+    li.L1, li.L3, li.L5, li.L7, li.L9 {
+        background: var(--card-color);
+    }
+    pre code {
+        font-size: inherit;
+        color: inherit;
+        word-break: normal;
+    }
+    .kwd{
+        color: #569cd6;
+    }
+    .tag{
+        color: #9b9b9b;
+    }
+    .typ,.atn{
+        color: #569cd6;
+    }
+    .clo, .opn, .pun{
+        color: var(--dark-color);
+    }
+    .str{
+        color: #d69d85;
+    }
+    .pln{
+        color: #666666;
+    }
+    .com{
+        color: #57a64a;
+        font-style: italic;
+    }
+    .hljs li.L1,.hljs li.L3,.hljs li.L5,.hljs li.L7,.hljs li.L9 {
+        background: #212121;
+    }
+
+    .hljs .kwd{
+        color: #569cd6;
+    }
+    .hljs .tag{
+        color: #9b9b9b;
+    }
+    .hljs .typ,.hljs .atn{
+        color: #569cd6;
+    }
+    .hljs .clo, .hljs .opn, .hljs .pun{
+        color: #dcdcdc;
+    }
+    .hljs .str{
+        color: #d69d85;
+    }
+    .hljs .pln{
+        color: #dcdcdc;
+    }
+    .hljs .com{
+        color: #57a64a;
+        font-style: italic;
+    }
+
+
+    .code_change {
+        left: 5px;
+        top: 5px;
+        display: block;
+        width: 90px;
+        height: 28px;
+        color: var(--font-555);
+        border: 1px solid var(--dark-color);;
+        background: rgba(154, 154, 255, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        font-family: 'Inter',  sans-serif;
+    }
+    .copy-code-btn {
+        float: right;
+        right: 5px;
+        top: 5px;
+        display: block;
+        width: 90px;
+        height: 28px;
+        border: 1px solid var(--dark-color);;
+        color: var(--font-555);
+        background: rgba(154, 154, 255, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        font-family: 'Inter',  sans-serif;
+    }
+    .hljs .code_change{
+        color: #eee;
+    }
+    .hljs .copy-code-btn{
+        color: #eee;
+    }
+    .alert-danger{
+        color: #842029 !important;
+        background-color: #f8d7da !important;
+        border-color: #f5c2c7 !important;
+    }
+    .markdown-body table {
+        display: table-row !important;
+    }
+</style>
+<body>
+<div class="zq_preloader zq_preloader_center">
+    <span>O</span><span>c</span><span>e</span><span>a</span><span>n</span><span>G</span><span>P</span><span>T</span>
+</div>
+<div id="layout" class="theme-cyan">
+    <!--最左侧菜单-->
+    <div class="navigation navbar justify-content-center py-xl-4 py-md-3 py-0 px-3">
+        <div class="nav flex-md-column nav-pills flex-grow-1" role="tablist" aria-orientation="vertical">
+            <a class="mb-xl-3 mb-md-2 nav-link nav-link-mobile active" data-toggle="pill" href="#nav-tab-chat" role="tab"><i
+                    class="zmdi zmdi-comment-alt"></i></a>
+            <a class="mb-xl-3 mb-md-2 nav-link d-sm-block image-nav" data-toggle="modal" href="#modal-image">
+                <i class="zmdi zmdi-image-o"></i>
+            </a>
+            <a class="mt-xl-3 mt-md-2 nav-link light-dark-toggle" href="javascript:void(0);">
+                <i class="zmdi zmdi-brightness-2"></i>
+                <input class="light-dark-btn" type="checkbox"></a>
+        </div>
+        <button type="submit" class="btn sidebar-toggle-btn shadow-sm"><i class="zmdi zmdi-menu"></i></button>
+    </div>
+    <div class="sidebar border-end py-xl-4 py-3 px-xl-4 px-3">
+        <div class="tab-content">
+            <div class="tab-pane fade" id="nav-tab-user" role="tabpanel">
+            </div>
+            <div class="tab-pane fade show active" id="nav-tab-chat" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="mb-0 text-primary">OceanGPT</h3>
+                    <div>
+                        <button class="btn btn-dark create-new-chat" type="button">新建对话</button>
+                    </div>
+                </div>
+
+                <ul class="chat-list">
+                    <li class="header chat-all-header d-flex justify-content-between ps-3 pe-3 mb-1">
+                        <span>最近聊天记录</span>
+                        <div class="dropdown">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--top-->
+    <div class="main px-xl-5 px-lg-4 px-3">
+        <div class="chat-body">
+            <div class="chat-header border-bottom py-xl-4 py-md-3 py-2">
+                <div class="container-xxl">
+                    <div class="row align-items-center">
+                        <div class="col-6 col-xl-4">
+                            <div class="media">
+                                <div class="avatar me-3 show-user-detail" data-toggle="tooltip" title=""
+                                     data-original-title="ChatGPT Bot">
+                                    <div class="avatar rounded-circle no-image bg-primary text-light">
+                                        <span><i class="zmdi zmdi-comment-text"></i></span>
+                                    </div>
+                                </div>
+                                <div class="media-body overflow-hidden">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <h6 class="text-truncate mb-0 me-auto">OceanGPT</h6>
+                                    </div>
+                                    <div class="text-truncate">Based on KnowLM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-content" id="chat-content">
+                <div class="container-xxl">
+                    <ul class="list-unstyled py-4 chat-message" id="chat-message">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="chat-footer border-top py-xl-4 py-lg-2 py-2">
+                <div class="container-xxl">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group align-items-center"><input type="text"
+                                                                               class="form-control border-0 pl-0"
+                                                                               id="sendText"
+                                                                               placeholder="输入内容...">
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text border-0">
+                                        <button class="btn btn-sm btn-link text-muted" onclick="getScreenshot()" data-toggle="tooltip" title="" type="button" data-original-title="生成截图">
+                                            <i class="zmdi zmdi-camera font-22"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text border-0 pr-0">
+                                        <button type="btn" id="sendChat" class="btn btn-primary"><span
+                                                class="d-none d-md-inline-block me-2">发送</span><i
+                                                class="zmdi zmdi-mail-send"></i></button>
+                                        <button type="btn" id="stopChat" style="display: none"
+                                                class="btn btn-primary"><span
+                                                class="d-none d-md-inline-block me-2">结束</span><i
+                                                class="zmdi zmdi-stop"></i></button>
+                                    </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--图片生成-->
+    <div class="modal modal-right fade" id="modal-image" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body modal-image-body">
+                    <div class="main-body">
+                        <div class="body-header border-bottom py-xl-3 py-2">
+                            <div class="container px-0">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <div class="media">
+                                            <div class="avatar sm"><a href="#" data-dismiss="modal" title=""
+                                                                      class="link"><i
+                                                    class="zmdi zmdi-arrow-left zmdi-hc-lg"></i></a></div>
+                                            <div class="media-body overflow-hidden">
+                                                <h6 class="mb-0 font-weight-bold">图片智能生成</h6>
+                                                <span class="text-muted">基于DALL·E(达尔文)模型</span>
+                                            </div>
+                                            <div class="avatar sm"><button class="btn btn-link close-sidebar text-muted" data-dismiss="modal" type="button"><i
+                                                    class="zmdi zmdi-close"></i></button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body-page d-flex py-xl-3 py-2">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <p class="mb-1">图像交互的示例： </p>
+                                        <ol class="activity-feed text-muted mb-0" onclick="resetImageH()">
+                                            <li class="d-flex">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <input type="checkbox" id="expand_1"
+                                                               name="expand_1">
+                                                        <label for="expand_1" class="mb-0" style="color:#1e1e1e">
+                                                            根据文本提示从头开始创建图像。
+                                                        </label>
+                                                        <div class="feed-content">
+                                                            <div class="message-content">
+                                                                <div class="col-auto">
+                                                                    <span class="mb-1 text-muted">一个水下机器人在检测海床上裸露的海底电缆的场景</span>
+                                                                    <button class="btn btn-sm btn-white" onclick="createImage('一个水下机器人在检测海床上裸露的海底电缆的场景',1,'256x256')">
+                                                                        <a href="#image-sc">试一试</a>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                  <span class="mb-1 text-muted">两个水下机器人用侧扫声呐和激光雷达在检测周围有珊瑚和沙土的海床上裸露的海底电缆的场景</span>
+                                                                  <button class="btn btn-sm btn-white" onclick="createImage('两个水下机器人用侧扫声呐和激光雷达在检测周围有珊瑚和沙土的海床上裸露的海底电缆的场景',1,'256x256')">
+                                                                      <a href="#image-sc">试一试</a>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                  <span class="mb-1 text-muted">工人在修复破损的海底电缆场景</span>
+                                                                  <button class="btn btn-sm btn-white" onclick="createImage('工人在修复破损的海底电缆场景',1,'256x256')">
+                                                                      <a href="#image-sc">试一试</a>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                  <span class="mb-1 text-muted">在浅水海域的海底电缆以及水下无人探测机的工作场景</span>
+                                                                  <button class="btn btn-sm btn-white" onclick="createImage('在浅水海域的海底电缆以及水下无人探测机的工作场景',1,'256x256')">
+                                                                      <a href="#image-sc">试一试</a>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                  <span class="mb-1 text-muted">位于浅水海域，破损待修复的海底电缆场景</span>
+                                                                  <button class="btn btn-sm btn-white" onclick="createImage('位于浅水海域，破损待修复的海底电缆场景',1,'256x256')">
+                                                                      <a href="#image-sc">试一试</a>
+                                                                  </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="row align-items-center mt-5">
+                                        <div class="col-6 col-xl-4">
+                                            <div class="media">
+                                                <div class="avatar me-3 show-user-detail" data-toggle="tooltip" title="" data-original-title="ChatGPT Bot">
+                                                    <div class="avatar rounded-circle no-image bg-primary text-light">
+                                                        <span><i class="zmdi zmdi-comment-text"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="media-body overflow-hidden">
+                                                    <div class="d-flex align-items-center mb-1">
+                                                        <h6 class="text-truncate mb-0 me-auto">图片模型</h6>
+                                                    </div>
+                                                    <div class="text-truncate">基于DALL·E模型</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-1 mb-1">
+                                            <div class="alert alert-warning"><i class="zmdi zmdi-info me-1"></i>注意：由于模型限制，每分钟只能生成5张图片（无论成功与否）。所以本次演示每次限制生成1张256x256的图片，并适当延长了响应时间。每张图片有效期为1小时，喜欢请手动保存到本地。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-3 mb-3">
+                                            <textarea rows="3" class="form-control no-resize" id="image-prompt"
+                                                      placeholder="请输入图片描述"></textarea>
+                                    </div>
+                                    <div class="align-right">
+                                        <button class="btn btn-primary image-cr-btn">生成</button>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="message-content">
+                                            <div class="col-auto">
+                                                <span class="mb-1">生成的图片如下</span>
+                                            </div>
+                                            <div class="attachment right-file image-sc" id="image-sc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://hoppinzq.com/video/assets/js/jquery-3.3.1.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/bootstrap.bundle.min.js"></script>
+<script src="./chat/static/js/template.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/marked.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/prettify.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/raphael.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/underscore.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/sequence-diagram.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/flowchart.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/jquery.flowchart.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/editormd.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/zq.js"></script>
+<script src="https://hoppinzq.com/zui/static/js/sweetalert.min.js"></script>
+<script src="https://hoppinzq.com/zui/static/js/jquery.sweet-alert.custom.js"></script>
+<script src="https://hoppinzq.com/spider/js/simple-bar.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/jBox.all.min.js"></script>
+<script src="https://hoppinzq.com/chat/static/js/html2canvas.js"></script>
+<script>
+
+
+
+    var ip = "http://43.163.202.187:8094"
+    var webMetaData = {
+        zq: __zqChat,//zq元数据，提供公用方法和浏览器环境信息（如：是否移动端，是否在联网环境等）
+        userId: null,//浏览器独一无二的标识，模拟用户登录后的id，永久存放于缓存中
+        apikey:null,
+        modal: "gpt-3.5-turbo",//全局模型，其他模型在帮助中查看
+        timeout: 7500,
+        ws: null,//websocket对象，项目启动后会马上连接，注意：每次重连的时候ws会有2s被置为null，请妥善处理
+        sse: null,//sse对象，仅在使用时连接，error事件和complete事件都放在error中处理了，请知悉
+        chatState: 0,//0表示关闭，即没有在聊天，处于空闲状态。1表示等待中，这时候后台已经接收到请求，但还没有返回数据。2表示正在聊天中，后台通过sse实时返回聊天对话。
+        index: 1,//当前聊天索引
+        userno: null,//不同于userId，userno为websocket标志的当前浏览器的标识，每次重启都会改变
+        isContent: true,//是否携带上下文
+        cache: {},//缓存
+        accessToken: null,//openai登录需要的凭证，通过该token，无需用户名密码即可伪造登录openai，并获取账号元数据
+        chat: [],//聊天内容
+        chatCurrentId: null,//当前聊天id
+        accessTokenJWT: {//解析后的token
+            header: null,
+            payload: null,
+            signature: null
+        }
+    }
+
+    $(function () {
+        apikey()
+        webMetaData.userno = __zqChat.uuid(32, 64);
+        webMetaData.userId = localStorage.getItem("userId");
+        if (webMetaData.userId == null) {
+            webMetaData.userId = __zqChat.uuid(32, 64);
+            localStorage.setItem("userId", webMetaData.userId);
+        }
+        $("#user_id").text("欢迎您,游客:" + webMetaData.userId);
+        init();
+        bind();
+        connect("sse");
+        setTimeout(function () {
+            $("#modal-settings .modal-dialog").width($(".main").width());
+            $("#modal-image .modal-dialog").width($(".main").width());
+
+        }, 1000);
+        setInterval(function () {
+            $("#modal-image .modal-dialog").height(0).height($(".modal-image-body").height()+60);
+            $("#modal-settings .modal-dialog").height(0).height($(".modal-settings-body").height()+30);
+        }, 20);
+
+        console.log(webMetaData)
+        account();
+
+    })
+
+    function apikey(){
+        if(localStorage.getItem("apikey")!=null){
+            webMetaData.apikey=localStorage.getItem("apikey");
+        }
+        $.ajaxSetup({
+            headers: {
+                'apikey': webMetaData.apikey
+            }
+        });
+        $("#apikey").val(webMetaData.apikey);
+    }
+
+    function saveApiKey() {
+        localStorage.setItem("apikey",$("#apikey").val());
+        location.reload();
+    }
+
+    function clearApiKey() {
+        localStorage.removeItem("apikey");
+        location.reload();
+    }
+
+    function createChat() {
+        $(".chat-message").html("");
+        let chatId = __zqChat.uuid(32, 62);
+        let nowTime = __zqChat.getRealDate(new Date());
+        $(".chat-title").removeClass("active")
+        $(".chat-all-header").after2(`<li class="online chat-title active new" data-id="${chatId}">
+                        <div class="hover_action">
+
+
+                            <button type="button" data-toggle="tooltip" onclick="removeChat('${chatId}')" data-original-title="移除聊天" class="btn btn-link text-danger"><i class="zmdi zmdi-delete"></i>
+                            </button>
+                        </div>
+                        <a href="#" class="card">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="avatar me-3">
+                                        <div class="avatar rounded-circle no-image bg-primary text-light">
+                                            <span><i class="zmdi zmdi-comment-text"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body overflow-hidden">
+                                        <div class="d-flex align-items-center mb-1">
+                                            <h6 class="text-truncate mb-0 me-auto chat-question-header" >新建聊天</h6>
+                                            <p class="small text-muted text-nowrap ms-4 mb-0">${nowTime}</p>
+                                        </div>
+                                        <div class="text-truncate chat-answer-header">
+                                            点击我来跟聊天吧
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>`, function () {
+            setHelp();
+            $(".chat-title").off("click").on("click", function () {
+                //移动端切换聊天自动关闭
+                if(__zqChat.isMobile){
+                    $(".sidebar-toggle-btn").click();
+                    $(".nav-link-mobile").on("click",function () {
+                        $(".sidebar-toggle-btn").click();
+                    })
+                }
+                webMetaData.index = 1;
+                if (webMetaData.chatState > 0) {
+                    stopChat();
+                }
+                $(".chat-message").html("");
+                $(this).addClass("active").siblings().removeClass("active");
+                let chatId = $(this).data("id");
+                webMetaData.chatCurrentId = chatId;
+                $.each(webMetaData.chat, function (i, cc) {
+                    if (cc.chat_id == chatId) {
+                        webMetaData.index += cc.chatMessageList.length / 2;
+                        $.each(cc.chatMessageList, function (index, chatMsg) {
+                            let chatIndex = index + 1;
+                            if (chatMsg.message_role == "user") {
+                                buildMessage(0, "user-chat-question-" + chatMsg.message_index, chatMsg.message_createDate, chatMsg.message_user_name, chatMsg.message_user_image, chatMsg.message, chatIndex,false,chatMsg.message_id);
+                            }
+                            if (chatMsg.message_role == "assistant") {
+                                buildMessage(1, "user-chat-answer-" + chatMsg.message_index, chatMsg.message_createDate, chatMsg.message_user_name, chatMsg.message_user_image, chatMsg.message, chatIndex,false,chatMsg.message_id);
+                            }
+                            markdownToHtml("message-user-chat-answer-" + chatMsg.message_index);
+                        })
+                    }
+                })
+                let scrollableDiv = document.getElementById("chat-content");
+                scrollableDiv.scrollTop = 0;
+            })
+        });
+        webMetaData.chatCurrentId = chatId;
+        webMetaData.chat.push({
+            chat_id: chatId,
+            chat_user_id: webMetaData.userId,
+            chat_createDate: nowTime,
+            chat_title: "新建聊天",
+            chat_answer: "点击我来跟聊天吧",
+            chat_state: 0,//0表示不公开，1表示公开
+            chatMessageList: [],
+            chat_modal: webMetaData.modal,
+            chat_context:6,
+            chat_system:""
+        })
+    }
+
+    /**
+     * 根据chatID查找chat
+     * */
+    function findChatByChatid(chatId) {
+        let temp = null;
+        $.each(webMetaData.chat, function (i, chat) {
+            if (chat.chat_id == chatId) {
+                temp = chat;
+                return;
+            }
+        })
+        return temp;
+    }
+
+    /**
+     * 获取当前聊天
+     * */
+    function getCurrentChat(){
+        return findChatByChatid(webMetaData.chatCurrentId);
+    }
+
+    /**
+     * 移除聊天
+     * */
+    function removeChat(chatId) {
+        swal({
+                title: "确定?",
+                text: "该操作将移除该聊天!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "移除!",
+                cancelButtonText: "不移除!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.get(`${ip}/hoppinzq?method=deleteChatByChatId&params={"chatId":"${chatId}"}`, function (data) {
+                        let _data = JSON.parse(data);
+                        if (_data.code == 200) {
+                            swal("成功!", "删除成功", "success");
+                            for(let i=0;i<webMetaData.chat.length;i++){
+                                let chat=webMetaData.chat[i];
+                                if (chat.chat_id == chatId) {
+                                    webMetaData.chat.splice(1, i - 1);
+                                    i++;
+                                }
+                            }
+                            let temp = 0;
+                            $(".chat-title").each(function (index, element) {
+                                if (chatId == $(element).data("id")) {
+                                    $(element).remove();
+                                    temp = index;
+                                }
+                                if (temp = index + 1) {
+                                    $(element).click();
+                                }
+                            })
+                            //若全部都被移除，新建一个
+                            if ($(".chat-title").length == 0) {
+                                createChat()
+                            }
+
+
+                        } else {
+                            swal("错误!", "删除失败", "error");
+                        }
+                    })
+
+                } else {
+                    swal("取消!", "移除操作已取消", "success");
+                }
+            });
+    }
+
+
+
+
+
+
+    function loadChat() {
+        if (webMetaData.chat.length == 0) {
+            createChat();
+        } else {
+            $.each(webMetaData.chat, function (index, chat) {
+                $(".chat-all-header").after(`<li class="online chat-title" data-id="${chat.chat_id}">
+                        <div class="hover_action">
+                            <!--<button type="button" data-toggle="tooltip" onclick="openChat('${chat.chat_id}')" data-original-title="标记为公开" class="btn btn-link text-info"><i class="zmdi zmdi-eye"></i></button>-->
+                            <!--<button type="button" class="btn btn-link text-warning" onclick="editChat('${chat.chat_id}')" data-original-title="修改聊天"><i class="zmdi zmdi-edit"></i>-->
+                            </button>
+                            <button type="button" data-toggle="tooltip" onclick="removeChat('${chat.chat_id}')" data-original-title="移除聊天" class="btn btn-link text-danger"><i class="zmdi zmdi-delete"></i>
+                            </button>
+                        </div>
+                        <a href="#" class="card">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="avatar me-3">
+                                        <div class="avatar rounded-circle no-image bg-primary text-light">
+                                            <span><i class="zmdi zmdi-comment-text"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="media-body overflow-hidden">
+                                        <div class="d-flex align-items-center mb-1">
+                                            <h6 class="text-truncate mb-0 me-auto chat-question-header" >${chat.chat_title}</h6>
+                                            <p class="small text-muted text-nowrap ms-4 mb-0">${chat.chat_createDate}</p>
+                                        </div>
+                                        <div class="text-truncate chat-answer-header">
+                                            ${chat.chat_answer}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>`);
+            });
+            createChat();
+        }
+    }
+
+    function init() {
+        webMetaData.cache.theme = localStorage.getItem("theme");
+        webMetaData.cache.locache = localStorage.getItem("locache") == null ? "1" : localStorage.getItem("locache");
+        webMetaData.cache.isscoll = localStorage.getItem("isscoll") == null ? "1" : localStorage.getItem("isscoll");
+        webMetaData.cache.ishelp = localStorage.getItem("ishelp") == null ? "1" : localStorage.getItem("ishelp");
+        if (webMetaData.cache.locache == "0") {
+            $("#iall-cache").attr("checked", false);
+        }
+        if (webMetaData.cache.isscoll == "0") {
+            $("#iall-scoll").attr("checked", false);
+        }
+        if (webMetaData.cache.ishelp == "0") {
+            $("#iall-help").attr("checked", false);
+        }
+        initAccessToken();
+        initChat();
+    }
+
+    function initChat() {
+        if (webMetaData.userId != null) {
+            $.ajax({
+                url: `${ip}/hoppinzq?method=getChatByUserId&params={"userId":"${webMetaData.userId}"}`,
+                timeout: webMetaData.timeout,
+                success: function (data) {
+                    let _data = JSON.parse(data);
+                    if (_data.code == 200) {
+                        let chat = _data.data;
+                        webMetaData.chat = chat;
+                    }
+                },
+                complete: function () {
+                    loadChat();
+                    __zqChat.stopLoading(0, 0);
+                }
+            })
+        }
+    }
+
+    /**
+     * 初始化accesstoken
+     **/
+    function initAccessToken() {
+        webMetaData.accessToken = localStorage.getItem("accessToken");
+        if (webMetaData.accessToken == null || !checkToken(false)) {
+            $(".token-card").hide();
+            $("#access-token").html("");
+        } else {
+            $(".token-card").show();
+            $("#access-token").html(webMetaData.accessToken.trim());
+            let header = webMetaData.accessToken.split(".")[0];
+            webMetaData.accessTokenJWT.header = header;
+            let payload = webMetaData.accessToken.split(".")[1];
+            webMetaData.accessTokenJWT.payload = payload;
+            let signature = webMetaData.accessToken.split(".")[2];
+            webMetaData.accessTokenJWT.signature = signature;
+        }
+    }
+
+    /**
+     * 删除accesstoken
+     **/
+    function deleteToken() {
+        swal({
+                title: "确定删除?",
+                text: "该操作将删除现有token!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除!",
+                cancelButtonText: "不删除!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    localStorage.removeItem("accessToken");
+                    initAccessToken();
+                    swal("成功!", "删除成功", "success");
+                } else {
+                    swal("取消!", "删除操作已取消", "success");
+                }
+            });
+
+    }
+
+    /**
+     * 检查accesstoken
+     **/
+    function checkToken(isSweet) {
+        let token = webMetaData.accessToken;
+        if (isSweet) {
+            if (token == null || token.split(".").length != 3) {
+                swal("失败!", "格式有错误，解析失败", "error");
+            } else {
+                let header = token.split(".")[0];
+                webMetaData.accessTokenJWT.header = header;
+                let payload = token.split(".")[1];
+                webMetaData.accessTokenJWT.payload = payload;
+                let signature = token.split(".")[2];
+                webMetaData.accessTokenJWT.signature = signature;
+                swal({
+                    html: true, title: "解析成功！", text: `<div class="card bg-light border">
+                                                                    <div class="card-body"><p class="mb-2">头部</p>
+                                                                        <p class="small text-muted mb-2">${atob(header)}</p><p class="mb-2">载荷</p>
+                                                                        <p class="small text-muted mb-2">${atob(payload)}</p><p class="mb-2">签名</p>
+                                                                        <p class="small text-muted mb-2">${signature}</p>
+                                                                    </div>
+                                                                </div>`
+                });
+            }
+        } else {
+            if (token == null || token.split(".").length != 3) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * 更新accesstoken
+     **/
+    function updateAccessToken() {
+        swal({
+                title: "确定?",
+                text: "该操作将更新token!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "更新!",
+                cancelButtonText: "不更新!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    let token = $(".access-token").val();
+                    if (token.length == 0) {
+                        swal("失败!", "token为空", "error");
+                        $(".access-token").focus();
+                        return;
+                    }
+                    if (token.split(".").length != 3) {
+                        swal("失败!", "token格式不正确，token必须为JWT格式,请检查格式", "error");
+                        $(".access-token").focus();
+                        return;
+                    }
+                    localStorage.setItem("accessToken", token);
+                    webMetaData.accessToken = token;
+                    webMetaData.accessTokenJWT = {};
+                    swal("成功", "token已修改", "success")
+                    initAccessToken();
+                } else {
+                    swal("取消!", "操作已取消", "success");
+                }
+            });
+    }
+
+    function bind() {
+        if(__zqChat.isMobile){
+            $(".nav-link-mobile").on("click",function () {
+                if(!$("body").hasClass("open-sidebar-menu")){
+                    $(".sidebar-toggle-btn").click();
+                }
+            })
+        }
+
+        $(".no-show-log").click(function () {
+            localStorage.setItem("log1","0")
+        })
+        $(".cache-m").click(function () {
+            let cacheKey = $(this).data("cache")
+            $(this).is(":checked") == 1 ? localStorage.setItem(cacheKey, "1") : localStorage.setItem(cacheKey, "0");
+            webMetaData.cache[cacheKey] = localStorage.getItem(cacheKey);
+        })
+        $(".default-settings").click(function () {
+            $(".cache-m").each(function (index, element) {
+                if ($(element).is(":checked") == 0) {
+                    $(element).click();
+                }
+            })
+        })
+        $('.open-dy-button').click(function(){
+            $('.pop-up-modal').addClass('open-modal');
+        });
+        $('.pop-up-modal .close-modal').click(function(){
+            $('.pop-up-modal').removeClass('open-modal');
+        });
+        let copyButton = document.querySelectorAll('.copy-btn');
+        copyButton.forEach(element => {
+            element.addEventListener('click', (e) => {
+                $(copyButton).each(function (index, elem) {
+                    $(elem).text("复制");
+                });
+                const elem = e.target.parentElement.children[1].innerText;
+                let save = function (e) {
+                    e.clipboardData.setData('text/plain', elem);
+                    e.preventDefault();//阻止默认行为
+                }
+                document.addEventListener('copy', save);
+                document.execCommand("copy");
+                $(element).text("复制成功！");
+            })
+        });
+        /**
+         * 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
+         */
+        window.onbeforeunload = function () {
+            if (webMetaData.ws != null && webMetaData.ws.readyState === 1) {
+                $.post(ip+"/v1/chat/completions/stopstream/" + webMetaData.userno)
+                webMetaData.ws.close();
+            }
+            if (webMetaData.sse != null) {
+                webMetaData.sse.close();
+            }
+        }
+
+        //监听回车
+        $("#sendText").keydown(function (e) {
+            if (e.keyCode == 13) {
+                question();
+                e.preventDefault();
+            }
+        })
+        $(".chat-message-search").keydown(function (e) {
+            if (e.keyCode == 13) {
+                let search = $(this).val();
+                if (search.trim().length == 0) {
+                    swal("错误!", "请输入搜索内容", "error");
+                } else {
+                    swal("", "这个功能没什么用，自己去实现", "success");
+                }
+                e.preventDefault();
+            }
+        })
+
+        $(".chat-message-search-btn").click(function () {
+            let search = $(".chat-message-search").val();
+            if (search.trim().length == 0) {
+                swal("错误!", "请输入搜索内容", "error");
+            } else {
+                swal("", "这个功能没什么用，自己去实现", "success");
+            }
+
+        })
+        $(".chat-search").keydown(function (e) {
+            if (e.keyCode == 13) {
+                let search = $(this).val();
+                if (search.trim().length == 0) {
+                    swal("错误!", "请输入搜索内容", "error");
+                } else {
+                    swal("", "这个功能没什么用，自己去实现", "success");
+                }
+                e.preventDefault();
+            }
+        })
+
+        $("#sendChat").click(function () {
+            question();
+        })
+
+        /**
+         * 停止对话
+         * */
+        $("#stopChat").click(function () {
+            stopChat();
+        })
+
+        $(".create-new-chat").click(function () {
+            createChat();
+        })
+
+        $(".image-cr-btn").click(function () {
+            let prompt=$("#image-prompt").val();
+            if(prompt.trim().length==0){
+                alert("请输入图片描述");
+                return;
+            }
+            createImage(prompt,1,"256x256");
+        });
+
+        $("#code-check").click(function () {
+            $(this).off("click").text("请稍等...");
+            fixCode();
+        })
+
+    }
+
+    function getScreenshot() {
+        let dom = document.getElementById('chat-message');
+        // 定义截图参数
+        let options = {
+            scrollY: -window.scrollY, // 向下滚动的距离
+            useCORS: true, // 是否允许跨域访问
+            allowTaint: true, // 是否允许跨域访问时携带cookies等敏感信息
+            backgroundColor: "#ffffff" // 背景色设置为null，保证图片的背景透明
+        };
+        // 使用html2canvas截图
+        html2canvas(dom, options).then(function(canvas) {
+            // 将生成的canvas转成图片
+            let imgData = canvas.toDataURL("image/png");
+            let uuid=__zqChat.uuid(32,64)
+            $(".chat-message").append(`<li class="d-flex message chat-screenshot" id="chat-image-${uuid}" data-html2canvas-ignore>
+                            <div class="message-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar sm rounded-circle bg-primary d-flex align-items-center justify-content-center">
+                                        <span><i class="zmdi zmdi-comment-text text-light"></i></span>
+                                    </div>
+                                    <div class="mx-10 p-2">
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">ChatGPT Bot</a>
+                                    </div>
+                                </div>
+                                <div class="message-row d-flex align-items-center">
+                                    <div class="message-content p-3">
+                                        我是AI助手，您的截图已生成！
+                                        <div class="attachment">
+                                            <div class="media mt-2">
+                                                <div class="avatar me-2">
+                                                    <div class="avatar rounded no-image green">
+                                                        <a download="${webMetaData.chatCurrentId}.png" href="${imgData}"><i class="zmdi zmdi-image"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="media-body overflow-hidden">
+                                                    <h6 class="text-truncate mb-0"><a download="${webMetaData.chatCurrentId}.png" href="${imgData}">截图.png</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="text-muted me-1 p-2 text-muted" href="#" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#" onclick="removeAnswer('chat-image-${uuid}')">删除这条信息</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li> `)
+            let scrollableDiv = document.getElementById("chat-content");
+            scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+        });
+    }
+
+    function checkChatError(){
+        $(".message-bot").each(function (index,element) {
+            let $messc=$(element).find(".message-content");
+            if($messc.html().trim().length==0){
+                $messc.addClass("alert-danger");
+                $messc.html("后台出现了某些错误！")
+            }
+        })
+    }
+    //调用接口
+    function fixCode(){
+        $.ajax({
+            url: ip+"/v1/edits/code",
+            type: "post",
+            data: JSON.stringify({
+                "input": $(".code-editor").text(),
+                "instruction": "Complete the code based on comments"
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data)
+                $(".code-editor").text(data.choices[0].text);
+                // require(["orion/editor/edit"], function (edit) {
+                //     edit({className: "code-editor"});
+                // });
+            },
+            complete:function () {
+                $("#code-check").off("click").on("click",function () {
+                    $(this).off("click").text("增补/修改");
+                    fixCode();
+                })
+            }
+        })
+    }
+
+    function stopChat() {
+        if (webMetaData.ws != null) {
+            $.post(ip+"/v1/chat/completions/stopstream/" + webMetaData.userno)
+        } else {
+            webMetaData.sse.close();
+        }
+        if (webMetaData.chatState == 1) {
+            $("#user-chat-answer-" + webMetaData.index).remove();
+        } else if (webMetaData.chatState == 2) {
+            webMetaData.chatState = 0;
+            webMetaData.index++;
+            $("#stopChat").hide();
+            $("#sendChat").show();
+            saveChat();
+        }
+
+    }
+
+    /**
+     * 连接，sse为sse服务，ws为websocket服务，其中两个服务对话都可以用，但是后续功能（如终止对话等）全部只支持sse
+     * websocket可以当作demo学习或者使用，本项目使用了sse，官网也是。
+     * */
+    function connect(type) {
+        if (type == "sse") {
+
+        } else {
+            webMetaData.ws = new WebSocket("ws://103.143.11.157:8094/chatgpt/" + webMetaData.userno);
+            webMetaData.ws.onopen = function () {
+
+            };
+            webMetaData.ws.onmessage = function (event) {
+                $("#message-user-chat-answer-" + webMetaData.index).find(".wave").remove();
+                let msg = event.data;
+                let _msg = JSON.parse(msg);
+                let chat = JSON.parse(_msg.msg);
+                if (chat.choices[0].message.content != undefined) {
+                    webMetaData.chatState = 2;
+                    $("#message-user-chat-answer-" + webMetaData.index).text($("#message-user-chat-answer-" + webMetaData.index).text() + chat.choices[0].message.content);
+                }
+                if (webMetaData.cache.isscoll == "1") {
+                    let scrollableDiv = document.getElementById("chat-content");
+                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+                }
+                if (chat.choices[0].finishReason != undefined && chat.choices[0].finishReason == "stop") {
+                    markdownToHtml("message-user-chat-answer-" + webMetaData.index);
+                    webMetaData.index++;
+                    //结束
+                    webMetaData.chatState = 0;
+                }
+            };
+            webMetaData.ws.onclose = function () {
+                $.post(ip+"/v1/chat/completions/stopstream/" + webMetaData.userno)
+                setTimeout(function () {
+                    connect(); // 重新连接
+                }, 2000);
+            };
+            webMetaData.ws.onerror = function () {
+
+            };
+        }
+    }
+
+    /**
+     * 提问
+     * */
+    function question() {
+        if (webMetaData.chatState > 0) {
+            new jBox('Notice', {
+                attributes: {
+                    y: 'bottom'
+                },
+                position: {
+                    x: 'center',
+                    y: 'center'
+                },
+                animation: 'flip',
+                color: "red",
+                autoClose: 5000,
+                content: '请等待聊天完成',
+                delayOnHover: true,
+                showCountdown: true,
+            });
+            return;
+        }
+        let question = $("#sendText").val();
+        if (question.length == 0) {
+            new jBox('Notice', {
+                attributes: {
+                    y: 'bottom'
+                },
+                position: {
+                    x: 'center',
+                    y: 'center'
+                },
+                animation: 'flip',
+                color: "blue",
+                autoClose: 5000,
+                content: '请输入内容',
+                delayOnHover: true,
+                showCountdown: true,
+            });
+            $("#sendText").focus();
+            return;
+        }
+        $("#sendText").val("");
+        buildMessage(0, "user-chat-question-" + webMetaData.index, __zqChat.getRealDate(new Date()), "User", "http://hoppinzq.com/zui/static/picture/0.jpg", question, webMetaData.index,false);
+        //answer("user-chat-answer-" + webMetaData.index, question, "sse");
+        ourAnswer("user-chat-answer-" + webMetaData.index, question);	
+    };
+
+    /**
+     * 不渲染md，还原原来的聊天格式
+     * */
+    function notUserMd(id) {
+        if (webMetaData.chatState > 0) {
+            new jBox('Notice', {
+                attributes: {
+                    y: 'bottom'
+                },
+                position: {
+                    x: 'center',
+                    y: 'center'
+                },
+                animation: 'flip',
+                color: "blue",
+                autoClose: 5000,
+                content: '正在生成聊天中，生成完毕可操作',
+                delayOnHover: true,
+                showCountdown: true,
+            });
+            return;
+        }
+        $("#" + id).removeClass("markdown-body").removeClass("editormd-html-preview").html("")
+            .text($("#" + id).data("predate"));
+    }
+
+    /**
+     * 渲染md
+     * */
+    function userMd(id) {
+        if (webMetaData.chatState > 0) {
+            new jBox('Notice', {
+                attributes: {
+                    y: 'bottom'
+                },
+                position: {
+                    x: 'center',
+                    y: 'center'
+                },
+                animation: 'flip',
+                color: "blue",
+                autoClose: 5000,
+                content: '正在生成聊天中，生成完毕可操作',
+                delayOnHover: true,
+                showCountdown: true,
+            });
+            return;
+        }
+        markdownToHtml(id)
+    }
+
+    /**
+     * md转html
+     * */
+    function markdownToHtml(id) {
+        let markdown = $("#" + id).text();
+        $("#" + id).text("").data("predate", markdown);
+
+        let testEditormdView = editormd.markdownToHTML(id, {
+            markdown: markdown,//+ "\r\n" + $("#append-test").text(),
+            htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+            //htmlDecode: "style,script,iframe",  // you can filter tags decode
+            //toc             : false,
+            tocm: true,    // Using [TOCM]
+            //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+            //gfm             : false,
+            //tocDropdown     : true,
+            // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+            emoji: true,
+            taskList: true,
+            tex: true,  // 默认不解析
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
+        });
+        $(".message-content pre").each(function (index_code,element_code){
+            let $element_code=$(element_code);
+            $(element_code).find(".code_change").remove();
+            $(element_code).find(".copy-code-btn").remove();
+            let code=$element_code.text();
+            $element_code.addClass("pre_"+index_code);
+            let $code=$element_code.on({
+                mouseover : function(e1){
+                    e1.stopPropagation();
+                } ,
+                mouseout : function(e2){
+                    e2.stopPropagation();
+                }
+            });
+            $element_code.prepend($(`<button class="code_change cursor-pointer" data-html2canvas-ignore>切换主题</button>`).off("click").on("click",function () {
+                $code.toggleClass("hljs");
+            })).prepend($(`<button class="copy-code-btn" data-html2canvas-ignore>复制</button>`).off("click").on("click",function () {
+                $(".copy-code-btn").each(function (index, elem) {
+                    $(elem).text("复制");
+                });
+                let save = function (e) {
+                    e.clipboardData.setData('text/plain', code);
+                    e.preventDefault();//阻止默认行为
+                }
+                document.addEventListener('copy', save);
+                document.execCommand("copy");
+                $(this).text("复制成功！");
+            }))
+        })
+    }
+
+    /**
+     * botType:0用户 / 1 gpt机器人 / 2 :其他
+     **/
+    function buildMessage(botType, id, date, user, userImg, message, index,isHtml,messageId=null) {
+        message = message.trim();
+        if(messageId==null){
+            messageId = __zqChat.uuid(32, 64);
+        }
+        if (botType==1) {
+            $(".new-answer").removeClass("new-answer");//永远保证类标签dropdown-item在最后一个对话
+            $(".chat-message").append2(`<li class="d-flex message message-bot" id="${id}">
+                            <div class="message-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar sm rounded-circle bg-primary d-flex align-items-center justify-content-center">
+                                        <span><i class="zmdi zmdi-comment-text text-light"></i></span>
+                                    </div>
+                                    <div class="mx-10 p-2">
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">${user}</a>
+                                    </div>
+                                </div>
+                                <span class="date-time text-muted">${date} <i
+                                        class="zmdi zmdi-check-all text-primary"></i></span>
+                                <div class="message-row d-flex align-items-center">
+                                    <div class="message-content p-3 text-chat" name='bbbb' id="message-${id}" data-img="${userImg}" data-user="${user}" data-date="${date}" data-role="assistant" data-id="${messageId}"></div>
+                                    <div class="dropdown">
+                                        <a class="text-muted me-1 p-2 text-muted" href="#" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <!--<a class="dropdown-item" href="#" onclick="notUserMd('message-${id}')" title="将会还原ChatBot原来的文本">不使用样式</a>
+                                            <a class="dropdown-item" href="#" onclick="userMd('message-${id}')" title="渲染ChatBot代码，表格等数据">渲染样式</a>-->
+                                            <a class="dropdown-item new-answer" href="#" onclick="reAnswer(this,'message-${id}','${id}','${messageId}')" title="将会还原ChatBot原来的文本">不满意，重新回答</a>
+                                            <a class="dropdown-item" href="#" onclick="needhelp1()" title="将会还原ChatBot原来的文本">回答的很棒</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`, function () {
+                if(isHtml){
+                    $("#message-"+id).html(message);
+                }else{
+                    $("#message-"+id).text(message);
+                    markdownToHtml("message-"+id);
+                }
+            })
+        }
+        else if(botType==0){
+            $(".chat-message").append2(`<li class="d-flex message message-user right" id="${id}">
+                            <div class="message-body">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <div class="mx-10 p-2">
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">${user}</a>
+                                    </div>
+                                    <span class="msg-avatar">
+                                        <img src="${userImg}" class="avatar avatar-lg rounded-circle">
+                                    </span>
+                                </div>
+                                <span class="date-time text-muted">${date}<i
+                                        class="zmdi zmdi-check-all text-primary"></i></span>
+                                <div class="message-row d-flex align-items-center justify-content-end">
+                                    <div class="dropdown">
+                                        <a class="text-muted me-1 p-2 text-muted" href="#" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#" onclick="setHelp1()" title="将会还原ChatBot原来的文本">您还可以问这些问题</a>
+                                        </div>
+                                    </div>
+                                    <div class="message-content p-3 text-chat" name="aaaa" id="message-${id}" data-img="${userImg}" data-user="${user}" data-role="user" data-date="${date}" data-id="${messageId}">${message}</div>
+                                </div>
+                            </div>
+                        </li>`, function () {
+            })
+        }else {
+            $(".chat-message").append(`<li class="d-flex message message-bot" id="${id}">
+                            <div class="message-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar sm rounded-circle bg-primary d-flex align-items-center justify-content-center">
+                                        <span><i class="zmdi zmdi-comment-text text-light"></i></span>
+                                    </div>
+                                    <div class="mx-10 p-2">
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">${user}</a>
+                                    </div>
+                                </div>
+                                <span class="date-time text-muted">${date} <i
+                                        class="zmdi zmdi-check-all text-primary"></i></span>
+                                <div class="message-row d-flex align-items-center">
+                                    <div class="message-content message-content-ex p-3 text-chat" data-role="helper">${message}</div>
+                                </div>
+                            </div>
+                        </li>`)
+        }
+        let scrollableDiv = document.getElementById("chat-content");
+        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    }
+
+    /**
+     *
+     * */
+    function deleteMessages(messageDomId,messageId) {
+        let $nextBotDom=$("#"+messageDomId).next(".message-bot");
+        let nextMessageId=$nextBotDom.find(".message-content").data("id");
+        $.get(`${ip}/hoppinzq?method=deleteChatMessageBatchByMessageIds&params={"messageIds":"['${messageId}','${nextMessageId}']"}`, function (data) {
+            let _data=JSON.parse(data);
+            if(_data.code==200){
+                $("#"+messageDomId).remove();
+                $nextBotDom.remove();
+                let chat=getCurrentChat();
+                let messages=chat.chatMessageList;
+                let tempChatMessage = [];
+                webMetaData.index--;
+                //倒着删
+                for(let i=messages.length-1;i>=0;i--){
+                    let message=messages[i]
+                    if(message.message_id==messageId||message.message_id==nextMessageId){
+                        messages.splice(i,1);
+                    }else{
+                        message.message_index=parseInt((i-2)/2)+1;
+                        tempChatMessage.push({
+                            "messageId": message.message_id,
+                            "index": message.message_index,
+                        })
+                    }
+                }
+                $.ajax({
+                    url: `${ip}/hoppinzq?method=updateChatMessages`,
+                    type: "post",
+                    data: JSON.stringify({
+                        "chatMessages": tempChatMessage
+                    }),
+                    contentType: "application/json",
+                    success: function (data) {
+                        //webMetaData.index++;
+                    },
+                    error: function (data) {
+                    }
+                })
+            }else{
+                swal("啊呀呀!", "删除有错误！", "error");
+            }
+        });
+    }
+
+    /**
+     * 保存对话
+     * */
+    function saveChat() {
+        let chat = findChatByChatid(webMetaData.chatCurrentId);
+        if (chat != undefined) {
+            let lastIndex = webMetaData.index - 1;
+            let lastChatUserDom = $("#message-user-chat-question-" + lastIndex);
+            let tempChatMessage = [];
+            chat.chatMessageList.push({
+                "chatId": webMetaData.chatCurrentId,
+                "messageId": lastChatUserDom.data("id"),
+                "role": lastChatUserDom.data("role"),
+                "message": lastChatUserDom.text(),
+                "date": lastChatUserDom.data("date"),
+                "user": lastChatUserDom.data("user"),
+                "index": lastIndex,
+                "image": lastChatUserDom.data("img")
+            });
+            tempChatMessage.push({
+                "chatId": webMetaData.chatCurrentId,
+                "messageId": lastChatUserDom.data("id"),
+                "role": lastChatUserDom.data("role"),
+                "message": lastChatUserDom.text(),
+                "date": lastChatUserDom.data("date"),
+                "user": lastChatUserDom.data("user"),
+                "userId": webMetaData.userId,
+                "index": lastIndex,
+                "image": lastChatUserDom.data("img")
+            })
+            let lastChatAssistantDom = $("#message-user-chat-answer-" + lastIndex);
+            chat.chatMessageList.push({
+                "chatId": webMetaData.chatCurrentId,
+                "messageId": lastChatAssistantDom.data("id"),
+                "role": lastChatAssistantDom.data("role"),
+                "message": lastChatAssistantDom.data("predate") == undefined ? lastChatAssistantDom.text() : lastChatAssistantDom.data("predate"),
+                "date": lastChatAssistantDom.data("date"),
+                "user": lastChatAssistantDom.data("user"),
+                "index": lastIndex,
+                "image": lastChatAssistantDom.data("img")
+            });
+            tempChatMessage.push({
+                "chatId": webMetaData.chatCurrentId,
+                "messageId": lastChatAssistantDom.data("id"),
+                "role": lastChatAssistantDom.data("role"),
+                "message": lastChatAssistantDom.data("predate") == undefined ? lastChatAssistantDom.text() : lastChatAssistantDom.data("predate"),
+                "date": lastChatAssistantDom.data("date"),
+                "user": lastChatAssistantDom.data("user"),
+                "index": lastIndex,
+                "image": lastChatAssistantDom.data("img")
+            })
+            $.ajax({
+                url: `${ip}/hoppinzq?method=createChatMessages`,
+                type: "post",
+                data: JSON.stringify({
+                    "chatMessages": tempChatMessage
+                }),
+                contentType: "application/json",
+                success: function (data) {
+                },
+                error: function (data) {
+                }
+            })
+        }
+    }
+
+    /**
+     * 需要帮助？
+     * */
+    function needhelp() {
+        $("#settings").click();
+        $("#faqs").click();
+    }
+    function needhelp1() {
+      //var sss1=document.getElementsByName('bbbb')
+      //const intputtext = "请从这段话中:"+sss1[sss1.length-1].innerHTML+"抽取出地点实体，将抽出来的实体用逗号隔开表示出来"
+      //answer("user-chat-answer-" + webMetaData.index, intputtext, "sse");
+      /*$(".chat-message").append2(`
+      <div class="message-body">
+
+          <div class="message-row d-flex align-items-center">
+
+              <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="">
+                舟山市
+              </button>
+
+          </div>
+      </div>
+
+
+  `, function () {
+$(".demochat").off("click").on("click", function () {
+
+})
+})*/
+      /*if (sss1[sss1.length-1].innerHTML) {
+                const intputtext = "请从这段话中:"+sss1[sss1.length-1].innerHTML+"抽取出行政区划的实体，将抽出来的实体用逗号隔开表示出来"
+                let histories1 = [];
+                histories1.push({ "role": "assistant", "content": intputtext })
+                if (histories1.length > 30) {
+                  histories1 = histories1.slice(-30)
+                }
+                const question1 = JSON.parse(JSON.stringify(histories1))
+                axios.post("https://api.openai.com/v1/chat/completions", {
+                  messages: question1, max_tokens: 2096, model: "gpt-3.5-turbo", temperature: 1,
+                  top_p: 1, frequency_penalty: 0, presence_penalty: 0
+                }, {
+                  headers: { "Content-type": "application/json", "Authorization": "Bearer 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"}
+                }).then(res =>{
+                  let resulttopic1 = res.data.choices[0].message.content
+                  console.log(resulttopic1)
+
+
+                  $(".chat-message").append2(`
+                        <div class="message-body">
+
+                            <div class="message-row d-flex align-items-center">
+
+                                <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="">
+                                  resulttopic1
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                    `, function () {
+            $(".demochat").off("click").on("click", function () {
+                $("#sendText").val($(this).data("message"));
+                question();
+            })
+        })
+                })
+              }*/
+            }
+
+
+    /**
+     * 重新回答
+     * */
+    function reAnswer(element,messageDomid,domId,messageId) {
+        if(!$(element).hasClass("new-answer")){
+            swal("出错啦!", "只能重新回答最新一条聊天！你可以试试重新提问", "error");
+            return;
+        }
+        let tempIndex=webMetaData.index-1;
+        let lastMessageId=$("#message-user-chat-question-"+tempIndex).data("id");
+        
+        let deletedText = $("#message-user-chat-answer-" + tempIndex).text();
+        console.log('aaaa')
+        console.log(deletedText)
+        $.get(`${ip}/hoppinzq?method=deleteChatMessageBatchByMessageIds&params={"messageIds":"['${lastMessageId}','${messageId}']"}`, function (data) {
+            let _data=JSON.parse(data);
+            //console.log(data)
+            if(_data.code==200){
+                webMetaData.index--;
+                $("#"+domId).remove();
+                let chat=getCurrentChat();
+                let messages=chat.chatMessageList;
+                let question = $("#message-user-chat-question-"+webMetaData.index).text();
+                console.log(question)
+                console.log('aaa'+messages)
+
+                //倒着删
+                for(let i=messages.length-1;i>=0;i--){
+                    let message=messages[i]
+                    if(message.messageId==messageId||message.messageId==lastMessageId){
+                        console.log(message)
+                        console.log('bbb')
+                        messages.splice(i,1);
+                    }
+
+                }
+                //answer("user-chat-answer-" + webMetaData.index, question, "sse");
+                ourAnswer("user-chat-answer-" + webMetaData.index, question);	
+            }else{
+                swal("啊呀呀!", "删除现有回答有错误，不能重新回答！", "error");
+            }
+        });
+    }
+    function containsChinese(text) {
+        //return false;
+        for (let i = 0; i < text.length; i++) {
+            const char = text.charAt(i);
+            if ('\u4e00' <= char && char <= '\u9fff') {
+                return true;
+            }
+        }
+        return false;
+    }
+   
+    function ourAnswer(chatid, question) {
+        //if (containsChinese(question)){
+            console.log("开始开始开始");
+
+            $.ajax({
+                type: "post",
+                //url: 'http://116.62.19.215:8090/generate',
+                //url: 'http://10.22.42.175:8090/generate',
+                //url: 'http://121.41.117.246:8001/v1/chat/completions',
+                //url: 'http://121.41.117.246:8100/gateway',
+                url: 'http://121.41.117.246:8010/v1/chat/completions',
+                crossDomain: true,
+                withCredentials: true, // 添加这一行
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },        
+                data: JSON.stringify({
+                    "model": "string",
+                    // "instruction": question,
+                    // "input": "",
+                    // "parameters": {
+                    //     "max_tokens": 1024
+                    // }
+
+                    "messages": [
+                        {
+                        "role": "user",
+                        "content": question
+                        // "max_tokens": 1
+                        }
+                    ],
+                    "temperature": 0,
+                    "top_p": 0,
+                    "n": 1,
+                    "max_tokens": 1024,
+                    "stream": false
+                }),
+                //contentType: "application/json",
+                beforeSend: function () {
+                    console.log("准备发送请求...");
+                    webMetaData.chatState = 1;
+                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "OceanGPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                    $("#sendChat").hide();
+                    $("#stopChat").show();
+                    
+                },
+                success: function (response) {
+                    console.log("成功接收响应：", response);
+                    //console.log(response['choices'][0]['message']['content'])
+                    let result = response['choices'][0]['message']['content'];
+                    // let result=response.generated_text
+                    if(result.endsWith('</s>')) {
+                        result = result.slice(0, -4)
+                    }
+                    $("#message-user-chat-answer-" + webMetaData.index).text(result);
+                    $("#sendChat").show();
+                    $("#stopChat").hide();
+                    webMetaData.chatState = 0;
+                    webMetaData.index++
+
+                },
+                error: function (xhr, status, error) {
+                    //alert("出错了！");
+                    console.error("请求失败:", status, error);
+                    // 可以显示错误信息给用户
+                    alert("出错了：" + error);
+                
+                }
+            });
+       //}
+        /*else{
+            $.ajax({
+                type: "post",
+                //url: 'http://116.62.19.215:8090/generate',
+                //url: 'http://10.22.42.175:8090/generate',
+                url: 'http://121.41.117.246:8090/generate',
+                data: JSON.stringify({
+                    "instruction": question, 
+                    "input": "", 
+                    "parameters": {
+                        "top_p": 0.7, 
+                        "max_tokens": 256
+                    }
+                }),
+                contentType: "application/json",
+                beforeSend: function () {
+                    webMetaData.chatState = 1;
+                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "OceanGPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                    $("#sendChat").hide();
+                    $("#stopChat").show();
+                    
+                },
+                success: function (response) {
+                    console.log(response)
+                    let result = response.generated_text;
+                    if(result.endsWith('</s>')) {
+                        result = result.slice(0, -4)
+                    }
+                    $("#message-user-chat-answer-" + webMetaData.index).text(result);
+                    $("#sendChat").show();
+                    $("#stopChat").hide();
+                    webMetaData.chatState = 0;
+                    webMetaData.index++
+
+                },
+                error: function (xhr, status, error) {
+                    alert("出错了！");
+                }
+            });
+        }*/
+    }
+       
+    /**
+     * 回复,支持ws跟sse，推荐使用sse
+     * */
+    function answer(chatid, question, type) {
+        if (type == "sse") {
+            let chat=getCurrentChat();
+            let questionEncode=encodeURI(question);
+            let eventSource = new EventSource(ip+'/stream-sse3?message=' + questionEncode + "&chatId=" + webMetaData.chatCurrentId+ "&context_number=" + chat.chat_context+ "&system=" + chat.chat_system+"&apikey="+webMetaData.apikey);
+            webMetaData.chatState = 1;
+            buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "海洋GPT", "botimg", `
+                                        <div class="wave">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>`, webMetaData.index,true);
+            $("#sendChat").hide();
+            $("#stopChat").show();
+            webMetaData.sse = eventSource;
+            eventSource.onopen = function (event) {
+            };
+            eventSource.addEventListener("message", function (event) {
+                $("#message-user-chat-answer-" + webMetaData.index).find(".wave").remove();
+                let msg = event.data;
+                //错误了
+                if(msg.indexOf("500sse_error_zq")!=-1){
+                    webMetaData.chatState = 0;
+                    setErrorChat(msg);
+                    eventSource.close();
+                    $("#sendChat").show();
+                    $("#stopChat").hide();
+                }else{
+                    let chat = JSON.parse(msg);
+                    if (chat.choices[0].message.content != undefined && chat.choices[0].message.content != null) {
+                        webMetaData.chatState = 2;
+                        $("#message-user-chat-answer-" + webMetaData.index).text($("#message-user-chat-answer-" + webMetaData.index).text() + chat.choices[0].message.content);
+                    }
+                    if (chat.choices[0].finishReason != undefined && chat.choices[0].finishReason == "length") {
+                        swal("啊呀呀!", "token超出限制", "error");
+                    }
+                }
+                if (webMetaData.cache.isscoll == "1") {
+                    let scrollableDiv = document.getElementById("chat-content");
+                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+                }
+            });
+            eventSource.addEventListener("error", function (event) {
+                if (webMetaData.index == 1) {
+                    updateChat();
+                }
+                markdownToHtml("message-user-chat-answer-" + webMetaData.index);
+                webMetaData.index++;
+                //结束
+                webMetaData.chatState = 0;
+                eventSource.close();
+                $("#sendChat").show();
+                $("#stopChat").hide();
+                saveChat();
+                //聊天错误
+                //checkChatError();
+            });
+        } else {
+            $.ajax({
+                type: "post",
+                url: ip+"/v1/chat/completions/poststream/" + webMetaData.userno,
+                data: JSON.stringify({
+                    "model": "gpt-3.5-turbo",
+                    "stream": true,
+                    "messages": [
+                        {"role": "user", "content": question}
+                    ]
+                }),
+                contentType: "application/json",
+                beforeSend: function () {
+                    webMetaData.chatState = 1;
+                    buildMessage(1, "user-chat-answer-" + webMetaData.index, __zqChat.getRealDate(new Date()), "海洋GPT", "botimg", `<div class="wave"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`, webMetaData.index,true);
+                },
+                success: function (response) {
+
+                },
+                error: function (xhr, status, error) {
+                    alert("出错了！");
+                }
+            });
+        }
+
+    }
+
+    /**
+     * 错误的聊天
+     * */
+    function setErrorChat(error) {
+        let logid=error.substring(error.indexOf(":")+1);
+        $("#user-chat-question-"+webMetaData.index).attr("id","user-chat-question-error-"+webMetaData.index);
+        $("#user-chat-answer-"+webMetaData.index).attr("id","user-chat-answer-error-"+webMetaData.index);
+        $("#message-user-chat-answer-"+webMetaData.index).addClass("alert-danger").css("border","1px solid").html("数据正在加载中，请稍等..." );
+    }
+
+    /**
+     * 更新&新增聊天
+     * */
+    function updateChat() {
+        let chatId = webMetaData.chatCurrentId;
+        let index = webMetaData.index;
+        let chat_title = $("#message-user-chat-question-" + index).text().substr(0, 10);
+        let chat_answer = $("#message-user-chat-answer-" + index).text().substr(0, 20);
+        let nowTime = __zqChat.getRealDate(new Date());
+        $(".chat-title").each(function (i, element) {
+            if ($(element).data("id") == chatId) {
+                $(element).find(".chat-question-header").text(chat_title);
+                $(element).find(".chat-answer-header").text(chat_answer);
+            }
+        })
+        let chat = {};
+        chat.chat_id = chatId;
+        chat.chat_user_id = webMetaData.userId;
+        chat.chat_createDate = nowTime;
+        chat.chat_title = chat_title;
+        chat.chat_answer = chat_answer;
+        chat.chat_state = "0";
+        chat.chat_modal = webMetaData.modal;
+
+        $.ajax({
+            url: `${ip}/hoppinzq?method=insertOrUpdateChat`,
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "chat": chat
+            }),
+            success: function (data) {
+            },
+            error: function (data) {
+            }
+        })
+    }
+
+
+    /**
+     * 删除回答对话
+     * */
+    function removeAnswer(id) {
+        $("#" + id).remove();
+    }
+
+    /**
+     * 设置帮助
+     */
+    function setHelp() {
+        if (webMetaData.cache.ishelp == "1") {
+            $(".chat-message").append2(`<li class="d-flex message chat-help" id="chat-help1">
+                            <div class="message-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar sm rounded-circle bg-primary d-flex align-items-center justify-content-center">
+                                        <span><i class="zmdi zmdi-comment-text text-light"></i></span>
+                                    </div>
+                                    <div class="mx-10 p-2">
+                                        <a href="#" class="text-dark hover-primary font-weight-bold">OceanGPT</a>
+                                    </div>
+                                </div>
+                                <!--<span class="date-time text-muted">这是提示对话 不想要？<a data-toggle="pill" href="#nav-tab-user">设置关闭</a></span>-->
+                                <!-- <div class="message-row d-flex align-items-center">
+                                    <div class="message-content p-3 text-chat">嗨，我是海洋GPT Bot🤖</div>
+                                    <div class="dropdown">
+                                        <a class="text-muted me-1 p-2 text-muted" href="#" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#" onclick="removeAnswer('chat-help1')">删除对话</a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                              
+                                <div class="message-row d-flex align-items-center">
+                                    <!--<button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1" onclick="openAndImage('生成1张海底电缆的图片')">
+                                        生成1张海底电缆的图片
+                                    </button>-->
+                                    <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message=" Please describe the laying method of submarine cables in the East China Sea.">
+                                        Please describe the laying method of submarine cables in the East China Sea.
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="Describe the application of 3D perception technology of airspace, sky, and ocean in marine exploration.">
+                                        Describe the application of 3D perception technology of airspace, sky, and ocean in marine exploration.
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="How to conduct research on interfacial chemistry and toxicological effects of key radioactive nuclides?">
+                                        How to conduct research on interfacial chemistry and toxicological effects of key radioactive nuclides?
+                                     </button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="d-flex message divider mt-xl-5 mt-md-3 mb-xl-5 mb-md-3">
+                            <small class="text-muted">今天</small>
+                        </li>`, function () {
+                $(".demochat").off("click").on("click", function () {
+                    $("#sendText").val($(this).data("message"));
+                    question();
+                })
+            })
+        }
+    }
+    // <div class="message-row d-flex align-items-center">
+    //                                 <!--<button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1" onclick="openAndImage('生成1张海底电缆的图片')">
+    //                                     生成1张海底电缆的图片
+    //                                 </button>-->
+    //                                 <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="请给出海底电缆故障定位及修复的技术方案">
+    //                                   请给出海底电缆故障定位及修复的技术方案
+    //                                 </button>
+    //                                 <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室">
+    //                                     请介绍一下东海实验室
+    //                                 </button>
+    //                                 <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="请详细介绍一下浙江大学">
+    //                                   请详细介绍一下浙江大学
+    //                                 </button>
+    //                                 <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="假如你是一名导游，请介绍一下舟山的旅游景点">
+    //                                   假如你是一名导游，请介绍一下舟山的旅游景点
+    //                                 </button>
+
+    //                             </div>
+    function setHelp1() {
+      var sss=document.getElementsByName('aaaa')
+      var ss2=sss[sss.length-1].innerHTML
+
+      //console.log(sss[sss.length-1].innerHTML)
+      //for(var i=0;i<sss.length;i++){
+        //console.log(sss.innerHTML.pop())
+          if (ss2.indexOf('电缆')>0) {
+              $(".chat-message").append2(`
+                              <div class="message-body">
+
+                                  <div class="message-row d-flex align-items-center">
+
+                                      <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="请介绍一下海底电缆">
+                                        请介绍一下海底电缆
+                                      </button>
+                                      <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="什么是动力电缆">
+                                        什么是动力电缆
+                                      </button>
+                                      <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="简述浸渍纸电缆和挤压式绝缘电缆的制造过程">
+                                        简述浸渍纸电缆和挤压式绝缘电缆的制造过程
+                                      </button>
+                                      <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="请推荐一下海底电缆故障检修技术相关书籍">
+                                        请推荐一下海底电缆故障检修技术相关书籍
+                                      </button>
+
+                                  </div>
+                              </div>
+
+
+                          `, function () {
+                  $(".demochat").off("click").on("click", function () {
+                      $("#sendText").val($(this).data("message"));
+                      question();
+                  })
+              })
+          }
+          else if (ss2.indexOf('东海实验室')>0) {
+            $(".chat-message").append2(`
+                            <div class="message-body">
+
+                                <div class="message-row d-flex align-items-center">
+
+
+                                  <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室的主要研究方向">
+                                      请介绍一下东海实验室的主要研究方向
+                                  </button>
+                                  <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室的现任领导">
+                                      请介绍一下东海实验室的现任领导
+                                  </button>
+                                  <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室的首席科学家">
+                                      请介绍一下东海实验室的首席科学家
+                                  </button>
+                                  <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="请介绍一下东海实验室的科研队伍">
+                                      请介绍一下东海实验室的科研队伍
+                                  </button>
+
+
+
+                                </div>
+                            </div>
+
+
+                        `, function () {
+                $(".demochat").off("click").on("click", function () {
+                    $("#sendText").val($(this).data("message"));
+                    question();
+                })
+            })
+          }
+          else if (ss2.indexOf('浙江大学')>0) {
+          $(".chat-message").append2(`
+                          <div class="message-body">
+
+                              <div class="message-row d-flex align-items-center">
+
+                                  <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="请介绍一下浙江大学的历史沿革">
+                                    请介绍一下浙江大学的历史沿革
+                                  </button>
+                                  <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请介绍一下浙江大学的现任领导">
+                                    请介绍一下浙江大学的现任领导
+                                  </button>
+                                  <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="请介绍一下浙江大学的杰出校友">
+                                    请介绍一下浙江大学的杰出校友
+                                  </button>
+                                  <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="请介绍一下浙江大学的文化传统">
+                                    请介绍一下浙江大学的文化传统
+                                  </button>
+
+
+
+                              </div>
+                          </div>
+
+
+                      `, function () {
+              $(".demochat").off("click").on("click", function () {
+                  $("#sendText").val($(this).data("message"));
+                  question();
+              })
+          })
+          }
+          else if (ss2.indexOf('舟山')>0) {
+                $(".chat-message").append2(`
+                                <div class="message-body">
+
+                                    <div class="message-row d-flex align-items-center">
+
+                                        <button type="button" class="btn btn-outline-warning btn-rounded mb-1 me-1 demochat" data-message="舟山的地理位置">
+                                          舟山的地理位置
+                                        </button>
+                                        <button type="button" class="btn btn-outline-dark btn-rounded mb-1 me-1 demochat" data-message="请介绍舟山市的地形地貌">
+                                          请介绍舟山市的地形地貌
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary btn-rounded mb-1 me-1 demochat" data-message="请介绍舟山市的自然资源">
+                                          请介绍舟山市的自然资源
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success btn-rounded mb-1 me-1 demochat" data-message="请介绍一下舟山市的历史文化">
+                                          请介绍一下舟山市的历史文化
+                                        </button>
+
+                                    </div>
+                                </div>
+
+
+                            `, function () {
+                    $(".demochat").off("click").on("click", function () {
+                        $("#sendText").val($(this).data("message"));
+                        question();
+                    })
+                })
+          }
+          else{
+            alert('123!')
+          }
+
+    }
+
+    function account() {
+        let token = webMetaData.accessToken;
+        if (token == null) {
+            __zqChat.getResource("https://hoppinzq.com/chat/static/json/apiKeys.json", function (data) {
+                let keys = data.data;
+                $.each(keys, function (index, key) {
+                    $(".api-key-list").append(`<tr>
+                                                    <td>${key.publishable == "ture" ? "Publish key" : "Secret key"}</td>
+                                                    <td>${key.sensitive_id}</td>
+                                                    <td>${__zqChat.getRealDate(parseInt(key.created) * 1000)}</td>
+                                                    <td>${key.last_use == null ? "未使用" : __zqChat.getRealDate(parseInt(key.last_use) * 1000)}</td>
+                                                </tr>`)
+                })
+            })
+            __zqChat.getResource("https://hoppinzq.com/chat/static/json/billing.json", function (data) {
+                $("#billing").append("$" + data.total_granted + "/$" + data.total_available);
+                let grants = data.grants.data;
+                $.each(grants, function (index, grant) {
+                    $(".account-billing").append(`<tr>
+                                                    <td><a href="javascript:;">${grant.id}</a></td>
+                                                    <td>$${grant.grant_amount}</td>
+                                                    <td>$${grant.used_amount}</td>
+                                                    <td>${__zqChat.getRealDate(parseInt(grant.effective_at) * 1000)}</td>
+                                                    <td>${__zqChat.getRealDate(parseInt(grant.expires_at) * 1000)}</td>
+                                                </tr>`)
+                })
+            })
+        } else {
+            //请求api请看后台代码
+        }
+    }
+
+
+
+    function createImage(prompt,n,size){
+        $(".image-sc").html("");
+        $.ajax({
+            url:`${ip}/v1/images/generations`,
+            type:"post",
+            data: JSON.stringify({
+                "prompt": prompt,
+                "n": n,
+                "size": size
+            }),
+            beforeSend:function () {
+                $(".image-sc").append(`<div class="wave">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>`);
+            },
+            contentType: "application/json",
+            success:function (data) {
+                if(data.code!=undefined&&data.code==500){
+                    swal("出错了!", "抱歉，请再点击一下试试！");
+                    $(".image-sc").html("");
+                }else{
+                    $(".image-sc").html("");
+                    let images=data.data;
+                    $.each(images,function (index,image) {
+                        $(".image-sc").append(`<img class="rounded mt-1" width="256" src="${image.url}" alt="">`);
+                    })
+                }
+            },
+            complete:function () {
+                resetImageH();
+            }
+        })
+    }
+
+    function openAndImage(prompt) {
+        $(".image-nav").click();
+        $("#image-prompt").val(prompt);
+        createImage(prompt,1,"256x256");
+    }
+
+    function openImage(){
+        $(".image-nav").click();
+    }
+
+
+
+</script>
+</body>
+</html>

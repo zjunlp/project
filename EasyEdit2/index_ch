@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>KnowLM</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/img/pic/logo.png" rel="icon">
+  <!-- <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/css/style.css" rel="stylesheet">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  
+   
+
+  <!-- =======================================================
+  * Template Name: Selecao
+  * Updated: Jul 27 2023 with Bootstrap v5.3.1
+  * Template URL: https://bootstrapmade.com/selecao-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <!-- <h1><a href="index.html">KnowLM</a></h1> -->
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <img src="../static/img/pic/zju.png" alt="" class="img-fluid" >
+        <img src="../static/img/pic/knowlm.png" alt="" class="img-fluid">
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">主页</a></li>
+          <li><a class="nav-link scrollto" href="http://knowlm.zjukg.cn/demo">演示</a></li>
+          <li><a class="nav-link scrollto" href="https://github.com/zjunlp/KnowLM">Github</a></li>
+          <li><a class="nav-link scrollto " href="https://www.zjukg.org/">我们</a></li>
+          <li><a class="nav-link scrollto" href="/">英文</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+    <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">欢迎来到 <span style="color: #0180ffaa;">KnowLM</span></h2>
+          <p class="animate__animated fanimate__adeInUp">知识增强的开源语言大模型框架</p>
+          <div class="d-flex">
+            <a href="/demo_cn" class="btn-get-started animate__animated animate__fadeInUp scrollto">开始</a>
+            <a href="../static/knowlm_ch.mp4" class="glightbox btn-watch-video animate__animated animate__fadeInUp scrollto"><i class="bi bi-play-circle"></i><span>视频简介</span></a>
+          </div>
+        </div>
+      </div>
+
+       <!-- Slide 2 -->
+       <!-- <div class="carousel-item">
+        <div class="carousel-container">
+          <video controls width="480" height="270">
+            <source src="../static/knowlm_ch.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div> -->
+
+
+      <!-- <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+      </a> -->
+
+    </div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>简介</h2>
+          <p>什么是KnowLM</p>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <p>
+              <span style="color: #4680ff;font-size: larger;">
+                KnowLM项目 </span>  <br> 
+                KnowLM是一个知识增强的开源语言大模型框架，
+                旨在通过提供灵活且可定制的工具集和并发布相应的模型，
+                帮助研究人员和开发者更好地处理大模型知识更新和谬误等问题。
+            </p>            
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              KnowLM 的技术、功能和内容如下：
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> 知识提示</li>
+              <li><i class="ri-check-double-line"></i> 知识编辑</li>
+              <li><i class="ri-check-double-line"></i> 知识交互</li>
+            </ul>
+            <a href="#features" class="btn-learn-more">更多</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+
+        <ul class="nav nav-tabs row d-flex" id="tabs">
+          <li class="nav-item col-4" >
+            <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
+              <i class="ri-medal-2-line"></i>
+              <h4 class="d-none d-lg-block">知识提示</h4>
+            </a>
+          </li>
+          <li class="nav-item col-4" >
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
+              <i class="ri-brush-3-line"></i>
+              <h4 class="d-none d-lg-block">知识编辑</h4>
+            </a>
+          </li>
+          <li class="nav-item col-4" >
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
+              <i class="ri-sun-line"></i>
+              <h4 class="d-none d-lg-block"> 知识交互</h4>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content" >
+          <div class="tab-pane active show" id="tab-1">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>知识提示.</h3>
+                <p style="color: #4680ff; font-weight: bold;">
+                  KnowPrompt.
+                  </p>
+                <p class="fst-italic" style="color: rgba(89, 87, 87, 0.784);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 
+                  KnowPrompt: Knowledge-aware Prompt-tuning with Synergistic Optimization for Relation Extraction.&nbsp;  WWW2022.
+                </p>
+                <p>
+                  “基于知识的提示学习” 旨在通过“知识作为提示”，
+                  将特定领域和任务相关的知识（如知识图谱和文本样例）融入到预训练模型中，
+                  以提升其对特定领域和任务的理解能力。这种方法旨在充分发挥预训练模型的潜力，并显著提高其性能。
+                </p>
+                  <a href="https://arxiv.org/abs/2205.14704" class="btn-learn-more">更多</a>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="../static/img/pic/paperlist/01knowprompt.png" alt="" class="img-fluid" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-2">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>知识编辑.</h3>
+                <p style="color: #4680ff; font-weight: bold;">
+                  EasyEdit.
+                </p>
+                <p class="fst-italic" style="color: rgba(89, 87, 87, 0.784);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 
+                  Editing Large Language Models: Problems, Methods, and Opportunities. EMNLP2023.
+                </p>
+                <p>
+                  “模型编辑” 旨在在不影响模型对其他样本的行为的情况下，
+                  高效地调整初始基础模型对特定编辑描述符的行为。
+                </p> 
+                <p>
+                  模型编辑与以下主题密切相关：
+                  对大型语言模型进行更新和修复错误，定位大型语言模型中的知识以及终身学习和遗忘。
+                </p> 
+                <a href="https://arxiv.org/abs/2305.13172" class="btn-learn-more">更多</a>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="../static/img/pic/paperlist/02easyedit2.1.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-3">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>知识交互.</h3>
+                <p style="color: #4680ff; font-weight: bold;">
+                  KnowAgent.
+                </p>
+                <p class="fst-italic" style="color: rgba(89, 87, 87, 0.784);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 
+                  KnowAgent: Knowledge-Augmented Planning for LLM-Based Agents.
+                </p>
+                <p>
+                  “知识交互” 指的是模型与人类、环境、工具或其他模型之间的动态知识交流和反馈。同时，它对于实现复杂的规划能力、提升智能体的智能水平以及引导大型语言模型展现认知能力而言，都是至关重要的环节。
+                </p>
+                <a href="https://arxiv.org/abs/2403.03101" class="btn-learn-more">更多</a>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="../static/img/pic/paperlist/knowagent.png" alt="" class="img-fluid" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 order-2 order-lg-1 mt-2 mt-lg-2">
+            <img src="../static/img/pic/knowlm_overall1.png" alt="" class="img-fluid" loading="lazy">
+          </div>
+          <div class="col-lg-4 order-2 order-lg-2 text-lg-start">
+            <h3>训练LLM的技术</h3>
+            <p>全面的预训练代码（提供大规模语料库的转换、构建和加载）以及LoRA指令微调代码（支持多机多GPU）。同时提供知识提示、编辑和交互的示例（仍在开发中）。</p>
+            <a class="cta-btn" href="https://github.com/zjunlp/KnowLM">Github</a>
+           
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Cta Section -->
+
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+        <div class="section-title">
+          <h2>资源</h2>
+          <p>KnowLM库</p>
+        </div>
+        <div class="row gy-4" data-aos="fade-up">
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+                <div class="swiper-slide">
+                  <img src="../static/img/pic/knowlm zoo.png" alt="" loading="lazy">
+                </div>
+                <!-- <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
+                </div> -->
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>KnowLM模型库</h3>
+              <ul>
+                我们目前已经开源了
+                <strong class="fst-italic" style="color: #4680ff;">ZhiXi-13B</strong> 
+                的基础模型和抽取模型，
+                包括即将发布的基于LLaMA2的
+                <strong class="fst-italic" style="color: #4680ff;">KnowLM-7B</strong>模型。当然，未来也有可能会有65B或者参数量更大的模型。
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Portfolio Details Section -->
+    
+        
+     <!-- ======= Portfolio Section ======= -->
+     <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title" >
+          <h2>作品集</h2>
+          <p>支持的大型语言模型</p>
+          <h4>采用KnowLM技术的相关大型语言模型</h4>
+
+        </div>
+
+        <ul id="portfolio-flters" class="d-flex justify-content-end" >
+          <li data-filter="*" class="filter-active">所有</li>
+        </ul>
+
+        <div class="row portfolio-container" data-aos="fade-up">
+
+          <a href="http://oneke.openkg.cn/" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/oneke.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>OneKE</h4>
+            </div>
+          </a>
+
+          <a href="https://www.zjukg.org/project/OceanGPT/" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/oceangpt.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>OceanGPT</h4>
+              <!-- <a href="../static/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://knowlm.zjukg.cn/PolicyQA" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/policyqa.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>PolicyQA</h4>
+              <!-- <a href="../static/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a> -->
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>作品集</h2>
+          <p>我们的成果</p>
+          <h3>论文列表</h3>
+          <h4>关于知识提示、编辑和交互的相关研究</h4>
+
+        </div>
+
+        <ul id="portfolio-flters" class="d-flex justify-content-end">
+          <li data-filter="*" class="filter-active">所有</li>
+        </ul>
+
+        <div class="row portfolio-container">
+
+          <a href="https://arxiv.org/abs/2104.07650" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/01knowprompt2.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>KnowPrompt</h4>
+              <p>知识感知的关系抽取提示调优方法，采用协同优化。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2104.07650" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://arxiv.org/abs/2305.13172" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/02easyedit4.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>EasyEdit</h4>
+              <p>一个易于使用的框架，可编辑LLMs，包括GPT-J，LLaMA21/2，GPT-NEO，GPT2，T5。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2305.13172" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://arxiv.org/abs/2403.03101" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/knowagent.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>KnowAgent</h4>
+              <p>利用外部动作知识增强大模型的规划能力。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2305.13168" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://arxiv.org/abs/2205.14704" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/04Retroprompt.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>RetroPrompt</h4>
+              <p>从训练实例构建开放式知识存储，并实现了用于提示学习的检索机制。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2205.14704" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://arxiv.org/abs/2210.10709" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/05RAP.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>RAP</h4>
+              <p>一种与模型无关的方法，利用人工注释和弱监督数据的模式和知识作为提示。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2210.10709" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+          <a href="https://arxiv.org/abs/2305.13068" class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="../static/img/pic/paperlist/06TRICE.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>TRICE</h4>
+              <p>一个两阶段的端到端框架，使模型能够通过来自工具执行的反馈不断学习。</p>
+              <!-- <a href="../static/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a> -->
+              <!-- <a href="https://arxiv.org/abs/2305.13068" class="details-link" title="More Details"><i class="bx bx-link"></i></a> -->
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Acknowledgement Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="section-title">
+          <h2>致谢</h2>
+          <p>衷心感谢</p>
+          我们向Langchain、Transformers、<a href="https://github.com/hiyouga/FastEdit">FastEdit</a>、<a href="https://github.com/kmeng01/rome">ROME</a>、<a href="https://github.com/Thartvigsen/GRACE">GRACE</a>、<a href="https://github.com/ECNU-ICALK/MELO">MELO</a>、<a href="https://github.com/xpq-tech/PMET">PMET</a>以及<a href="https://github.com/yizhongw/self-instruct">Self-Instruct</a>等团队表示最诚挚的感谢。我们在项目中集成了他们的部分源代码，对此我们深表谢意。
+          
+          此外，我们对来自社区的持续支持表示感激。特别感谢那些报告问题并慷慨分享技术知识的社区成员。你们的努力对我们项目的进步起到了至关重要的作用。🙌
+        </div>
+      </div>
+    </section>
+    <!-- End Acknowledgement Section -->
+    
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <!-- <h3>KnowLM</h3>
+      A research group from <span class="text-primary">Zhejiang University</span> working on Knowledge Graph and Natural Language Technologies.
+      <br><br> -->
+      Visitors' number: <span id="busuanzi_value_site_pv"></span> 
+      <div class="copyright">
+      Copyright &copy;<script>document.write(new Date().getFullYear());</script> <a target="_blank" href="http://openkg.cn/" title="openkg" style="font-weight: bold;  "> OpenKG </a>& 
+        <a target="_blank" href="https://www.zjukg.org/" title="ZJUKG" style="font-weight: bold;  " > ZJUKG </a> All Rights Reserved.
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/vendor/aos/aos.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../static/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

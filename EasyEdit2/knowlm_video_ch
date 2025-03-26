@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Playback</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: black;
+        }
+        
+        video {
+            width: 80%;
+            height: 80%;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="close-button" onclick="goBack()" class="icon-close"></div>
+    <video autoplay controls>
+        <source src="../static/knowlm_ch.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        function goBack() {
+            window.history.back(); // 返回到前一个页面
+        }
+    </script>
+</body>
+</html>
