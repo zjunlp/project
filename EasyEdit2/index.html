@@ -52,7 +52,7 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="http://easyedit.zjukg.cn/">Demo</a></li>
           <li><a class="nav-link scrollto" href="https://github.com/zjunlp/EasyEdit/tree/EasySteer">Github</a></li>
-          <li><a class="nav-link scrollto " href="https://www.zjukg.org/">About</a></li>
+          <li><a class="nav-link scrollto " href="https://zjunlp.github.io/">About</a></li>
           <!-- <li><a class="nav-link scrollto" href="/index_ch">Chinese</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -71,14 +71,12 @@
           <h2 class="animate__animated animate__fadeInDown">Welcome to <span style="color: #0180ffaa;">EasyEdit2</span></h2>
           <p class="animate__animated animate__fadeInDown">An Easy-to-use Steering Framework for Editing Large Language Models</p>
           <div class="d-flex">
-          <a href="http://easyedit.zjukg.cn/" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get Started</a>
-
-            <a href="./static/video/test.mp4" class="glightbox btn-watch-video animate__animated animate__fadeInUp">
+            <a href="http://easyedit.zjukg.cn/" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get Started</a>
+            <a href="video.html" class="btn-watch-video animate__animated animate__fadeInUp" target="_blank">
               <i class="bi bi-play-circle"></i>
               <span>Video Introduction</span>
-          </a>
-
-        </div>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -141,84 +139,68 @@
     <section id="features" class="features">
       <div class="container">
 
-        <ul class="nav nav-tabs row d-flex" >
-          <li class="nav-item col-4" >
+        <ul class="nav nav-tabs row d-flex">
+          <li class="nav-item col-4">
             <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
               <i class="bi bi-puzzle"></i>
               <h4 class="d-none d-lg-block"> Precision & Modularity</h4>
             </a>
           </li>
-          <li class="nav-item col-4" >
+          <li class="nav-item col-4">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
-              <i class="ri-plug-2-line"></i>  
+              <i class="ri-plug-2-line"></i>
               <h4 class="d-none d-lg-block"> User-Friendly Interface</h4>
             </a>
           </li>
-          <li class="nav-item col-4" >
+          <li class="nav-item col-4">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
               <i class="ri-global-line"></i>
               <h4 class="d-none d-lg-block"> Versatile Applications</h4>
             </a>
           </li>
         </ul>
-
-        <div class="tab-content" >
-          <div class="tab-pane active show" id="tab-1">
+      
+        <div class="tab-content" id="features-section">
+          <div class="tab-pane active" id="tab-1">
             <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Precision & Modularity</h3>
-                <p>
-                  EasyEdit2 enables efficient, fine-grained control over model through three key capabilities:
-                </p>
-                <ul >
-                  <li><i class="ri-check-double-line"></i> <strong>Fine-Grained Control</strong> - Precisely control intervention strength and direction via a single paramete.</li>
-                  <li><i class="ri-check-double-line"></i> <strong>Zero-Weight Plugins</strong> - Seamlessly applied or removed steer vector without altering model weights.</li>
-                  <li><i class="ri-check-double-line"></i> <strong>Modular Combinations</strong> - Multiple steering strategies can be combined for more flexible control. </li>
-                </ul>
-                </ul>
-              </div>
-              <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="./static/img/pic/tmp.png" alt="" class="img-fluid"  style="width: 490px; height: auto;">
-              </div>
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                    <h3>Precision & Modularity</h3>
+                    <p>
+                        EasyEdit2 enables efficient, fine-grained control over model through three key capabilities:
+                    </p>
+                    <ul class="animate-list fade-in-up">
+                        <li><i class="ri-check-double-line"></i> <strong>Fine-Grained Control</strong> - Precisely control intervention strength and direction via a single paramete.</li>
+                        <li><i class="ri-check-double-line"></i> <strong>Zero-Weight Plugins</strong> - Seamlessly applied or removed steer vector without altering model weights.</li>
+                        <li><i class="ri-check-double-line"></i> <strong>Modular Combinations</strong> - Multiple steering strategies can be combined for more flexible control.</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                    <img src="./static/img/pic/tmp.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
+                </div>
             </div>
-          </div>
-
-          <div class="tab-pane" id="tab-2">
+        </div>
+      
+        <div class="tab-pane" id="tab-2">
             <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>User-Friendly Interface</h3>
-                <!-- <p style="color: #4680ff; font-weight: bold;">
-                  EasyEdit. -->
-                </p>
-                <!-- <p class="fst-italic" style="color: rgba(89, 87, 87, 0.784);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 
-                  Editing Large Language Models: Problems, Methods, and Opportunities. EMNLP2023.
-                </p> -->
-                <p>
-                  Three steps to complete model steering with EasyEdit2:
-                 </p>
-                 <ol class="hover-numbers">
-                  <li> <strong>Vector Training</strong>: Train and store steering vectors using the integrated Vector Generator module.</li>
-                  <li> <strong>Vector Application</strong>: Apply learned steering vectors to the target model via the Vector Applier component.</li>
-                  <li> <strong>Text Generation & Evaluation</strong>: Produce and evaluate text outputs from the steered model to verify behavioral changes.</li>
-                </ol>
-                <!-- <a href="https://arxiv.org/abs/2305.13172" class="btn-learn-more">For More</a> -->
-              </div>
-              <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="./static/img/pic/code.png" alt="" class="img-fluid"  style="width: 490px; height: auto;">
-              </div>
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                    <h3>User-Friendly Interface</h3>
+                    <p>Three steps to complete model steering with EasyEdit2:</p>
+                    <ol class="animate-list slide-in-right hover-numbers">
+                        <li><strong>Vector Training</strong>: Train and store steering vectors using the integrated Vector Generator module.</li>
+                        <li><strong>Vector Application</strong>: Apply learned steering vectors to the target model via the Vector Applier component.</li>
+                        <li><strong>Text Generation & Evaluation</strong>: Produce and evaluate text outputs from the steered model to verify behavioral changes.</li>
+                    </ol>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                    <img src="./static/img/pic/code.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
+                </div>
             </div>
-          </div>
-
+        </div>
+      
           <div class="tab-pane" id="tab-3">
             <div class="row">
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
                 <h3>Versatile Applications</h3>
-                <!-- <p style="color: #4680ff; font-weight: bold;">
-                  KnowAgent.
-                </p> -->
-                <!-- <p class="fst-italic" style="color: rgba(89, 87, 87, 0.784);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 
-                  KnowAgent: Knowledge-Augmented Planning for LLM-Based Agents.
-                </p> -->
                 <p>
                   EasyEdit2 can be applied to a wide range of applications, including:
                 </p>
@@ -232,15 +214,14 @@
                     <li><strong>Linguistic Feature:</strong> Customize language style to suit specific needs.</li>
                   </ul>
                 </div>
-                <!-- <a href="https://arxiv.org/abs/2403.03101" class="btn-learn-more">For More</a> -->
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="./static/img/pic/case.png" alt="" style="width: 470px; height: auto;">
+                <img src="./static/img/pic/case.png" alt="" class="img-fluid" style="width: 470px; height: auto;">
               </div>
             </div>
           </div>
         </div>
-
+      
       </div>
     </section><!-- End Features Section -->
 
@@ -274,10 +255,13 @@
         </div>
         <div class="row gy-4">
           <div class="col-lg-8">
-            <div class="text-center">
-              <img src="./static/img/pic/frameword_easyedit.png" alt="" class="img-fluid">
+            <div class="text-center image-hover-container">
+                <a href="https://arxiv.org/abs/2308.07269" class="image-link">
+                    <img src="./static/img/pic/frameword_easyedit.png" alt="" class="img-fluid hover-zoom">
+                    <div class="image-caption-onhover">EasyEdit</div>
+                </a>
             </div>
-          </div>
+        </div>
             
           <!-- <div class="row gy-4">
             <div class="col-lg-8">
@@ -327,9 +311,9 @@
 
         </div>
 
-        <ul id="portfolio-flters" class="d-flex justify-content-end" >
+        <!-- <ul id="portfolio-flters" class="d-flex justify-content-end" >
           <li data-filter="*" class="filter-active">All</li>
-        </ul>
+        </ul> -->
 
         <div class="row portfolio-container" data-aos="fade-up">
 
@@ -376,7 +360,7 @@
         <div class="section-title">
           <h2>Acknowledgments</h2>   
           <p>Our Sincere Thanks</p>
-             Our sincerest thanks are extended to Langchain, Transformers, <a href="https://github.com/hiyouga/FastEdit"> FastEdit</a>, <a href="https://github.com/kmeng01/rome"> ROME</a>, <a href="https://github.com/Thartvigsen/GRACE">GRACE</a>,<a href="https://github.com/ECNU-ICALK/MELO"> MELO</a> ,<a href="https://github.com/xpq-tech/PMET"> PMET</a> , and <a href="https://github.com/yizhongw/self-instruct">Self-Instruct</a> for their invaluable contributions to our project. We have integrated parts of their  source code into our work, and for this, we are deeply appreciative. 
+             Our sincerest thanks are extended to Gradio, Transformers, EasyEdit for their invaluable contributions to our project. We have integrated parts of their  source code into our work, and for this, we are deeply appreciative. 
             <br><br>
             Furthermore, we are grateful for the ongoing support and collaboration from our community. Special recognition goes to those who have diligently reported issues and shared their technical expertise. Your collective efforts have been instrumental in our project's success. 🙌 
           
@@ -397,7 +381,7 @@
       Visitors' number: <span id="busuanzi_value_site_pv"></span> 
       <div class="copyright">
       Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-        <a target="_blank" href="https://www.zjukg.org/" title="ZJUKG" style="font-weight: bold;  " > ZJUKG </a> All Rights Reserved.
+        <a target="_blank" href="https://zjunlp.github.io/" title="ZJUKG" style="font-weight: bold;  " > ZJUKG </a> All Rights Reserved.
       </div>
     </div>
   </footer><!-- End Footer -->

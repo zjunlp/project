@@ -259,3 +259,48 @@ const lightbox = GLightbox({
   loop: false
 });
 
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  var featuresSection = document.getElementById("features-section");
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        featuresSection.classList.add("show");
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(featuresSection);
+
+  var tabTriggerElements = document.querySelectorAll('a[data-bs-toggle="tab"]');
+  tabTriggerElements.forEach(function(triggerEl) {
+    triggerEl.addEventListener('shown.bs.tab', function(event) {
+      var targetPane = document.querySelector(event.target.getAttribute('href'));
+      if (targetPane) {
+        targetPane.classList.remove("fade-in");
+
+        void targetPane.offsetWidth;
+        targetPane.classList.add("fade-in");
+      }
+    });
+  });
+});
+document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+  tab.addEventListener('shown.bs.tab', function (e) {
+
+      const targetPane = document.querySelector(e.target.getAttribute('data-bs-target'));
+
+      targetPane.querySelectorAll('.animate-list li').forEach((li, index) => {
+
+          li.style.animation = 'none';
+          li.style.opacity = '0';
+
+          void li.offsetWidth;
+
+          const animationName = targetPane.id === 'tab-1' ? 'fadeInUp' : 'slideInRight';
+          li.style.animation = `${animationName} 0.5s ease ${0.2 + index * 0.2}s forwards`;
+      });
+  });
+});
