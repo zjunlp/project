@@ -1211,7 +1211,10 @@ section {
 .portfolio .portfolio-item .portfolio-img {
   overflow: hidden;
 }
-
+.portfolio-img {
+  padding-top: 5px;  /* 减少上下的内边距 */
+  padding-bottom: 5px;
+}
 .portfolio .portfolio-item .portfolio-img img {
   transition: all 0.8s ease-in-out;
 }
@@ -1849,4 +1852,111 @@ section {
 
 #footer .credits {
   font-size: 13px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+#features-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+#features-section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+      opacity: 0;
+      transform: translateX(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+
+.animate-list li {
+  opacity: 0;
+}
+
+#tab-1 .animate-list li {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+#tab-2 .animate-list li {
+  animation: slideInRight 0.5s ease forwards;
+}
+
+#tab-1 .animate-list li:nth-child(1) { animation-delay: 0.2s; }
+#tab-1 .animate-list li:nth-child(2) { animation-delay: 0.4s; }
+#tab-1 .animate-list li:nth-child(3) { animation-delay: 0.6s; }
+
+#tab-2 .animate-list li:nth-child(1) { animation-delay: 0.2s; }
+#tab-2 .animate-list li:nth-child(2) { animation-delay: 0.4s; }
+#tab-2 .animate-list li:nth-child(3) { animation-delay: 0.6s; }
+.image-hover-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 8px; /* 可选：添加圆角 */
+}
+
+/* 图片悬停放大效果 */
+.hover-zoom {
+  transition: transform 0.9s ease;
+  display: block;
+}
+
+.image-hover-container:hover .hover-zoom {
+  transform: scale(1.09); /* 略微放大 */
+}
+
+
+.image-caption-onhover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7); 
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-hover-container:hover .image-caption-onhover {
+  opacity: 1; 
+}
+
+
+.image-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
