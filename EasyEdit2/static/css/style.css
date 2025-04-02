@@ -1960,3 +1960,106 @@ section {
   color: inherit;
   display: block;
 }
+/* Dark code container styling */
+.code-container {
+  position: relative;
+  background: #2d2d2d; /* Dark background */
+  border-radius: 4px;
+  height: 400px; /* Fixed height */
+  overflow: auto; /* Scrollbar */
+  margin: 0;
+  padding: 0;
+}
+
+/* Copy button - adjusted for dark theme */
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8f8f8;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.copy-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Prism overrides for dark theme */
+pre[class*="language-"] {
+  margin: 0;
+  padding: 1.5em 1em;
+  background: transparent;
+  overflow: visible;
+}
+
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid #444;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.line-numbers-rows > span:before {
+  color: #777;
+}
+
+code[class*="language-"] {
+  font-size: 14px;
+  line-height: 1.5;
+  text-shadow: none;
+}
+
+
+
+.steps-container, .example-container {
+  margin-bottom: 1rem;
+}
+
+h4 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.step-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.step-list li {
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.step-number {
+  display: inline-block;
+  background: #a3acc7;
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.5rem;
+  margin-right: 0.7rem;
+  font-size: 0.9rem;
+}
+
+.example-container p {
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+em {
+  font-style: normal;
+  background: #f0f0f0;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: monospace;
+}

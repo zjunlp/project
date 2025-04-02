@@ -25,13 +25,15 @@
   <link href="./static/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="./static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <!-- Template Main CSS File -->
   <link href="./static/css/style.css" rel="stylesheet">
 
-  <!-- <link href="./static/css/combined_style.css" rel="stylesheet"> -->
-
-  <!-- <script  async src="https://busuanzi.icodeq.com/busuanzi.pure.mini.js">
-  </script>  -->
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  
 
 </head>
@@ -50,9 +52,10 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="http://easyedit.zjukg.cn/">Demo</a></li>
-          <li><a class="nav-link scrollto" href="https://github.com/zjunlp/EasyEdit/tree/EasySteer">Github</a></li>
-          <li><a class="nav-link scrollto " href="https://zjunlp.github.io/">About</a></li>
+          <li><a class="nav-link scrollto" href="#usage">Usage</a></li>
+          <li><a class="nav-link scrollto" href="https://github.com/zjunlp/EasyEdit/tree/EasySteer" target="_blank">Github</a></li>
+          <li><a class="nav-link scrollto" href="#relatedwork">Related Works</a></li>
+          <li><a class="nav-link scrollto " href="https://zjunlp.github.io/" target="_blank">About</a></li>
           <!-- <li><a class="nav-link scrollto" href="/index_ch">Chinese</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -71,7 +74,7 @@
           <h2 class="animate__animated animate__fadeInDown">Welcome to <span style="color: #0180ffaa;">EasyEdit2</span></h2>
           <p class="animate__animated animate__fadeInDown">An Easy-to-use Steering Framework for Editing Large Language Models</p>
           <div class="d-flex">
-            <a href="http://easyedit.zjukg.cn/" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get Started</a>
+            <a href="#usage" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get Started</a>
             <a href="./static/video/test.mp4" class="glightbox btn-watch-video animate__animated animate__fadeInUp">
               <i class="bi bi-play-circle"></i>
               <span>Video Introduction</span>
@@ -124,9 +127,9 @@
               EasyEdit2 enables dynamic LLM steering with three core features:
             </p>
             <ul>
-              <li><i class="ri-check-double-line"></i> Precision & Modularity</li>
-              <li><i class="ri-check-double-line"></i> User-Friendly Interface</li>
-              <li><i class="ri-check-double-line"></i> Versatile Applications</li>
+              <li><i class="ri-check-double-line"></i>Test-Time Control</li>
+              <li><i class="ri-check-double-line"></i>Adjustability & Composability</li>
+              <li><i class="ri-check-double-line"></i>Versatile Scenarios</li>
             </ul>
             <a href="#features" class="btn-learn-more">Learn More</a>
           </div>
@@ -142,20 +145,20 @@
         <ul class="nav nav-tabs row d-flex">
           <li class="nav-item col-4">
             <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
-              <i class="bi bi-puzzle"></i>
-              <h4 class="d-none d-lg-block"> Precision & Modularity</h4>
+              <i class="ri-plug-2-line"></i>
+              <h4 class="d-none d-lg-block">Test-Time Control</h4>
             </a>
           </li>
           <li class="nav-item col-4">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
-              <i class="ri-plug-2-line"></i>
-              <h4 class="d-none d-lg-block"> User-Friendly Interface</h4>
+              <i class="bi bi-puzzle"></i>
+              <h4 class="d-none d-lg-block">Adjustability & Composability</h4>
             </a>
           </li>
           <li class="nav-item col-4">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
               <i class="ri-global-line"></i>
-              <h4 class="d-none d-lg-block"> Versatile Applications</h4>
+              <h4 class="d-none d-lg-block">Versatile Scenarios</h4>
             </a>
           </li>
         </ul>
@@ -164,18 +167,19 @@
           <div class="tab-pane active" id="tab-1">
             <div class="row">
                 <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                    <h3>Precision & Modularity</h3>
-                    <p>
-                        EasyEdit2 enables efficient, fine-grained control over model through three key capabilities:
-                    </p>
-                    <ul class="animate-list fade-in-up">
-                        <li><i class="ri-check-double-line"></i> <strong>Fine-Grained Control</strong> - Precisely control intervention strength and direction via a single paramete.</li>
-                        <li><i class="ri-check-double-line"></i> <strong>Zero-Weight Plugins</strong> - Seamlessly applied or removed steer vector without altering model weights.</li>
-                        <li><i class="ri-check-double-line"></i> <strong>Modular Combinations</strong> - Multiple steering strategies can be combined for more flexible control.</li>
-                    </ul>
+                  <h3>Test-Time Control</h3>
+                  <p>
+                      EasyEdit2 utilizes pluggable steer vectors to enable real-time, training-free control during model inference.
+                  </p>
+                  <ul class="animate-list fade-in-up">
+                      <li><i class="ri-check-double-line"></i> <strong>Pluggable Design</strong> - Seamlessly apply or remove steering methods without modifying model weights.</li>
+                      <li><i class="ri-check-double-line"></i> <strong>Inference-Time Control</strong> - Steer vectors take effect during inference for real-time adjustments.</li>
+                      <li><i class="ri-check-double-line"></i> <strong>Training Free</strong> - Achieve flexible model control without additional training.</li>
+                  </ul>
+                  
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                    <img src="./static/img/pic/tmp.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
+                    <img src="./static/img/pic/edit2_overview.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
                 </div>
             </div>
         </div>
@@ -183,16 +187,17 @@
         <div class="tab-pane" id="tab-2">
             <div class="row">
                 <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                    <h3>User-Friendly Interface</h3>
-                    <p>Three steps to complete model steering with EasyEdit2:</p>
-                    <ol class="animate-list slide-in-right hover-numbers">
-                        <li><strong>Vector Training</strong>: Train and store steering vectors using the integrated Vector Generator module.</li>
-                        <li><strong>Vector Application</strong>: Apply learned steering vectors to the target model via the Vector Applier component.</li>
-                        <li><strong>Text Generation & Evaluation</strong>: Produce and evaluate text outputs from the steered model to verify behavioral changes.</li>
-                    </ol>
+                  <h3>Adjustability & Composability</h3>
+                  <p>Users can control intervention strength and combine methods for flexible steering.</p>
+                  <ol class="animate-list slide-in-right hover-numbers">
+                      <li><strong>Adjustability</strong>: Modify intervention strength and direction precisely using a single parameter.</li>
+                      <li><strong>Composability</strong>: Integrate multiple steering techniques to achieve fine-grained control.</li>
+                      <li><strong>Enhanced Flexibility</strong>: Adapt model behavior dynamically to meet diverse requirements.</li>
+                  </ol>
+                  
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                    <img src="./static/img/pic/code.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
+                    <img src="./static/img/pic/tmp.png" alt="" class="img-fluid" style="width: 490px; height: auto;">
                 </div>
             </div>
         </div>
@@ -200,7 +205,7 @@
           <div class="tab-pane" id="tab-3">
             <div class="row">
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Versatile Applications</h3>
+                <h3>Versatile Scenarios</h3>
                 <p>
                   EasyEdit2 can be applied to a wide range of applications, including:
                 </p>
@@ -230,13 +235,13 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 order-2 order-lg-1 mt-2 mt-lg-2">
-            <img src="./static/img/pic/framework.png" alt="" class="img-fluid">  
+            <img src="./static/img/pic/framework_new.png" alt="" class="img-fluid">  
             <!-- Or the video of EasyEdit2 -->
           </div>
           <div class="col-lg-4 order-2 order-lg-2 text-lg-start">
             <h3>The overall architecture of EasyEdit2</h3>
             <p>EasyEdit2 is a general framework for model editing, consisting of four core components: a dataset module for data loading, a methods module for the training and application of steering vectors, a vector library for manipulation and combination of vectors, and an evaluation module with a number of metrics. </p>
-            <a class="cta-btn" href="https://github.com/zjunlp/EasyEdit/tree/EasySteer?tab=readme-ov-file">Github</a>
+            <a class="cta-btn" href="https://github.com/zjunlp/EasyEdit/tree/EasySteer?tab=readme-ov-file" target="_blank">Github</a>
            
           </div>
 
@@ -246,67 +251,90 @@
     </section><!-- End Cta Section -->
 
 
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
+    <section id="usage" class="portfolio-details">
       <div class="container">
         <div class="section-title">
-          <h2>Based on</h2>
-          <p>EasyEdit</p>
+          <h2>Guidance</h2>
+          <p>Usage</p>
         </div>
         <div class="row gy-4">
           <div class="col-lg-8">
-            <div class="text-center image-hover-container">
-                <a href="https://arxiv.org/abs/2308.07269" class="image-link">
-                    <img src="./static/img/pic/frameword_easyedit.png" alt="" class="img-fluid hover-zoom">
-                    <div class="image-caption-onhover">EasyEdit</div>
-                </a>
+            <!-- Code Container -->
+            <div class="code-container">
+              <button class="copy-button">Copy</button>
+          <pre class="line-numbers"><code class="language-python">
+from steer import BaseVectorGenerator, BaseVectorApplier
+from steer import prepare_train_datasets, prepare_generation_datasets
+from omegaconf import OmegaConf
+
+# Load configuration
+top_cfg = OmegaConf.load('./hparams/Steer/config.yaml')
+
+# Step 1: Prepare data
+train_datasets = {
+    'CUSTOM_DATASET_NAME': [
+        {'question': 'How do you feel now?',
+          'matching': 'As an AI, I don\'t have feelings.',
+          'not_matching': 'As an AI, I am filled with joy!'},
+    ]
+}
+generation_datasets = {
+    'CUSTOM_DATASET_NAME': [
+        {'input': 'How do you feel about the recent changes?'},
+        {'input': 'What are your hobbies?'}
+    ]
+}
+
+# Step 2: Generate steering vectors
+vector_generator = BaseVectorGenerator(top_cfg)
+vectors = vector_generator.generate_vectors(train_datasets)
+
+# Step 3: Apply vectors to model
+vector_applier = BaseVectorApplier(top_cfg)
+for dataset_name in vectors:
+    vector_applier.apply_vectors(vectors[dataset_name])
+
+# Generate steered outputs
+results = vector_applier.generate(generation_datasets)
+
+# Step 4: Reset model
+vector_applier.model.reset_all()</code></pre>
             </div>
-        </div>
-            
-          <!-- <div class="row gy-4">
-            <div class="col-lg-8">
-              <div class="portfolio-details-slider swiper">
-                <div class="swiper-wrapper align-items-center">
-                  <div class="swiper-slide">
-                    <img src="./static/img/pic/frameword_easyedit.png" alt=""   >
-                  </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-            </div> -->
-
-
-
+          </div>
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>EasyEdit: An Easy-to-use Knowledge Editing Framework for Large Language Models.</h3>
-              <ul>
-                <li>
-                  EasyEdit is a Python package for edit Large Language Models (LLM), the objective of which is to alter the behavior of LLMs efficiently within a specific domain without negatively impacting performance across other inputs. It is designed to be easy to use and easy to extend.
-                    The overall architecture of easyedit2 is based on EasyEdit, and you can easily get started by simply following the <a href="https://github.com/zjunlp/EasyEdit/tree/EasySteer?tab=readme-ov-file">README</a>.
-                </li>
-                <!-- <li>Here we show the Model Zoo available in KnowLM.</li>
-                <li class="ri-check-double-line">   <strong>ZhiXi-13B</strong></li>
-                <li class="ri-check-double-line">   <strong>ZhiXi-7B</strong></li> -->
-              </ul>
+              <h2>Quick Start</h2>
+              <div class="feature-card">
+                <div class="steps-container">
+                  <h4>Four Simple Steps to Steer Model:</h4>
+                  <ol class="step-list">
+                    <li><span class="step-number">1</span> Prepare training data</li>
+                    <li><span class="step-number">2</span> Generate steering vectors</li>
+                    <li><span class="step-number">3</span> Apply to model</li>
+                    <li><span class="step-number">4</span> Verify results</li>
+                  </ol>
+                </div>
+                <div class="example-container">
+                  
+                  <p>This example demonstrates how to give AI emotional responses (e.g. changing <em>"I have no feelings"</em> to <em>"I feel happy"</em>) without affecting other responses.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section><!-- End Portfolio Details Section -->
-    
+    </section>
      
 
 
     <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
+    <section id="relatedwork" class="portfolio">
       <div class="container">
 
         <div class="section-title" >
           <h2>Citaion</h2>
           <p>Related works</p>
 
-          <h3>Paper Lists</h3>
           <!-- <h4>Related works regarding knowledge prompt, editing and interaction.</h4> -->
 
         </div>
@@ -316,21 +344,16 @@
         </ul> -->
 
         <div class="row portfolio-container" data-aos="fade-up">
-
-        
-
-          <a href="https://arxiv.org/abs/2308.07269" class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-img"><img src="./static/img/pic/paperlist/edit.png" class="img-fluid" alt=""  ></div>
+          <a href="https://arxiv.org/abs/2312.06681" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
+            <div class="portfolio-img"><img src="./static/img/pic/paperlist/CAA.png" class="img-fluid" alt=""  ></div>
             <div class="portfolio-info">
-              <h4>EasyEdit</h4>
-              <p>An Easy-to-use Knowledge Editing Framework for Large Language Models.</p>
+              <h4>CAA</h4>
+              <p>Steering Llama 2 via Contrastive Activation Addition</p>
               <!-- <a href="./static/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a> -->
             </div>
           </a>
 
-
-
-          <a href="https://arxiv.org/abs/2305.12798" class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="https://arxiv.org/abs/2305.12798" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
             <div class="portfolio-img"><img src="./static/img/pic/paperlist/lmsteer.jpg" class="img-fluid" alt=""  ></div>
             <div class="portfolio-info">
               <h4>LM-Steer</h4>
@@ -339,7 +362,7 @@
             </div>
           </a>
 
-          <a href="https://arxiv.org/abs/2501.17148" class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="https://arxiv.org/abs/2501.17148" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
             <div class="portfolio-img"><img src="./static/img/pic/paperlist/AxBench.png" class="img-fluid" alt=""  ></div>
             <div class="portfolio-info">
               <h4>AxBench</h4>
@@ -347,6 +370,29 @@
               <!-- <a href="./static/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a> -->
             </div>
           </a>
+          <a href="https://arxiv.org/abs/2406.04093" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
+            <div class="portfolio-img"><img src="./static/img/pic/paperlist/openai.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>Scaling and evaluating sparse autoencoders</h4>
+            </div>
+          </a>
+          <a href="https://arxiv.org/abs/2503.00177" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
+            <div class="portfolio-img"><img src="./static/img/pic/paperlist/othersta.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>SAS</h4>
+              <p>Steering Large Language Model Activations in Sparse Spaces</p>
+            </div>
+          </a>
+
+          <a href="" class="col-lg-4 col-md-6 portfolio-item filter-app" target="_blank">
+            <div class="portfolio-img"><img src="./static/img/pic/paperlist/sta.png" class="img-fluid" alt=""  ></div>
+            <div class="portfolio-info">
+              <h4>STA</h4>
+              <p>Beyond Prompt Engineering: Robust Behavior Control in LLMs via Steering Target Atoms  </p>
+              <!-- <a href="./static/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a> -->
+            </div>
+          </a>
+          
 
         
         </div>
@@ -360,11 +406,10 @@
         <div class="section-title">
           <h2>Acknowledgments</h2>   
           <p>Our Sincere Thanks</p>
-             Our sincerest thanks are extended to Gradio, Transformers, EasyEdit for their invaluable contributions to our project. We have integrated parts of their  source code into our work, and for this, we are deeply appreciative. 
-            <br><br>
-            Furthermore, we are grateful for the ongoing support and collaboration from our community. Special recognition goes to those who have diligently reported issues and shared their technical expertise. Your collective efforts have been instrumental in our project's success. 🙌 
-          
-        </div>
+      Our sincerest thanks are extended to <a href="https://github.com/nrimsky/CAA" target="_blank">CAA</a>, <a href="https://github.com/Glaciohound/LM-Steer" target="_blank">LM-Steer</a>, <a href="https://github.com/stanfordnlp/axbench" target="_blank">AxBench</a> for their invaluable contributions to our project. We have integrated parts of their source code into our work, and for this, we are deeply appreciative. 
+      <br><br>
+      Furthermore, we are grateful for the ongoing support and collaboration from our community. Special recognition goes to those who have diligently reported issues and shared their technical expertise. Your collective efforts have been instrumental in our project's success. 🙌 
+      </div>
       </div>
     </section>
     <!-- End Acknowledgement Section -->
@@ -375,16 +420,13 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <!-- <h3>KnowLM</h3>
-      A research group from <span class="text-primary">Zhejiang University</span> working on Knowledge Graph and Natural Language Technologies.
-      <br><br> -->
       Visitors' number: <span id="busuanzi_value_site_pv"></span> 
       <div class="copyright">
       Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-        <a target="_blank" href="https://zjunlp.github.io/" title="ZJUKG" style="font-weight: bold;  " > ZJUKG </a> All Rights Reserved.
+        <a target="_blank" href="https://zjunlp.github.io/" title="ZJUKG" style="font-weight: bold;">ZJUKG</a> All Rights Reserved.
       </div>
     </div>
-  </footer><!-- End Footer -->
+</footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
