@@ -304,3 +304,25 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
       });
   });
 });
+// Initialize Prism and copy functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Apply syntax highlighting
+  if (typeof Prism !== 'undefined') {
+    Prism.highlightAll();
+  }
+  
+  // Copy button functionality
+  const copyButton = document.querySelector('.copy-button');
+  if (copyButton) {
+    copyButton.addEventListener('click', function() {
+      const code = document.querySelector('.code-container code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = this.textContent;
+        this.textContent = 'Copied!';
+        setTimeout(() => {
+          this.textContent = originalText;
+        }, 2000);
+      });
+    });
+  }
+});
