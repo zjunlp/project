@@ -1,0 +1,45 @@
+WARNING:root:You tried to specify center_unembed=True for a model using logit softcap, but this can't be done! Softcapping is not invariant upon adding a constantSetting center_unembed=False instead.
+Namespace(batch_size=1, select_type='only_sys', output_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/prompt_vector/only_sys_self/sae_caa_vector_it/gemma-2-9b-it/only_sys/feature_only_sys_gemma-2-9b-it_layer20_16k_resid_post.json', data_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/prompt_vector/only_sys_self/train.csv', data_name='only_sys_self', model_name_or_path='/disk3/wmr/hugging_cache/gemma-2-9b-it', sae_path='/disk3/wmr/hugging_cache/gemma-scope-9b-it-res/layer_20/width_16k/average_l0_91', mode='safety', model_name='gemma-2-9b-it', system_prompt='', input_format_way='custom', steering_vector_name='gemma-2-9b-it_sae_layer20_resid_post_16k_steering_vector.pt', AB=False)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.32it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.81it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.08it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.38it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.15it/s]
+WARNING:root:With reduced precision, it is advised to use `from_pretrained_no_processing` instead of `from_pretrained`.
+WARNING:root:You are not using LayerNorm, so the writing weights can't be centered! Skipping
+Loaded pretrained model /disk3/wmr/hugging_cache/gemma-2-9b-it into HookedTransformer
+#########mode:safety#############
+chose:   
+Computing the activation selection for activation_selection_contrastive_for_prompt
+act for safety:   0%|          | 0/1 [00:00<?, ?it/s]act for safety: 100%|██████████| 1/1 [00:01<00:00,  1.08s/it]act for safety: 100%|██████████| 1/1 [00:01<00:00,  1.08s/it]
+ques_chosen_tokens:  tensor([[     2,    106,   1645,    108,   2045,   1412,    614,    476,   9546,
+          16481,   1479,    578,   1412,    780,  11941,  32520,    689,  55434,
+           3381, 235341,   5651,   3448,    573,   2412,   2425,   8164,    575,
+            476,   9546,   1703, 235265,    107,    108,    106,   2516,    108]],
+       device='cuda:0')
+ques_rej_tokens:  tensor([[   2,  106, 1645,  108,  107,  108,  106, 2516,  108]],
+       device='cuda:0')
+pos_tokens:  tensor([[     2,    106,   1645,    108,   2045,   1412,    614,    476,   9546,
+          16481,   1479,    578,   1412,    780,  11941,  32520,    689,  55434,
+           3381, 235341,   5651,   3448,    573,   2412,   2425,   8164,    575,
+            476,   9546,   1703, 235265,    107,    108,    106,   2516,    108,
+         235248]], device='cuda:0')
+pos_feature_acts:  torch.Size([1, 1, 16384])
+neg_tokens:  tensor([[     2,    106,   1645,    108,    107,    108,    106,   2516,    108,
+         235248]], device='cuda:0')
+neg_feature_acts:  torch.Size([1, 1, 16384])
+feature_score:  torch.Size([16384])
+feature_score:  tensor([0., 0., 0.,  ..., 0., 0., 0.], device='cuda:0')
+pos_feature_freq:  torch.Size([16384])
+pos_feature_freq:  tensor([0., 0., 0.,  ..., 0., 0., 0.], device='cuda:0')
+neg_feature_freq:  torch.Size([16384])
+neg_feature_freq:  tensor([0., 0., 0.,  ..., 0., 0., 0.], device='cuda:0')
+pos_act_mean:  torch.Size([16384])
+pos_act_mean:  tensor([0., 0., 0.,  ..., 0., 0., 0.], device='cuda:0')
+neg_act_mean:  torch.Size([16384])
+neg_act_mean:  tensor([0., 0., 0.,  ..., 0., 0., 0.], device='cuda:0')
+steering_vector.shape: torch.Size([3584])
+steering_vector: tensor([-1.2636, -2.5603, -1.8999,  ..., -0.7833, -0.0459,  0.3388],
+       device='cuda:0', grad_fn=<SqueezeBackward4>)
+steering_vector.norm: tensor(109.4830, device='cuda:0', grad_fn=<LinalgVectorNormBackward0>)
+feature_attr.shape: torch.Size([16384])
+pos_feature_freq.shape: torch.Size([16384])
+neg_feature_freq.shape: torch.Size([16384])
+pos_act_mean.shape: torch.Size([16384])
+neg_act_mean.shape: torch.Size([16384])

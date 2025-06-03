@@ -1,0 +1,27 @@
+WARNING:root:You tried to specify center_unembed=True for a model using logit softcap, but this can't be done! Softcapping is not invariant upon adding a constantSetting center_unembed=False instead.
+Namespace(batch_size=1, select_type='act_toxic_freq', output_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num16/sae_caa_vector/gemma-2-9b/act_toxic_freq/feature_act_toxic_freq_gemma-2-9b_layer24_16k_resid_post.json', data_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num16/train.csv', data_name='num16', model_name_or_path='/data2/xzwnlp/model/gemma-2-9b', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114', mode='safety', model_name='gemma-2-9b', system_prompt='', input_format_way='custom', steering_vector_name='gemma-2-9b_sae_layer24_resid_post_16k_steering_vector.pt', AB=False)
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.25it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.30it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.38it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.42it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.51it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.78it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.56it/s]
+WARNING:root:With reduced precision, it is advised to use `from_pretrained_no_processing` instead of `from_pretrained`.
+WARNING:root:You are not using LayerNorm, so the writing weights can't be centered! Skipping
+Loaded pretrained model /data2/xzwnlp/model/gemma-2-9b into HookedTransformer
+#########mode:safety#############
+Map:   0%|          | 0/16 [00:00<?, ? examples/s]Map: 100%|██████████| 16/16 [00:00<00:00, 2175.19 examples/s]
+Computing the activation selection for activation_selection_contrastive_for_toxic_freq
+act for safety:   0%|          | 0/16 [00:00<?, ?it/s]act for safety:   6%|▋         | 1/16 [00:00<00:14,  1.00it/s]act for safety:  12%|█▎        | 2/16 [00:01<00:08,  1.73it/s]act for safety:  19%|█▉        | 3/16 [00:01<00:05,  2.19it/s]act for safety:  25%|██▌       | 4/16 [00:01<00:04,  2.50it/s]act for safety:  31%|███▏      | 5/16 [00:02<00:04,  2.68it/s]act for safety:  38%|███▊      | 6/16 [00:02<00:03,  2.94it/s]act for safety:  44%|████▍     | 7/16 [00:02<00:03,  2.92it/s]act for safety:  50%|█████     | 8/16 [00:03<00:03,  2.52it/s]act for safety:  56%|█████▋    | 9/16 [00:03<00:02,  2.75it/s]act for safety:  62%|██████▎   | 10/16 [00:03<00:02,  2.88it/s]act for safety:  69%|██████▉   | 11/16 [00:04<00:01,  2.96it/s]act for safety:  75%|███████▌  | 12/16 [00:04<00:01,  3.06it/s]act for safety:  81%|████████▏ | 13/16 [00:04<00:00,  3.23it/s]act for safety:  88%|████████▊ | 14/16 [00:05<00:00,  3.28it/s]act for safety:  94%|█████████▍| 15/16 [00:05<00:00,  3.23it/s]act for safety: 100%|██████████| 16/16 [00:05<00:00,  3.37it/s]act for safety: 100%|██████████| 16/16 [00:05<00:00,  2.79it/s]
+torch.Size([16384])
+tensor([0., 3., 0.,  ..., 0., 4., 4.], device='cuda:0')
+torch.Size([16384])
+tensor([0., 4., 0.,  ..., 1., 2., 3.], device='cuda:0')
+torch.Size([16384])
+tensor([0.0000, 0.0262, 0.0000,  ..., 0.0000, 0.0345, 0.0219], device='cuda:0')
+torch.Size([16384])
+tensor([0.0000, 0.0315, 0.0000,  ..., 0.0112, 0.0204, 0.0189], device='cuda:0')
+steering_vector.shape: torch.Size([3584])
+steering_vector: tensor([ 0.8079,  0.4750,  0.1244,  ...,  0.1875,  0.5038, -1.3801],
+       device='cuda:0', grad_fn=<SqueezeBackward4>)
+steering_vector.norm: tensor(63.1384, device='cuda:0', grad_fn=<LinalgVectorNormBackward0>)
+feature_attr.shape: torch.Size([16384])
+pos_feature_freq.shape: torch.Size([16384])
+neg_feature_freq.shape: torch.Size([16384])
+pos_act_mean.shape: torch.Size([16384])
+neg_act_mean.shape: torch.Size([16384])

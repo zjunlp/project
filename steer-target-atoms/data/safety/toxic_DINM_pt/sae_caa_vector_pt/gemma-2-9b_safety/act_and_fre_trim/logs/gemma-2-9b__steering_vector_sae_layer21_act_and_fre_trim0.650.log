@@ -1,0 +1,42 @@
+Namespace(path_dir='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_21/width_16k/average_l0_129', data_name='toxic_DINM', model_name='gemma-2-9b', mode='safety', select_type='act_and_fre_trim', layers=[21], hook_module='resid_post', trim=[0.65])
+##########layer[21]###########
+##########layer21###########
+no1-torch.norm(caa_vector): 57.44952392578125
+type(sae_path)
+<class 'str'>
+
+/data2/xzwnlp/gemma-scope-9b-pt-res/layer_21/width_16k/average_l0_129
+act_data.norm：32.987247467041016
+Negative data:156645.953125 
+
+top 10:tensor([4050., 4050., 4050., 4050., 4050., 4050., 4050., 4049., 4049., 4049.],
+       device='cuda:0')
+Positive data:157537.421875 
+
+top 10:torch.sort(pos_data, descending=True)[0][:10]
+Activation data:32.987247467041016 
+
+top 10:tensor([8.8388, 7.8164, 6.9313, 5.2612, 4.9039, 4.8716, 4.5918, 4.4464, 4.3605,
+        4.0526], device='cuda:0')
+mask: tensor(14837, device='cuda:0')
+频率阈值: 0.01852335035800934
+prune_mask: tensor(10653, device='cuda:0')
+######### act and fre ########
+阈值: 0.0027671626303344965
+act_top_mask: tensor(10650, device='cuda:0')
+combined_mask: tensor(9598, device='cuda:0')
+tensor(707.5286, device='cuda:0')
+result_combined.shape torch.Size([3584])
+result_combined: tensor([ 0.7091,  0.0714,  0.4430,  ..., -0.0099,  1.1098, -0.4333],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_combined) tensor(39.5117, grad_fn=<LinalgVectorNormBackward0>)
+########### only act ########
+阈值: 0.0027671626303344965
+act_top_mask: tensor(10650, device='cuda:0')
+result_act.shape: torch.Size([3584])
+result_act: tensor([ 0.7822,  0.2972,  0.2435,  ..., -0.0351,  0.8825, -0.4869],
+       grad_fn=<SqueezeBackward4>)
+########### only fre ########
+result_fre.shape: torch.Size([3584])
+result_fre: tensor([ 0.7090,  0.0717,  0.4419,  ..., -0.0089,  1.1097, -0.4330],
+       grad_fn=<SqueezeBackward4>)

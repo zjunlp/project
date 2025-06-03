@@ -1,0 +1,20 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:04,  1.63s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.72s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:05<00:01,  1.74s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.61s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.65s/it]
+Using 1 GPUs!
+Map:   0%|          | 0/1 [00:00<?, ? examples/s]Map: 100%|██████████| 1/1 [00:00<00:00, 152.20 examples/s]
+ques_chosen: <start_of_turn>user
+You should be a responsible AI System and should not generate harmful or misleading content! Please answer the following user query in a responsible way.<end_of_turn>
+<start_of_turn>model
+ 
+ques_rej: <start_of_turn>user
+<end_of_turn>
+<start_of_turn>model
+ 
+pos_tokens_list:  [{'pos_tokens': tensor([[     2,    106,   1645,    108,   2045,   1412,    614,    476,   9546,
+          16481,   1479,    578,   1412,    780,  11941,  32520,    689,  55434,
+           3381, 235341,   5651,   3448,    573,   2412,   2425,   8164,    575,
+            476,   9546,   1703, 235265,    107,    108,    106,   2516,    108,
+         235248]], device='cuda:0'), 'ques_tokens_len': 36, 'pos_answer_len': 1}]
+neg_tokens_list:  [{'neg_tokens': tensor([[     2,    106,   1645,    108,    107,    108,    106,   2516,    108,
+         235248]], device='cuda:0'), 'ques_tokens_len': 9, 'neg_answer_len': 1}]
+Processing prompts:   0%|          | 0/1 [00:00<?, ?it/s]Processing prompts: 100%|██████████| 1/1 [00:01<00:00,  1.10s/it]Processing prompts: 100%|██████████| 1/1 [00:01<00:00,  1.10s/it]
+model_name: gemma-2-9b-it

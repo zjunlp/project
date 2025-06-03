@@ -1,0 +1,48 @@
+Namespace(path_dir='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/prompt_vector', sae_path='/disk3/wmr/hugging_cache/gemma-scope-9b-it-res/layer_20/width_16k/average_l0_91', data_name='only_sys_self', model_name='gemma-2-9b-it', mode='safety', select_type='act_and_fre_trim', layers=[20], hook_module='resid_post', trim=[0.006], re_error_way=False)
+re_error_way: False
+##########layer20###########
+##########layer20###########
+no1-torch.norm(caa_vector): 152.6507568359375
+type(sae_path)
+<class 'str'>
+
+/disk3/wmr/hugging_cache/gemma-scope-9b-it-res/layer_20/width_16k/average_l0_91
+act_data.norm：81.86715698242188
+re_error: 109.48303985595703
+
+top 10:tensor([17.6892, 12.2562, 11.2204,  7.3449,  7.0672,  6.9304,  6.4573,  6.1721,
+         5.7056,  5.6288], grad_fn=<SliceBackward0>)
+Negative data:7.211102485656738 
+
+top 10:tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Positive data:9.380831718444824 
+
+top 10:tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Activation data:81.86715698242188 
+
+top 10:tensor([17.3378, 16.5266, 11.9226, 11.5223, 10.7400, 10.6716, 10.1461,  9.7978,
+         9.3793,  9.1141], device='cuda:0')
+mask: tensor(98, device='cuda:0')
+act_data != 0:  tensor(119, device='cuda:0')
+freq_scores != 0:  tensor(98, device='cuda:0')
+频率阈值: 0.0
+prune_mask: tensor(16384, device='cuda:0')
+######### act and fre ########
+阈值: 5.420246124267578
+act_top_mask: tensor(99, device='cuda:0')
+combined_mask: tensor(99, device='cuda:0')
+tensor(753.3903, device='cuda:0')
+result_combined.shape torch.Size([3584])
+result_combined: tensor([-1.2801, -2.8095, -1.9720,  ..., -1.2674, -0.0320,  0.4714],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_combined) tensor(106.3178, grad_fn=<LinalgVectorNormBackward0>)
+########### only act ########
+阈值: 5.420246124267578
+act_top_mask: tensor(99, device='cuda:0')
+result_act.shape: torch.Size([3584])
+result_act: tensor([-1.2801, -2.8095, -1.9720,  ..., -1.2674, -0.0320,  0.4714],
+       grad_fn=<SqueezeBackward4>)
+########### only fre ########
+result_fre.shape: torch.Size([3584])
+result_fre: tensor([-1.2636, -2.5603, -1.8999,  ..., -0.7833, -0.0459,  0.3388],
+       grad_fn=<SqueezeBackward4>)

@@ -1,0 +1,44 @@
+Namespace(path_dir='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114', data_name='num512', model_name='gemma-2-9b', mode='safety', select_type='act_and_fre_trim', layers=[24], hook_module='resid_post', trim=[0.35])
+##########layer[24]###########
+##########layer24###########
+no1-torch.norm(caa_vector): 65.52981567382812
+type(sae_path)
+<class 'str'>
+
+/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114
+act_data.norm：38.70884323120117
+Negative data:19161.03125 
+
+top 10:tensor([512., 512., 512., 512., 512., 512., 512., 512., 512., 512.],
+       device='cuda:0')
+Positive data:19460.548828125 
+
+top 10:torch.sort(pos_data, descending=True)[0][:10]
+Activation data:38.70884323120117 
+
+top 10:tensor([15.7494,  9.4800,  8.5325,  7.6308,  7.4061,  5.1469,  5.0693,  4.9132,
+         4.6975,  4.5822], device='cuda:0')
+mask: tensor(13544, device='cuda:0')
+频率阈值: 0.11087419837713242
+prune_mask: tensor(5782, device='cuda:0')
+######### act and fre ########
+阈值: 0.022692613303661346
+act_top_mask: tensor(5735, device='cuda:0')
+combined_mask: tensor(4444, device='cuda:0')
+tensor(690.1479, device='cuda:0')
+result_combined.shape torch.Size([3584])
+result_combined: tensor([ 0.1024,  0.2869, -0.4119,  ..., -0.0580,  0.8822, -0.6632],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_combined) tensor(42.7060, grad_fn=<LinalgVectorNormBackward0>)
+########### only act ########
+阈值: 0.022692613303661346
+act_top_mask: tensor(5735, device='cuda:0')
+result_act.shape: torch.Size([3584])
+result_act: tensor([ 0.6920,  0.3168, -0.5091,  ...,  0.1594,  0.8637, -0.9675],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_act): tensor(56.9717, grad_fn=<LinalgVectorNormBackward0>)
+########### only fre ########
+result_fre.shape: torch.Size([3584])
+result_fre: tensor([ 0.1011,  0.2895, -0.4157,  ..., -0.0561,  0.8816, -0.6840],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_fre): tensor(42.8289, grad_fn=<LinalgVectorNormBackward0>)

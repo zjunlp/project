@@ -1,0 +1,43 @@
+Namespace(path_dir='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114', data_name='num4', model_name='gemma-2-9b', mode='safety', select_type='act_and_fre_trim', layers=[24], hook_module='resid_post', trim=[0.35])
+##########layer[24]###########
+##########layer24###########
+no1-torch.norm(caa_vector): 65.52981567382812
+type(sae_path)
+<class 'str'>
+
+/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114
+act_data.norm：40.878719329833984
+Negative data:155.4541778564453 
+
+top 10:tensor([4., 4., 4., 4., 4., 4., 4., 4., 4., 4.], device='cuda:0')
+Positive data:172.90170288085938 
+
+top 10:torch.sort(pos_data, descending=True)[0][:10]
+Activation data:40.878719329833984 
+
+top 10:tensor([16.9161, 14.7819, 11.3425, 11.1331,  8.2598,  6.0483,  5.1804,  5.1014,
+         4.5089,  4.2400], device='cuda:0')
+mask: tensor(5563, device='cuda:0')
+频率阈值: 0.0
+prune_mask: tensor(16384, device='cuda:0')
+######### act and fre ########
+阈值: 0.018662571907043457
+act_top_mask: tensor(5735, device='cuda:0')
+combined_mask: tensor(5735, device='cuda:0')
+tensor(1070.9838, device='cuda:0')
+result_combined.shape torch.Size([3584])
+result_combined: tensor([ 0.5482,  0.1584,  0.0310,  ..., -0.1469,  0.8459, -1.8089],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_combined) tensor(60.5808, grad_fn=<LinalgVectorNormBackward0>)
+########### only act ########
+阈值: 0.018662571907043457
+act_top_mask: tensor(5735, device='cuda:0')
+result_act.shape: torch.Size([3584])
+result_act: tensor([ 0.5482,  0.1584,  0.0310,  ..., -0.1469,  0.8459, -1.8089],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_act): tensor(60.5808, grad_fn=<LinalgVectorNormBackward0>)
+########### only fre ########
+result_fre.shape: torch.Size([3584])
+result_fre: tensor([ 0.5667,  0.1458,  0.0292,  ..., -0.1565,  0.8397, -1.8124],
+       grad_fn=<SqueezeBackward4>)
+torch.norm(result_fre): tensor(60.6606, grad_fn=<LinalgVectorNormBackward0>)
