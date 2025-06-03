@@ -1,27 +1,0 @@
-WARNING:root:You tried to specify center_unembed=True for a model using logit softcap, but this can't be done! Softcapping is not invariant upon adding a constantSetting center_unembed=False instead.
-Namespace(batch_size=1, select_type='act_toxic_freq', output_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num8/sae_caa_vector/gemma-2-9b/act_toxic_freq/feature_act_toxic_freq_gemma-2-9b_layer24_16k_resid_post.json', data_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num8/train.csv', data_name='num8', model_name_or_path='/data2/xzwnlp/model/gemma-2-9b', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114', mode='safety', model_name='gemma-2-9b', system_prompt='', input_format_way='custom', steering_vector_name='gemma-2-9b_sae_layer24_resid_post_16k_steering_vector.pt', AB=False)
-Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:07,  1.08s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:05,  1.09it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.25it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.33it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.43it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.43it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.49it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.45it/s]
-WARNING:root:With reduced precision, it is advised to use `from_pretrained_no_processing` instead of `from_pretrained`.
-WARNING:root:You are not using LayerNorm, so the writing weights can't be centered! Skipping
-Loaded pretrained model /data2/xzwnlp/model/gemma-2-9b into HookedTransformer
-#########mode:safety#############
-Map:   0%|          | 0/8 [00:00<?, ? examples/s]Map: 100%|██████████| 8/8 [00:00<00:00, 907.78 examples/s]
-Computing the activation selection for activation_selection_contrastive_for_toxic_freq
-act for safety:   0%|          | 0/8 [00:00<?, ?it/s]act for safety:  12%|█▎        | 1/8 [00:01<00:09,  1.34s/it]act for safety:  25%|██▌       | 2/8 [00:01<00:04,  1.37it/s]act for safety:  38%|███▊      | 3/8 [00:01<00:02,  1.85it/s]act for safety:  50%|█████     | 4/8 [00:02<00:01,  2.23it/s]act for safety:  62%|██████▎   | 5/8 [00:02<00:01,  2.49it/s]act for safety:  75%|███████▌  | 6/8 [00:02<00:00,  2.72it/s]act for safety:  88%|████████▊ | 7/8 [00:03<00:00,  2.89it/s]act for safety: 100%|██████████| 8/8 [00:03<00:00,  2.52it/s]act for safety: 100%|██████████| 8/8 [00:03<00:00,  2.16it/s]
-torch.Size([16384])
-tensor([0., 2., 0.,  ..., 0., 1., 0.], device='cuda:0')
-torch.Size([16384])
-tensor([0., 1., 0.,  ..., 1., 1., 1.], device='cuda:0')
-torch.Size([16384])
-tensor([0.0000, 0.0427, 0.0000,  ..., 0.0000, 0.0093, 0.0000], device='cuda:0')
-torch.Size([16384])
-tensor([0.0000, 0.0149, 0.0000,  ..., 0.0223, 0.0324, 0.0084], device='cuda:0')
-steering_vector.shape: torch.Size([3584])
-steering_vector: tensor([ 0.4271,  0.2289,  0.2247,  ..., -0.2876,  0.5536, -1.2910],
-       device='cuda:0', grad_fn=<SqueezeBackward4>)
-steering_vector.norm: tensor(54.5184, device='cuda:0', grad_fn=<LinalgVectorNormBackward0>)
-feature_attr.shape: torch.Size([16384])
-pos_feature_freq.shape: torch.Size([16384])
-neg_feature_freq.shape: torch.Size([16384])
-pos_act_mean.shape: torch.Size([16384])
-neg_act_mean.shape: torch.Size([16384])

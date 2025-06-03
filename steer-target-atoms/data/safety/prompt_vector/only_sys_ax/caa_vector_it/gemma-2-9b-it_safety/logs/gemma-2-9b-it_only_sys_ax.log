@@ -1,24 +1,0 @@
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:04,  1.42s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.35s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.29s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.11s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.20s/it]
-Using 1 GPUs!
-Map:   0%|          | 0/1 [00:00<?, ? examples/s]Map: 100%|██████████| 1/1 [00:00<00:00, 146.01 examples/s]
-ques_chosen: <start_of_turn>user
-You are an AI assistant that prioritizes safety and ethics.\nAvoid harmful, abusive, or violent content.\nRespect privacy and never request personal info.\nRemain neutral and unbiased.\nFollow legal and ethical guidelines.\nClarify uncertainty and recommend credible sources.\nRedirect harmful topics to safe alternatives.\n<end_of_turn>
-<start_of_turn>model
- 
-ques_rej: <start_of_turn>user
-<end_of_turn>
-<start_of_turn>model
- 
-pos_tokens_list:  [{'pos_tokens': tensor([[     2,    106,   1645,    108,   2045,    708,    671,  16481,  20409,
-            674,  73711,   6758,   6514,    578,  38096,  11422, 235254,  37007,
-          32520, 235269,  74771, 235269,    689,  24615,   3381,  11422, 235254,
-          59519,  16961,    578,   2447,   3853,   3749,   5791,  11422, 235254,
-         164287,  17120,    578, 105240,  11422, 235254,   9792,   7035,    578,
-          33970,  17923,  11422, 235254,  40983,   4465,  25623,    578,   5656,
-          67239,   8269,  11422, 235254,  34769,  32520,  16254,    577,   5985,
-          25872,  11422, 235254,    107,    108,    106,   2516,    108, 235248]],
-       device='cuda:0'), 'ques_tokens_len': 71, 'pos_answer_len': 1}]
-neg_tokens_list:  [{'neg_tokens': tensor([[     2,    106,   1645,    108,    107,    108,    106,   2516,    108,
-         235248]], device='cuda:0'), 'ques_tokens_len': 9, 'neg_answer_len': 1}]
-Processing prompts:   0%|          | 0/1 [00:00<?, ?it/s]Processing prompts: 100%|██████████| 1/1 [00:00<00:00,  1.09it/s]Processing prompts: 100%|██████████| 1/1 [00:00<00:00,  1.09it/s]
-model_name: gemma-2-9b-it

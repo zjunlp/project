@@ -1,27 +1,0 @@
-WARNING:root:You tried to specify center_unembed=True for a model using logit softcap, but this can't be done! Softcapping is not invariant upon adding a constantSetting center_unembed=False instead.
-Namespace(batch_size=1, select_type='act_toxic_freq', output_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num32/sae_caa_vector/gemma-2-9b/act_toxic_freq/feature_act_toxic_freq_gemma-2-9b_layer24_16k_resid_post.json', data_file='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/safety/toxic_DINM_train/num32/train.csv', data_name='num32', model_name_or_path='/data2/xzwnlp/model/gemma-2-9b', sae_path='/data2/xzwnlp/gemma-scope-9b-pt-res/layer_24/width_16k/average_l0_114', mode='safety', model_name='gemma-2-9b', system_prompt='', input_format_way='custom', steering_vector_name='gemma-2-9b_sae_layer24_resid_post_16k_steering_vector.pt', AB=False)
-Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.17it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.27it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.28it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.20it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.28it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.29it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.26it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.44it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.32it/s]
-WARNING:root:With reduced precision, it is advised to use `from_pretrained_no_processing` instead of `from_pretrained`.
-WARNING:root:You are not using LayerNorm, so the writing weights can't be centered! Skipping
-Loaded pretrained model /data2/xzwnlp/model/gemma-2-9b into HookedTransformer
-#########mode:safety#############
-Map:   0%|          | 0/32 [00:00<?, ? examples/s]Map: 100%|██████████| 32/32 [00:00<00:00, 2023.18 examples/s]
-Computing the activation selection for activation_selection_contrastive_for_toxic_freq
-act for safety:   0%|          | 0/32 [00:00<?, ?it/s]act for safety:   3%|▎         | 1/32 [00:01<00:56,  1.81s/it]act for safety:   6%|▋         | 2/32 [00:02<00:28,  1.04it/s]act for safety:   9%|▉         | 3/32 [00:02<00:19,  1.48it/s]act for safety:  12%|█▎        | 4/32 [00:02<00:16,  1.74it/s]act for safety:  16%|█▌        | 5/32 [00:03<00:13,  2.01it/s]act for safety:  19%|█▉        | 6/32 [00:03<00:11,  2.27it/s]act for safety:  22%|██▏       | 7/32 [00:03<00:10,  2.46it/s]act for safety:  25%|██▌       | 8/32 [00:04<00:09,  2.59it/s]act for safety:  28%|██▊       | 9/32 [00:04<00:08,  2.63it/s]act for safety:  31%|███▏      | 10/32 [00:05<00:11,  1.97it/s]act for safety:  34%|███▍      | 11/32 [00:05<00:09,  2.19it/s]act for safety:  38%|███▊      | 12/32 [00:06<00:08,  2.39it/s]act for safety:  41%|████      | 13/32 [00:06<00:07,  2.52it/s]act for safety:  44%|████▍     | 14/32 [00:06<00:06,  2.68it/s]act for safety:  47%|████▋     | 15/32 [00:07<00:06,  2.76it/s]act for safety:  50%|█████     | 16/32 [00:07<00:05,  2.86it/s]act for safety:  53%|█████▎    | 17/32 [00:07<00:05,  2.96it/s]act for safety:  56%|█████▋    | 18/32 [00:08<00:04,  3.00it/s]act for safety:  59%|█████▉    | 19/32 [00:08<00:04,  3.02it/s]act for safety:  62%|██████▎   | 20/32 [00:08<00:04,  2.96it/s]act for safety:  66%|██████▌   | 21/32 [00:09<00:03,  2.84it/s]act for safety:  69%|██████▉   | 22/32 [00:09<00:03,  2.97it/s]act for safety:  72%|███████▏  | 23/32 [00:09<00:03,  2.94it/s]act for safety:  75%|███████▌  | 24/32 [00:10<00:02,  3.06it/s]act for safety:  78%|███████▊  | 25/32 [00:10<00:02,  3.06it/s]act for safety:  81%|████████▏ | 26/32 [00:10<00:01,  3.10it/s]act for safety:  84%|████████▍ | 27/32 [00:11<00:01,  3.11it/s]act for safety:  88%|████████▊ | 28/32 [00:11<00:01,  3.07it/s]act for safety:  91%|█████████ | 29/32 [00:11<00:00,  3.14it/s]act for safety:  94%|█████████▍| 30/32 [00:12<00:00,  3.08it/s]act for safety:  97%|█████████▋| 31/32 [00:12<00:00,  3.01it/s]act for safety: 100%|██████████| 32/32 [00:12<00:00,  3.07it/s]act for safety: 100%|██████████| 32/32 [00:12<00:00,  2.52it/s]
-torch.Size([16384])
-tensor([0., 5., 0.,  ..., 0., 8., 9.], device='cuda:0')
-torch.Size([16384])
-tensor([0., 7., 0.,  ..., 4., 4., 7.], device='cuda:0')
-torch.Size([16384])
-tensor([0.0000, 0.0203, 0.0000,  ..., 0.0000, 0.0304, 0.0320], device='cuda:0')
-torch.Size([16384])
-tensor([0.0000, 0.0347, 0.0000,  ..., 0.0193, 0.0168, 0.0346], device='cuda:0')
-steering_vector.shape: torch.Size([3584])
-steering_vector: tensor([ 0.8442,  0.3047, -0.2900,  ...,  0.1286,  0.6363, -1.2040],
-       device='cuda:0', grad_fn=<SqueezeBackward4>)
-steering_vector.norm: tensor(61.9572, device='cuda:0', grad_fn=<LinalgVectorNormBackward0>)
-feature_attr.shape: torch.Size([16384])
-pos_feature_freq.shape: torch.Size([16384])
-neg_feature_freq.shape: torch.Size([16384])
-pos_act_mean.shape: torch.Size([16384])
-neg_act_mean.shape: torch.Size([16384])

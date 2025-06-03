@@ -1,11 +1,0 @@
-Namespace(layers=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], save_activations=True, data_path='/data2/xzwnlp/SaeEdit/ManipulateSAE/data/r1', data_name='overthink_qwen', mode='r1', data_type='generation', model_name='deepseek-qwen-7b', system_prompt='', input_format_way='custom', model_name_or_path='/data2/xzwnlp/model/DeepSeek-R1-Distill-Qwen-7B', AB=False)
-qwen!!!
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.64s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.39s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.43s/it]
-Using 1 GPUs!
-Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 1 examples [00:00, 66.01 examples/s]
-Map:   0%|          | 0/1 [00:00<?, ? examples/s]Map: 100%|██████████| 1/1 [00:00<00:00, 154.37 examples/s]
-ques:  <｜begin▁of▁sentence｜><｜User｜>1 + 1 =<｜Assistant｜><think>
-
-Processing prompts:   0%|          | 0/1 [00:00<?, ?it/s]We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
-Qwen2Model is using Qwen2SdpaAttention, but `torch.nn.functional.scaled_dot_product_attention` does not support `output_attentions=True`. Falling back to the manual attention implementation, but specifying the manual implementation will be required from Transformers version v5.0.0 onwards. This warning can be removed using the argument `attn_implementation="eager"` when loading the model.
-Processing prompts: 100%|██████████| 1/1 [00:01<00:00,  1.66s/it]Processing prompts: 100%|██████████| 1/1 [00:01<00:00,  1.66s/it]
