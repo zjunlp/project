@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Automatic Agent Learning from Scratch via Self-Planning">
+  <meta name="keywords" content="AutoAct, Agent Learning, Self-Planning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChineseHarm-Bench: A Chinese Harmful Content Detection Benchmark</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <!-- <link rel="icon" href="./images/logo.png"> -->
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+		/* Define the grid layout */
+		.mygrid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			width: 80%;
+			margin: auto;
+		}
+		.grid_item {
+      background: #FFFFFF;
+      opacity: 1;
+    }
+
+		/* Define the size of the GIFs */
+		.mygif {
+			height: auto;
+			cursor: pointer;
+		}
+		
+		/* Define the modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.9);
+		}
+		
+		.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 800px;
+			max-height: 80%;
+		}
+
+    /* Define the full-screen overlay styles */
+		.overlay {
+			position: fixed;
+			z-index: 999;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+		}
+		
+		.overlay img {
+			width: auto;
+			height: 90%;
+			margin: 0 auto;
+			display: block;
+			max-width: 90%;
+			max-height: 90%;
+		}
+
+    /* Define the video styles */
+		.gifvideo {
+			width: 100%;
+			height: auto;
+		}
+
+		/* Define the progress bar styles */
+		.progress {
+			width: 100%;
+			height: 10px;
+			background-color: #ddd;
+			position: relative;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		/* Define the close button style */
+		.close {
+			color: white;
+			position: absolute;
+			top: 10px;
+			right: 25px;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.close:hover,
+		.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+    .center-text {
+    text-align: center;
+  }
+
+	</style>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="width: 110%; margin-left: -5%">
+            <!-- <img src="images/logo.png" alt="Logo" style="height: 100px; vertical-align: middle;"> -->
+            ChineseHarm-Bench
+            <br> 
+            A Chinese Harmful Content Detection Benchmark
+            </h2>         
+            <p style="color: #c0392b; font-weight: bold; font-size: 1rem; margin: 1em 0;">
+              ⚠️ WARNING: This paper contains content that may be toxic or offensive in nature.
+            </p>
+              
+            <div class="is-size-5">
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Kangwei Liu<sup>&#x2660;&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Siyuan Cheng<sup>&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Bozhong Tian<sup>&#x2661;*</sup>
+            </span>, 
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xiaozhuan Liang<sup>&#x2661;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Yuyang Yin<sup>&#x2661;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Meng Han<sup>&#x2660;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Ningyu Zhang<sup>&#x2660;†</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Bryan Hooi<sup>&#x2663;</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Xi Chen<sup>&#x2661;†</sup>
+            </span>,
+            <span class="author-block" style="color:#00A4EF;font-weight:normal;">
+              Shumin Deng<sup>&#x2663;†</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>&#x2660;</sup>Zhejiang University
+            </span>
+            <span class="author-block">
+              <sup>&#x2661;</sup>Tencent
+            </span>
+            <span class="author-block">
+              <sup>&#x2663;</sup>National University of Singapore
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>†</sup>Corresponding Author</span>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2506.10960v1" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zjunlp/ChineseHarm-bench" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/collections/zjunlp/chineseharm-bench-683b452c5dcd1d6831c3316c" target="_blank" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Hugging Face</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <img id="teaser" width="80%"  src="./images/chineseharm_case.png">
+
+      <!-- <h2 class="subtitle has-text-centered">
+        Our work <b>KnowAgent</b> could leverage external <br> action knowledge base  to address and solve complex planning challenges.
+      </h2> -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large language models (LLMs) have been increasingly applied to automated content harm detection tasks, assisting moderators in identifying policy violations and improving the overall efficiency and accuracy of content review. 
+            However, existing resources for content moderation are predominantly focused on English, with Chinese datasets remaining scarce and often limited in scope. 
+            We present a comprehensive, professionally annotated benchmark for Chinese content harm detection, which covers six representative categories and is constructed entirely from real-world data. 
+            Our annotation process further yields a knowledge rule base that provides explicit expert knowledge to assist LLMs in Chinese content harm detection.
+            In addition, we propose a knowledge-augmented baseline that integrates both human-annotated knowledge rules and implicit knowledge from large teacher models, enabling smaller models to achieve performance comparable to state-of-the-art LLMs.
+                      </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="column has-text-justified">
+          We introduce ChineseHarm-Bench, a professionally annotated benchmark for Chinese harmful content detection, covering six key categories. It includes a knowledge rule base to enhance detection and a knowledge-augmented baseline that enables smaller LLMs to match state-of-the-art performance.
+        </div>
+        <img id="model" width="90%" src="images/main.png">
+
+        <p class="has-text-centered">
+          Figure 1: The benchmark construction process. For more detailed procedures, please refer to our paper.
+        </p>
+        <!-- <br> -->
+        <!-- <div class="column has-text-justified">
+          We introduce ChineseHarm-Bench, a professionally annotated benchmark for Chinese harmful content detection, covering six key categories. It includes a knowledge rule base to enhance detection and a knowledge-augmented baseline that enables smaller LLMs to match state-of-the-art performance.
+        </div> -->
+        <!-- <img id="model" width="90%" src="images/prompt.png">
+        <p class="has-text-centered">
+          Figure 2: <b>The Path Generation process of KnowAgent.</b>.
+        </p>
+        <br>
+        <div class="column has-text-justified">
+          Figure 2 illustrates the conversion process from <i  style="color: lightseagreen;">action knowledge to text</i>. 
+          Initially, we establish the action knowledge base by identifying actions pertinent to the task's specific needs, utilizing previous dataset analyses and the inherent knowledge of LLMs.
+          This information is then converted into text format to facilitate subsequent operations.  
+        </div> -->
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Model. -->
+    
+    <!-- Paper Main Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <img id="model" width="80%" src="images/chineseharm_result.png">
+        <!-- <p class="has-text-centered">
+          Table 1: Macro-F1 scores of various models on the ChineseHarm-Bench across six violation categories. We report results for state-of-the-art LLMs, lightweight models (<1B parameters), and billion-scale LLMs (1--10B parameters) under both direct prompting and fine-tuning strategies, with (\faToggleOn) and without (\faToggleOff) knowledge augmentation. 
+          Gray-highlighted columns indicate our proposed strong baseline models with knowledge augmentation.
+        </p> -->
+        <p class="has-text-centered">
+          <!-- <p style="text-align: center;"> -->
+            <!-- <p class="center-text"> -->
+
+          Table 1: Macro-F1 scores of various models on the ChineseHarm-Bench across six violation categories. We report results for state-of-the-art LLMs, lightweight models (&lt;1B parameters), and billion-scale LLMs (1–10B parameters) under both direct prompting and fine-tuning strategies, with
+          <i class="fa fa-toggle-on"></i> and without <i class="fa fa-toggle-off"></i> knowledge augmentation.
+          <br>
+          Gray-highlighted columns indicate our proposed strong baseline models with knowledge augmentation.
+        </p>
+        
+        <!-- <br> -->
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- Paper Main Results -->
+
+    <!-- Paper Analysis -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Analysis</h2>
+        <img id="model" width="100%" src="images/ablation_actionKB.png">
+        <p class="has-text-centered">
+          Figure 3: <b> Ablation study on Action Knowledge within Llama-2 Models on HotpotQA.</b>
+           Here <i>w/ Action KB</i> indicates the naive <b>KnowAgent</b> and <i>w/o Action KB</i> symbolizes removing the action knowledge of the specific task.
+        </p>
+        <br>
+        <img id="model" width="100%" src="images/ablation_self-learning.png">
+        <p class="has-text-centered">
+          Figure 4: <b>Ablation study on Knowledgeable Self-Learning iteration.</b>
+          We examine the influence of self-learning iterations on a selection of models, including Llama-2-7b, Llama-2-13b, Vicuna-7b, Mistral-7b. 
+          Here <i>Iter0</i> represents baseline performance prior to any training.
+        </p>
+        <br>
+        <div class="columns is-variable is-8">
+          <div class="column">
+              <img id="model3" src="images/action_analysis.png" style="width: 100%;">
+              <p class="has-text-centered">
+                  Table 2: <b>Unreasonable action rates on HotpotQA with Llama-2-13b.</b>
+                  Here <i>invalid</i> refers to actions that do not meet the action rule, while <i>misordered</i> means discrepancies in the logical sequence of actions
+                </p>
+          </div>
+          <div class="column">
+              <img id="model4" src="images/manual_distill.png" style="width: 100%;">
+              <p class="has-text-centered">
+                  Table 3: <b>Comparative Experiment on Manual vs. Distilled Action Knowledge.</b>
+                  <i>Manual</i> stands for human-crafted knowledge and <i>Distilled</i> represents the distilled knowledge from GPT-4.
+              </p>
+          </div>
+      </div> -->
+
+        <!-- <img id="model" width="50%" src="images/action_analysis.png">
+        <p class="has-text-centered">
+          Table 2: <b>Unreasonable action rates on HotpotQA with Llama-2-13b.</b>
+          Here <i>invalid</i> refers to actions that do not meet the action rule, while <i>misordered</i> means discrepancies in the logical sequence of actions
+        </p>
+        <br>
+        <img id="model" width="50%" src="images/manual_distill.png">
+        <p class="has-text-centered">
+          Table 3: <b>Comparative Experiment on Manual vs. Distilled Action Knowledge.</b>
+          <i>Manual</i> stands for human-crafted knowledge and <i>Distilled</i> represents the distilled knowledge from GPT-4.
+        </p> -->
+        <div class="container is-max-desktop">
+          <!-- Abstract. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Conclusion</h2>
+              <div class="content has-text-justified">
+                <p>
+                  In this work, we introduce a comprehensive real-world benchmark for Chinese harmful content detection, encompassing multiple violation categories and accompanied by a professionally curated knowledge rule base.
+                  We further propose a knowledge-augmented strong baseline that integrates explicit knowledge rules and implicit knowledge from large teacher models.
+                  This approach enables small models to match or even outperform much larger models, without sacrificing efficiency or accessibility.
+                  Together, these contributions support practical applications and pave the way for future research on LLMs for the detection of Chinese harmful content.                          </p>
+                                </p>
+              </div>
+            </div>
+          </div>
+      
+        <br>
+        <br>
+    
+      </div>
+    </div>
+    <!-- Paper Analysis. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@misc{liu2025chineseharmbenchchineseharmfulcontent,
+  title={ChineseHarm-Bench: A Chinese Harmful Content Detection Benchmark}, 
+  author={Kangwei Liu and Siyuan Cheng and Bozhong Tian and Xiaozhuan Liang and Yuyang Yin and Meng Han and Ningyu Zhang and Bryan Hooi and Xi Chen and Shumin Deng},
+  year={2025},
+  eprint={2506.10960},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2506.10960}, 
+}  
+<!-- @article{zhu2024knowagent,
+  title={KnowAgent: Knowledge-Augmented Planning for LLM-Based Agents},
+  author={Zhu, Yuqi and Qiao, Shuofei and Ou, Yixin and Deng, Shumin and Zhang, Ningyu and Lyu, Shiwei and Shen, Yue and Liang, Lei and Gu, Jinjie and Chen, Huajun},
+  journal={arXiv preprint arXiv:2403.03101},
+  year={2024}
+} -->
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+
+<script>
+  $(".grid_item").hover(function () {
+    $(this).css("background", "#f2f1f1");
+    }, 
+    function () {
+        $(this).css("background", "#FFFFFF"); 
+    });
+
+  // Get the modal element
+  // var modal = document.getElementById("myModal");
+  var overlay = document.getElementById("overlay");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // Get the image element and the close button element
+  //  // display the GIF as it is
+  // var img = document.getElementById("modalImg");
+  // var img = document.getElementById("overlayImg");
+  // Add event listeners to each GIF element
+  var gifs = document.getElementsByClassName("mygif");
+  for (var i = 0; i < gifs.length; i++) {
+  gifs[i].addEventListener("click", function() {
+      //  // display the GIF as it is
+      // // Set the modal image source and display the modal
+      // img.src = this.src;
+
+      // display the GIF as a new image, will play from the begining
+      var img = document.createElement("img");
+      img.src = this.src.replace(".png", ".gif");
+
+      // Add the img element to the overlay content and display the overlay
+      document.getElementById("overlayContent").appendChild(img);
+      
+
+      // modal.style.display = "block";
+      overlay.style.display = "block";
+
+      // Hide the body overflow
+              document.body.style.overflow = "hidden";
+  });
+  }
+
+  // Add event listener to close button
+  span.addEventListener("click", function() {
+  // Remove the img element from the overlay content, hide the overlay, and restore the body overflow
+          document.getElementById("overlayContent").innerHTML = "";
+
+  // Hide the modal
+  // modal.style.display = "none";
+  overlay.style.display = "none";
+  document.body.style.overflow = "auto";
+  });
+</script>
+</body>
+</html>
