@@ -57,23 +57,30 @@
         </div>
         <div style="font-size: 0.85rem; color: #999; margin-top: 5px;">* Corresponding author</div>
 
-        <div class="link-block">
-            <a href="#" class="btn btn-arxiv" style="background-color: #333;">
-                <i class="ai ai-arxiv"></i> arXiv
+        <div class="link-block" style="--size: 20px; --gap: 6px;">
+    
+            <a href="#" class="btn btn-arxiv" style="background-color: #333; display: inline-flex; align-items: center; gap: var(--gap);">
+                <i class="ai ai-arxiv" style="font-size: var(--size); width: var(--size); height: var(--size); line-height: 1; display: inline-flex; justify-content: center; align-items: center;"></i> 
+                arXiv
+            </a>
+            
+            <a href="#" class="btn btn-hf" style="display: inline-flex; align-items: center; gap: var(--gap);">
+                <span style="font-size: var(--size); width: var(--size); height: var(--size); line-height: 1; display: inline-flex; justify-content: center; align-items: center;">🤗</span> 
+                HF Paper
             </a>
 
-            <a href="#" class="btn btn-hf">
-                <span style="font-size: 1.2rem; margin-right: 6px;">🤗</span> HF Paper
+            <a href="https://github.com/zjunlp/WorldMind" class="btn btn-github" style="background-color: #333; display: inline-flex; align-items: center; gap: var(--gap);">
+                <i class="fab fa-github" style="font-size: var(--size ); width: var(--size); height: var(--size); line-height: 1; display: inline-flex; justify-content: center; align-items: center;"></i> 
+                Code
             </a>
             
-            <a href="https://github.com/zjunlp/WorldMind" class="btn btn-github" style="background-color: #333;">
-                <i class="fab fa-github"></i> Code
-            </a>
-            
-            <a href="#" class="btn btn-x" style="background-color: #000;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="white" style="margin-right: 6px;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            <a href="#" class="btn btn-x" style="background-color: #000; display: inline-flex; align-items: center; gap: var(--gap);">
+                <svg viewBox="0 0 24 24" fill="white" style="width: var(--size); height: var(--size); display: inline-flex;">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                </svg>
                 X (Twitter)
             </a>
+
         </div>
     </div>
 
